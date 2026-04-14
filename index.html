@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"/>
+<title>Horocosmo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+/* ── reset ── */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%;overscroll-behavior:none}
+button,input,select,textarea{font-family:inherit;border:none;outline:none;background:none;cursor:pointer}
+img{display:block}
+
+/* ── design tokens ── */
+:root{
+  --bg:      #f7f5f2;
+  --surface: #ffffff;
+  --ink:     #141210;
+  --ink2:    #4a453f;
+  --ink3:    #9a9088;
+  --sky:     #b8cfe8;
+  --sky-pale:#edf3fa;
+  --sky-mid: #ccddf0;
+  --gold:    #c9a84c;
+  --gold-pale:#faf3e0;
+  --border:  #e5e0d8;
+  --border2: #d0c8bc;
+  --blue-hero-1:#1557c0;
+  --blue-hero-2:#1e80e8;
+  --blue-hero-3:#4da6ff;
+  --radius:  12px;
+  --nav:     60px;
+  --serif:   'Cormorant Garamond', Georgia, serif;
+  --sans:    'Outfit', system-ui, sans-serif;
+  --shadow:  0 1px 2px rgba(20,18,16,.05), 0 4px 12px rgba(20,18,16,.04);
+}
+
+body{font-family:var(--sans);background:var(--bg);color:var(--ink);-webkit-font-smoothing:antialiased;font-size:14px;font-weight:400}
+#app{max-width:430px;margin:0 auto;min-height:100svh;display:flex;flex-direction:column;position:relative;overflow:hidden;background:var(--bg)}
+
+/* ── view system ── */
+.view{display:none;flex-direction:column;min-height:100svh}
+.view.on{display:flex;animation:vIn .2s ease both}
+@keyframes vIn{from{opacity:0;translate:0 5px}to{opacity:1;translate:0 0}}
+
+/* ── constellation bg (SVG pattern on surface cards) ── */
+.constellation-bg{position:absolute;inset:0;pointer-events:none;opacity:.07;overflow:hidden;border-radius:inherit}
+
+/* ═══════════════════════════════════════
+   MAIN PAGE
+═══════════════════════════════════════ */
+
+/* status */
+.sb{display:flex;justify-content:space-between;align-items:center;padding:10px 18px 4px;font-size:11.5px;font-weight:600;flex-shrink:0}
+.sb-r{display:flex;align-items:center;gap:5px}
+
+/* header */
+.mh{display:flex;align-items:center;padding:4px 14px 10px;gap:9px;flex-shrink:0}
+.av{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--sky),var(--sky-mid));display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:600;color:var(--ink);flex-shrink:0;border:1px solid var(--border2)}
+.gw{display:flex;align-items:center;gap:8px;flex:1;min-width:0}
+.gt{font-size:16px;font-weight:400;white-space:nowrap;letter-spacing:-.2px}
+.gt b{font-weight:600}
+
+/* social pill — the key button */
+.soc-pill{display:inline-flex;align-items:center;gap:5px;padding:4px 10px;border-radius:20px;border:1px solid var(--border2);color:var(--ink2);font-size:11px;font-weight:500;letter-spacing:.1px;transition:.15s;background:var(--surface);white-space:nowrap;flex-shrink:0}
+.soc-pill:hover{border-color:var(--sky);background:var(--sky-pale);color:var(--ink)}
+.soc-pill:active{scale:.97}
+.soc-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;flex-shrink:0}
+.soc-pill svg{width:11px;height:11px;stroke:currentColor;stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+
+.offers-btn{padding:5px 11px;border-radius:20px;background:var(--ink);color:#fff;font-size:11px;font-weight:500;letter-spacing:.2px;flex-shrink:0;transition:.12s}
+.offers-btn:hover{background:var(--ink2)}
+
+/* sign bar */
+.sign-bar{display:flex;overflow-x:auto;scrollbar-width:none;padding:0 14px 10px;gap:6px;flex-shrink:0}
+.sign-bar::-webkit-scrollbar{display:none}
+.spill{display:flex;align-items:center;gap:4px;padding:4px 11px;border-radius:20px;font-size:11px;font-weight:500;color:var(--ink2);background:var(--surface);border:1px solid var(--border);white-space:nowrap;flex-shrink:0}
+.spill .glyph{font-size:12px;opacity:.7}
+
+/* search */
+.search{padding:0 14px 12px}
+.search-inner{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:10px 13px}
+.search-inner input{flex:1;font-size:13px;color:var(--ink);background:none}
+.search-inner input::placeholder{color:var(--ink3)}
+
+/* scroll */
+.ms{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:calc(var(--nav)+12px)}
+.ms::-webkit-scrollbar{display:none}
+
+/* hero */
+.hero{margin:0 14px 14px;border-radius:16px;background:linear-gradient(135deg,var(--blue-hero-1) 0%,var(--blue-hero-2) 60%,var(--blue-hero-3) 100%);padding:20px 20px 18px;position:relative;overflow:hidden;color:#fff}
+.hero::before,.hero::after{content:'';position:absolute;border-radius:50%;pointer-events:none}
+.hero::before{right:-20px;top:-20px;width:110px;height:110px;background:rgba(255,255,255,.06)}
+.hero::after{left:60%;bottom:-30px;width:130px;height:65px;background:rgba(255,255,255,.04)}
+/* zodiac wheel watermark */
+.hero-wheel{position:absolute;right:-10px;bottom:-20px;width:120px;height:120px;opacity:.1;pointer-events:none}
+.hero-eye{font-size:10px;font-weight:500;letter-spacing:.9px;text-transform:uppercase;opacity:.7;margin-bottom:4px}
+.hero-yr{font-size:40px;font-weight:700;line-height:1;letter-spacing:-2px;font-family:var(--serif)}
+.hero-yr em{font-style:normal;color:#f5d06a}
+.hero-sub{font-size:12px;opacity:.75;margin-top:5px;font-weight:300;letter-spacing:.2px}
+.hero-dots{display:flex;gap:4px;margin-top:14px}
+.hd{width:14px;height:2px;border-radius:1px;background:rgba(255,255,255,.3)}
+.hd.a{background:#fff;width:22px}
+.lights-svg{position:absolute;top:0;left:0;right:0;height:16px;pointer-events:none}
+
+/* quick grid */
+.qgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:7px;padding:0 14px;margin-bottom:14px}
+.qc{background:var(--surface);border:1px solid var(--border);border-radius:11px;padding:13px 5px 11px;display:flex;flex-direction:column;align-items:center;gap:6px;transition:.15s}
+.qc:active{scale:.96}
+.qc-ico{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid var(--border)}
+.qc-lbl{font-size:10px;font-weight:500;color:var(--ink2);text-align:center;line-height:1.3;letter-spacing:.1px}
+
+/* promo */
+.promo{margin:0 14px 12px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 15px;display:flex;align-items:center;gap:10px}
+.promo-txt h3{font-size:13.5px;font-weight:600;letter-spacing:-.2px;margin-bottom:2px}
+.promo-txt p{font-size:11px;color:var(--ink3);line-height:1.5}
+.promo-cta{margin-top:8px;display:inline-flex;padding:5px 13px;background:var(--ink);color:#fff;border-radius:6px;font-size:11px;font-weight:500;letter-spacing:.2px}
+.promo-em{font-size:34px;flex-shrink:0;line-height:1}
+.dot-row{display:flex;gap:5px;justify-content:center;margin-bottom:14px}
+.dr{width:5px;height:5px;border-radius:50%;background:var(--border)}
+.dr.a{background:var(--sky);width:14px;border-radius:3px}
+
+/* section */
+.sh{display:flex;justify-content:space-between;align-items:baseline;padding:0 14px 9px}
+.sh h2{font-size:13.5px;font-weight:600;letter-spacing:-.1px}
+.sh a{font-size:11.5px;color:var(--ink3);font-weight:400;cursor:pointer}
+
+/* astrologer row */
+.ar{display:flex;gap:9px;overflow-x:auto;scrollbar-width:none;padding:0 14px 14px}
+.ar::-webkit-scrollbar{display:none}
+.acard{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:13px 11px;min-width:110px;flex-shrink:0;text-align:center;transition:.15s}
+.acard:active{scale:.97}
+.acav{width:48px;height:48px;border-radius:50%;border:1px solid var(--border2);margin:0 auto 6px;display:flex;align-items:center;justify-content:center;font-size:24px;background:var(--sky-pale)}
+.acrat{font-size:10.5px;font-weight:600;color:var(--gold);margin-bottom:2px}
+.acname{font-size:11.5px;font-weight:600;margin-bottom:1px}
+.acspec{font-size:10px;color:var(--ink3)}
+.acbadge{display:inline-block;margin-top:5px;padding:2px 7px;background:var(--sky-pale);color:var(--ink2);font-size:9.5px;font-weight:500;border-radius:4px;border:1px solid var(--sky-mid)}
+
+/* bottom nav */
+.bnav{height:var(--nav);background:var(--surface);display:flex;align-items:center;justify-content:space-around;border-top:1px solid var(--border);position:fixed;bottom:0;left:50%;translate:-50% 0;width:100%;max-width:430px;z-index:90}
+.ni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:8px 0;position:relative}
+.ni svg{width:20px;height:20px;stroke:var(--ink3);stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round;transition:.15s}
+.ni .nl{font-size:9.5px;font-weight:500;color:var(--ink3);transition:.15s;letter-spacing:.1px}
+.ni.active svg{stroke:var(--ink)}
+.ni.active .nl{color:var(--ink)}
+.nbadge{position:absolute;top:5px;right:calc(50% - 18px);font-size:7.5px;font-weight:700;padding:1px 4px;border-radius:3px;color:#fff;line-height:1.5;letter-spacing:.3px}
+.nb-r{background:#ef4444}
+.nb-b{background:var(--sky);color:var(--ink)}
+
+/* ═══════════════════════════════════════
+   SOCIAL VIEW  — the real deal
+═══════════════════════════════════════ */
+#vSocial{background:var(--bg)}
+
+/* top bar */
+.sbar{display:flex;align-items:center;gap:10px;padding:14px 16px 10px;background:var(--surface);border-bottom:1px solid var(--border);flex-shrink:0}
+.back{width:32px;height:32px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.back svg{width:17px;height:17px;stroke:var(--ink);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.sbar-title{font-size:15px;font-weight:300;letter-spacing:-.1px;flex:1;font-family:var(--serif);font-style:italic}
+.sbar-title strong{font-style:normal;font-family:var(--sans);font-weight:600;font-size:14px}
+/* points badge in top right */
+.pts-badge{display:flex;align-items:center;gap:4px;padding:4px 10px;border-radius:20px;background:var(--gold-pale);border:1px solid #e8d49a;font-size:11.5px;font-weight:600;color:#7a5c1a;flex-shrink:0}
+.pts-badge svg{width:12px;height:12px;fill:var(--gold);flex-shrink:0}
+
+/* tab strip — ultra thin */
+.tabs{display:flex;background:var(--surface);border-bottom:1px solid var(--border);overflow-x:auto;scrollbar-width:none;flex-shrink:0;padding:0 6px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{padding:10px 13px;font-size:12px;font-weight:400;color:var(--ink3);border-bottom:1.5px solid transparent;cursor:pointer;white-space:nowrap;transition:.15s;flex-shrink:0;letter-spacing:.1px}
+.tab.on{color:var(--ink);border-bottom-color:var(--ink);font-weight:600}
+
+.ss{flex:1;overflow-y:auto;scrollbar-width:none;padding-bottom:20px}
+.ss::-webkit-scrollbar{display:none}
+
+/* ── FRIENDS tab ── */
+.fs-wrap{padding:12px 16px 8px}
+.fs-box{display:flex;align-items:center;gap:7px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:9px 13px}
+.fs-box input{flex:1;font-size:13px;color:var(--ink)}
+.fs-box input::placeholder{color:var(--ink3)}
+.slabel{padding:14px 16px 5px;font-size:10px;font-weight:600;letter-spacing:.8px;text-transform:uppercase;color:var(--ink3)}
+
+.frow{display:flex;align-items:center;gap:11px;padding:11px 16px;background:var(--surface);border-bottom:1px solid var(--border);cursor:pointer;transition:.1s}
+.frow:hover{background:var(--bg)}
+.fav{width:42px;height:42px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:19px;flex-shrink:0;border:1px solid var(--border)}
+/* unique per-person bg using zodiac element colour */
+.fa-fire{background:#fef3c7}
+.fa-water{background:#eff6ff}
+.fa-earth{background:#f0fdf4}
+.fa-air{background:#fdf4ff}
+.fi{flex:1;min-width:0}
+.fn{font-size:13.5px;font-weight:500;margin-bottom:1px}
+.fs{font-size:11px;color:var(--ink3);display:flex;align-items:center;gap:3px}
+.fs .zg{font-size:13px}
+/* row actions */
+.frow-actions{display:flex;align-items:center;gap:6px;flex-shrink:0}
+.gift-btn{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:var(--gold-pale);border:1px solid #e8d49a;transition:.15s;flex-shrink:0}
+.gift-btn:hover{background:#f5e7a8;scale:1.05}
+.gift-btn svg{width:14px;height:14px;fill:var(--gold)}
+.add-btn{padding:5px 13px;border-radius:20px;border:1px solid var(--border2);color:var(--ink);font-size:11px;font-weight:500;transition:.15s;background:none}
+.add-btn:hover{background:var(--sky-pale);border-color:var(--sky)}
+.add-btn.done{background:var(--bg);color:var(--ink3);border-color:var(--border);pointer-events:none}
+
+/* ── FEED tab ── */
+.feed-card{background:var(--surface);border-bottom:1px solid var(--border);padding:16px}
+/* astrological divider at top of card — thin arc-like border */
+.feed-card::before{content:'';display:block;width:32px;height:1px;background:var(--border2);margin-bottom:12px;border-radius:1px}
+.feed-card:first-child::before{display:none}
+.fch{display:flex;align-items:center;gap:9px;margin-bottom:10px}
+.fch-av{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0;border:1px solid var(--border)}
+.fch-name{font-size:13px;font-weight:600}
+.fch-time{font-size:10.5px;color:var(--ink3)}
+.fch-sign{margin-left:auto;font-size:12px;color:var(--ink3);font-family:var(--serif);font-style:italic;flex-shrink:0;letter-spacing:.3px}
+.feed-glyph{font-size:11px;color:var(--ink3);background:var(--bg);border:1px solid var(--border);padding:2px 7px;border-radius:10px;font-family:var(--serif);font-style:italic;margin-left:auto;flex-shrink:0}
+.feed-body{font-size:13px;line-height:1.7;color:var(--ink2);font-weight:300;margin-bottom:12px;letter-spacing:.1px}
+.feed-actions{display:flex;align-items:center;gap:14px}
+.fca{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink3);transition:.12s;background:none;border:none;padding:0;font-family:inherit;cursor:pointer}
+.fca:hover,.fca.on{color:var(--ink)}
+.fca svg{width:14px;height:14px;stroke:currentColor;stroke-width:1.6;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.fca.on svg{fill:var(--ink)}
+/* gift on feed — gold version */
+.fca.gift-fca{color:var(--gold)}
+.fca.gift-fca svg{stroke:var(--gold)}
+.fca.gift-fca:hover{color:#a07820}
+.feed-transit-banner{background:var(--sky-pale);border-radius:8px;padding:9px 12px;margin-bottom:10px;font-size:12px;color:var(--ink2);display:flex;align-items:center;gap:6px;letter-spacing:.1px;border:1px solid var(--sky-mid)}
+.feed-transit-banner .pl{font-size:14px;flex-shrink:0}
+
+/* ── TAROT tab ── */
+.tarot-wrap{padding:20px 16px}
+.tarot-title{font-family:var(--serif);font-size:26px;font-weight:400;text-align:center;margin-bottom:4px;letter-spacing:-.3px}
+.tarot-sub{font-size:12px;color:var(--ink3);text-align:center;margin-bottom:24px;font-weight:300;letter-spacing:.2px}
+.tarot-deck{position:relative;height:200px;display:flex;align-items:center;justify-content:center;margin-bottom:24px;perspective:800px}
+/* card stack illusion */
+.card-shadow{position:absolute;width:110px;height:170px;border-radius:12px;background:var(--border);transform:rotate(5deg) translateX(8px);top:14px}
+.card-shadow2{position:absolute;width:110px;height:170px;border-radius:12px;background:var(--border2);transform:rotate(-3deg) translateX(-5px);top:10px}
+.tarot-card{width:120px;height:185px;border-radius:12px;border:1.5px solid var(--border2);background:var(--surface);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:transform .6s cubic-bezier(.4,0,.2,1),box-shadow .3s;transform-style:preserve-3d;position:relative;z-index:5;box-shadow:0 4px 20px rgba(20,18,16,.1)}
+.tarot-card:hover{box-shadow:0 8px 32px rgba(20,18,16,.14);translate:0 -4px}
+.tarot-card.flipped{transform:rotateY(180deg)}
+/* card back — geometric astrological pattern */
+.card-back,.card-front{position:absolute;inset:0;border-radius:11px;backface-visibility:hidden;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:12px}
+.card-back{background:var(--sky-pale);overflow:hidden}
+.card-back svg{opacity:.35;position:absolute;inset:0;width:100%;height:100%}
+.card-back .tap-hint{font-size:10px;color:var(--ink3);letter-spacing:.5px;text-transform:uppercase;position:relative;z-index:1;font-weight:500}
+.card-front{background:var(--surface);transform:rotateY(180deg)}
+.cf-symbol{font-size:40px;margin-bottom:8px;line-height:1}
+.cf-name{font-family:var(--serif);font-size:15px;font-weight:400;text-align:center;letter-spacing:.3px;margin-bottom:4px}
+.cf-keyword{font-size:10px;color:var(--ink3);letter-spacing:.8px;text-transform:uppercase;font-weight:500}
+.tarot-meaning{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:16px;margin-bottom:16px;display:none}
+.tarot-meaning.show{display:block;animation:vIn .25s ease both}
+.tm-title{font-family:var(--serif);font-size:18px;font-weight:400;margin-bottom:4px;letter-spacing:-.2px}
+.tm-keyword{font-size:10px;letter-spacing:.9px;text-transform:uppercase;color:var(--gold);font-weight:600;margin-bottom:10px}
+.tm-body{font-size:13px;line-height:1.7;color:var(--ink2);font-weight:300}
+.tarot-again{width:100%;padding:12px;border:1px solid var(--border2);border-radius:10px;font-size:13px;font-weight:500;color:var(--ink);letter-spacing:.1px;transition:.15s;display:none;background:none}
+.tarot-again.show{display:block}
+.tarot-again:hover{background:var(--sky-pale);border-color:var(--sky)}
+/* lucky numbers */
+.lucky-strip{display:flex;gap:6px;margin-top:14px;justify-content:center;flex-wrap:wrap}
+.lucky-num{width:32px;height:32px;border-radius:50%;border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:500;color:var(--ink2)}
+.lucky-color{width:18px;height:18px;border-radius:50%;border:1px solid var(--border)}
+.lucky-label{font-size:10.5px;color:var(--ink3);text-align:center;margin-top:6px;letter-spacing:.3px}
+
+/* ── TRANSITS tab ── */
+.tr-row{display:flex;gap:11px;padding:12px 16px;border-bottom:1px solid var(--border);background:var(--surface);transition:.1s;cursor:pointer}
+.tr-row:hover{background:var(--bg)}
+.tr-icon{width:36px;height:36px;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;background:var(--bg);border:1px solid var(--border)}
+.tr-body h4{font-size:13px;font-weight:600;margin-bottom:2px}
+.tr-body p{font-size:12px;color:var(--ink2);line-height:1.55;font-weight:300}
+.tr-date{font-size:10.5px;color:var(--ink3);margin-top:3px;font-weight:500;letter-spacing:.2px}
+
+/* ── COSMIC RADIO tab ── */
+.radio-wrap{padding:16px}
+.radio-intro{font-size:12px;color:var(--ink3);margin-bottom:14px;font-weight:300;line-height:1.6;text-align:center;letter-spacing:.1px}
+.radio-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px;display:flex;align-items:center;gap:12px;cursor:pointer;transition:.15s}
+.radio-card:hover{border-color:var(--sky-mid);background:var(--sky-pale)}
+.rc-sign{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;border:1px solid var(--border);background:var(--bg);flex-shrink:0}
+.rc-body{flex:1;min-width:0}
+.rc-sign-name{font-size:11px;color:var(--ink3);margin-bottom:1px;letter-spacing:.3px;text-transform:uppercase;font-weight:500}
+.rc-track{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rc-vibe{font-size:11px;color:var(--ink3);margin-top:1px;font-weight:300}
+.rc-like{font-size:11px;color:var(--ink3);display:flex;align-items:center;gap:3px;flex-shrink:0}
+/* post your vibe */
+.post-vibe{background:var(--surface);border:1px solid var(--border);border-radius:var(--radius);padding:14px;margin-bottom:10px}
+.pv-label{font-size:10.5px;color:var(--ink3);margin-bottom:8px;letter-spacing:.5px;text-transform:uppercase;font-weight:600}
+.pv-input{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--ink);background:var(--bg);resize:none;height:64px;font-family:var(--sans);font-weight:300;line-height:1.5}
+.pv-input:focus{border-color:var(--sky);outline:none}
+.pv-send{margin-top:8px;padding:8px 16px;background:var(--ink);color:#fff;border-radius:7px;font-size:12px;font-weight:500;letter-spacing:.2px;transition:.15s}
+.pv-send:hover{background:var(--ink2)}
+
+/* ── GIFT MODAL ── */
+.overlay{position:fixed;inset:0;background:rgba(20,18,16,.4);z-index:300;display:none;align-items:flex-end;justify-content:center;backdrop-filter:blur(3px)}
+.overlay.on{display:flex}
+.sheet{background:var(--surface);border-radius:20px 20px 0 0;width:100%;max-width:430px;animation:shUp .25s cubic-bezier(.32,1,.23,1) both;padding:0 0 env(safe-area-inset-bottom,0)}
+@keyframes shUp{from{translate:0 100%}to{translate:0 0}}
+.sh-handle{width:28px;height:3px;background:var(--border);border-radius:2px;margin:12px auto 20px}
+.sh-title{font-family:var(--serif);font-size:22px;font-weight:400;padding:0 20px;margin-bottom:4px;letter-spacing:-.3px}
+.sh-sub{font-size:12px;color:var(--ink3);padding:0 20px;margin-bottom:20px;font-weight:300;line-height:1.6}
+.sh-recipient{display:flex;align-items:center;gap:10px;padding:12px 20px;background:var(--bg);margin-bottom:16px}
+.sh-rec-av{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;border:1px solid var(--border);background:var(--surface)}
+.sh-rec-name{font-size:14px;font-weight:600}
+.sh-rec-sub{font-size:11.5px;color:var(--ink3)}
+.pts-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:0 20px;margin-bottom:20px}
+.pt-opt{border:1.5px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:.15s}
+.pt-opt:hover{border-color:var(--gold);background:var(--gold-pale)}
+.pt-opt.sel{border-color:var(--gold);background:var(--gold-pale)}
+.pt-opt .pt-num{font-size:20px;font-weight:700;color:var(--ink);font-family:var(--serif);display:block;margin-bottom:2px}
+.pt-opt .pt-lbl{font-size:10px;color:var(--ink3);font-weight:500}
+.pt-opt .pt-price{font-size:11px;color:var(--gold);font-weight:600;margin-top:3px}
+.sh-msg-wrap{padding:0 20px;margin-bottom:20px}
+.sh-msg-lbl{font-size:10.5px;color:var(--ink3);margin-bottom:6px;letter-spacing:.4px;text-transform:uppercase;font-weight:600}
+.sh-msg-input{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--ink);background:var(--bg);resize:none;height:60px;font-family:var(--sans);font-weight:300}
+.sh-msg-input:focus{border-color:var(--sky);outline:none}
+.sh-send{width:calc(100% - 40px);margin:0 20px 20px;padding:13px;background:var(--ink);color:#fff;border-radius:10px;font-size:14px;font-weight:600;letter-spacing:.1px;transition:.15s}
+.sh-send:hover{background:var(--ink2)}
+.sh-send:disabled{opacity:.4;pointer-events:none}
+
+/* gift confirm animation */
+.gift-sent{position:fixed;inset:0;z-index:400;display:none;align-items:center;justify-content:center;background:rgba(20,18,16,.5);backdrop-filter:blur(4px)}
+.gift-sent.on{display:flex}
+.gs-card{background:var(--surface);border-radius:16px;padding:32px 28px;text-align:center;max-width:300px;animation:popIn .35s cubic-bezier(.18,1.4,.4,1) both}
+@keyframes popIn{from{scale:.7;opacity:0}to{scale:1;opacity:1}}
+.gs-star{font-size:48px;margin-bottom:12px;animation:spin 3s linear infinite}
+@keyframes spin{from{rotate:0deg}to{rotate:360deg}}
+.gs-title{font-family:var(--serif);font-size:22px;margin-bottom:6px;letter-spacing:-.2px}
+.gs-body{font-size:13px;color:var(--ink2);font-weight:300;line-height:1.6}
+.gs-close{margin-top:16px;padding:9px 24px;border:1px solid var(--border2);border-radius:8px;font-size:13px;font-weight:500;color:var(--ink)}
+
+/* profile sheet */
+.ps-hero{background:var(--sky-pale);border-bottom:1px solid var(--border);padding:24px 20px;text-align:center;position:relative;overflow:hidden}
+/* birth chart ring decoration */
+.ps-wheel{position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;opacity:.12;pointer-events:none}
+.ps-av-big{width:68px;height:68px;border-radius:50%;border:1.5px solid var(--border2);margin:0 auto 10px;display:flex;align-items:center;justify-content:center;font-size:30px;background:var(--surface);position:relative;z-index:1}
+.ps-name{font-size:19px;font-weight:600;letter-spacing:-.3px;position:relative;z-index:1}
+.ps-sign-line{font-family:var(--serif);font-size:14px;color:var(--ink2);font-style:italic;margin-top:3px;position:relative;z-index:1}
+.ps-signs{display:flex;gap:7px;justify-content:center;margin-top:10px;flex-wrap:wrap;position:relative;z-index:1}
+.ps-sc{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:3px 11px;font-size:11px;font-weight:500;color:var(--ink2)}
+.ps-body{padding:18px}
+.ps-lbl{font-size:10px;font-weight:600;letter-spacing:.7px;text-transform:uppercase;color:var(--ink3);margin-bottom:7px}
+.ps-horo{font-size:13px;line-height:1.7;color:var(--ink2);margin-bottom:18px;font-weight:300}
+.ps-traits{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:18px}
+.ps-trait{padding:4px 11px;border-radius:20px;background:var(--bg);border:1px solid var(--border);color:var(--ink2);font-size:11.5px;font-weight:400}
+/* gift button on profile */
+.ps-gift-btn{width:100%;padding:12px;border:1px solid #e8d49a;border-radius:10px;background:var(--gold-pale);color:#7a5c1a;font-size:13.5px;font-weight:600;letter-spacing:.1px;display:flex;align-items:center;justify-content:center;gap:7px;transition:.15s}
+.ps-gift-btn:hover{background:#f5e7a8}
+.ps-gift-btn svg{width:16px;height:16px;fill:var(--gold)}
+
+/* ── SIGN CONFESSIONS tab (anon by sign) ── */
+.conf-card{background:var(--surface);border-bottom:1px solid var(--border);padding:16px}
+.conf-header{display:flex;align-items:center;gap:8px;margin-bottom:8px}
+.conf-sign{font-size:15px}
+.conf-sign-name{font-family:var(--serif);font-size:13px;font-style:italic;color:var(--ink2)}
+.conf-anon{font-size:10px;color:var(--ink3);margin-left:auto;letter-spacing:.3px;text-transform:uppercase;font-weight:500}
+.conf-body{font-size:13px;line-height:1.7;color:var(--ink);font-weight:300;margin-bottom:10px}
+.conf-actions{display:flex;gap:12px}
+.conf-react{display:flex;align-items:center;gap:4px;font-size:11px;color:var(--ink3);cursor:pointer;padding:4px 9px;border:1px solid var(--border);border-radius:20px;transition:.12s;background:none;font-family:inherit}
+.conf-react:hover{background:var(--bg)}
+.conf-react.on{background:var(--sky-pale);border-color:var(--sky-mid);color:var(--ink)}
+.conf-post-wrap{padding:14px 16px;background:var(--surface);border-bottom:1px solid var(--border)}
+.conf-post-label{font-size:10px;color:var(--ink3);letter-spacing:.7px;text-transform:uppercase;font-weight:600;margin-bottom:8px}
+.conf-select{width:100%;border:1px solid var(--border);border-radius:8px;padding:8px 11px;font-size:13px;color:var(--ink);background:var(--bg);margin-bottom:8px;appearance:none}
+.conf-textarea{width:100%;border:1px solid var(--border);border-radius:8px;padding:9px 11px;font-size:13px;color:var(--ink);background:var(--bg);resize:none;height:72px;font-family:var(--sans);font-weight:300;line-height:1.5}
+.conf-textarea:focus{border-color:var(--sky);outline:none}
+.conf-submit{margin-top:8px;padding:8px 18px;background:var(--ink);color:#fff;border-radius:7px;font-size:12px;font-weight:500;letter-spacing:.2px;transition:.15s}
+.conf-submit:hover{background:var(--ink2)}
+
+/* SVG zodiac wheel helper */
+.wheel-svg{width:100%;height:100%}
+</style>
+</head>
+<body>
+<div id="app">
+
+<!-- ══════════ MAIN VIEW ══════════ -->
+<div class="view on" id="vMain">
+
+  <!-- status -->
+  <div class="sb">
+    <span id="sb-t">11:52</span>
+    <div class="sb-r">
+      <svg width="14" height="10" viewBox="0 0 14 10"><rect x="0" y="3.5" width="2.2" height="6.5" rx=".8" fill="#141210" opacity=".3"/><rect x="3" y="2" width="2.2" height="8" rx=".8" fill="#141210" opacity=".5"/><rect x="6" y=".5" width="2.2" height="9.5" rx=".8" fill="#141210" opacity=".75"/><rect x="9" y="0" width="2.2" height="10" rx=".8" fill="#141210"/></svg>
+      <span style="font-size:10px;font-weight:600">5G</span>
+      <svg width="21" height="10" viewBox="0 0 21 10"><rect x=".5" y=".5" width="18" height="9" rx="2.5" stroke="#141210" stroke-opacity=".3"/><rect x="1.5" y="1.5" width="13" height="7" rx="1.5" fill="#141210" opacity=".7"/><path d="M19.5 3v4a1.5 1.5 0 0 0 0-4z" fill="#141210" opacity=".4"/></svg>
+    </div>
+  </div>
+
+  <!-- header -->
+  <div class="mh">
+    <div class="av">M</div>
+    <div class="gw">
+      <div class="gt">Hi, <b>Manas</b></div>
+      <button class="soc-pill" onclick="openSocial()">
+        <div class="soc-dot"></div>
+        Horocosmo Social
+        <svg viewBox="0 0 24 24"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+      </button>
+    </div>
+    <button class="offers-btn">🎁 OFFERS</button>
+  </div>
+
+  <!-- sign bar -->
+  <div class="sign-bar">
+    <div class="spill"><span class="glyph">♑</span> Sun: <b style="margin-left:3px">Capricorn</b></div>
+    <div class="spill"><span class="glyph">♈</span> Lagna: <b style="margin-left:3px">Aries</b></div>
+    <div class="spill"><span class="glyph">♏</span> Moon: <b style="margin-left:3px">Scorpio</b></div>
+  </div>
+
+  <!-- search -->
+  <div class="search">
+    <div class="search-inner">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="#9a9088" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+      <input placeholder="Search for Remedies"/>
+    </div>
+  </div>
+
+  <div class="ms">
+    <!-- hero -->
+    <div class="hero">
+      <svg class="lights-svg" preserveAspectRatio="none" viewBox="0 0 360 16">
+        <path d="M0 4 Q45 13 90 4 T180 4 T270 4 T360 4" stroke="rgba(255,255,255,.22)" stroke-width=".8" fill="none"/>
+        <circle cx="45" cy="12" r="2.5" fill="rgba(245,208,106,.8)"/>
+        <circle cx="90" cy="4" r="2.5" fill="rgba(245,208,106,.8)"/>
+        <circle cx="135" cy="12" r="2.5" fill="rgba(245,208,106,.8)"/>
+        <circle cx="180" cy="4" r="2.5" fill="rgba(245,208,106,.8)"/>
+        <circle cx="225" cy="12" r="2.5" fill="rgba(245,208,106,.8)"/>
+        <circle cx="270" cy="4" r="2.5" fill="rgba(245,208,106,.8)"/>
+        <circle cx="315" cy="12" r="2.5" fill="rgba(245,208,106,.8)"/>
+      </svg>
+      <!-- zodiac wheel watermark -->
+      <svg class="hero-wheel" viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="55" stroke="white" stroke-width=".8"/>
+        <circle cx="60" cy="60" r="42" stroke="white" stroke-width=".5"/>
+        <circle cx="60" cy="60" r="28" stroke="white" stroke-width=".5"/>
+        <circle cx="60" cy="60" r="14" stroke="white" stroke-width=".5"/>
+        <line x1="60" y1="5" x2="60" y2="115" stroke="white" stroke-width=".4"/>
+        <line x1="5" y1="60" x2="115" y2="60" stroke="white" stroke-width=".4"/>
+        <line x1="16.3" y1="16.3" x2="103.7" y2="103.7" stroke="white" stroke-width=".4"/>
+        <line x1="103.7" y1="16.3" x2="16.3" y2="103.7" stroke="white" stroke-width=".4"/>
+        <line x1="7.1" y1="40" x2="112.9" y2="80" stroke="white" stroke-width=".3" opacity=".6"/>
+        <line x1="40" y1="7.1" x2="80" y2="112.9" stroke="white" stroke-width=".3" opacity=".6"/>
+        <line x1="112.9" y1="40" x2="7.1" y2="80" stroke="white" stroke-width=".3" opacity=".6"/>
+        <line x1="80" y1="7.1" x2="40" y2="112.9" stroke="white" stroke-width=".3" opacity=".6"/>
+      </svg>
+      <div class="hero-eye">Trusted Life Guidance</div>
+      <div class="hero-yr">20<em>26</em></div>
+      <div class="hero-sub">Navigate the year with cosmic clarity</div>
+      <div class="hero-dots"><div class="hd a"></div><div class="hd"></div><div class="hd"></div><div class="hd"></div></div>
+    </div>
+
+    <!-- quick grid -->
+    <div class="qgrid">
+      <div class="qc"><div class="qc-ico" style="background:#f7f5f2">📋</div><div class="qc-lbl">Free<br/>Kundli</div></div>
+      <div class="qc"><div class="qc-ico" style="background:#f0f6ff">🔮</div><div class="qc-lbl">Free<br/>Horoscope</div></div>
+      <div class="qc" onclick="openSocial()"><div class="qc-ico" style="background:#faf3e0">⭐</div><div class="qc-lbl">Match<br/>Making</div></div>
+      <div class="qc"><div class="qc-ico" style="background:#f0fdf4">📿</div><div class="qc-lbl">Puja<br/>Services</div></div>
+    </div>
+
+    <!-- promo -->
+    <div class="promo">
+      <div class="promo-txt">
+        <h3>Introducing KAVACH</h3>
+        <p>Multiple Rudraksha · Energised<br>Spiritual Protection</p>
+        <div class="promo-cta">Order Now</div>
+      </div>
+      <div class="promo-em">📿</div>
+    </div>
+    <div class="dot-row"><div class="dr a"></div><div class="dr"></div><div class="dr"></div><div class="dr"></div><div class="dr"></div></div>
+
+    <div class="sh"><h2>Our Best Astrologers</h2><a>View All →</a></div>
+    <div class="ar" id="astro-row"></div>
+  </div>
+
+  <nav class="bnav">
+    <div class="ni active"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="nl">Home</span></div>
+    <div class="ni" onclick="openSocial()"><span class="nbadge nb-r">LIVE</span><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg><span class="nl">Chat</span></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg><span class="nl">Reports</span></div>
+    <div class="ni"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8M12 8v8"/></svg><span class="nl">Remedies</span></div>
+    <div class="ni"><span class="nbadge nb-b">NEW</span><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg><span class="nl">Services</span></div>
+  </nav>
+</div>
+
+<!-- ══════════ SOCIAL VIEW ══════════ -->
+<div class="view" id="vSocial">
+  <div class="sbar">
+    <button class="back" onclick="goMain()"><svg viewBox="0 0 24 24"><polyline points="15 18 9 12 15 6"/></svg></button>
+    <div class="sbar-title"><strong>Horocosmo</strong> <em>Social</em></div>
+    <div class="pts-badge" id="pts-badge">
+      <svg viewBox="0 0 16 16"><polygon points="8,1 10.2,6 15.5,6.5 11.5,10 12.9,15.3 8,12.3 3.1,15.3 4.5,10 0.5,6.5 5.8,6"/></svg>
+      <span id="pts-display">240 pts</span>
+    </div>
+  </div>
+
+  <div class="tabs" id="stabs">
+    <div class="tab on" onclick="switchTab('feed',this)">Feed</div>
+    <div class="tab" onclick="switchTab('friends',this)">Friends</div>
+    <div class="tab" onclick="switchTab('tarot',this)">Tarot</div>
+    <div class="tab" onclick="switchTab('transits',this)">Transits</div>
+    <div class="tab" onclick="switchTab('radio',this)">Cosmic Radio</div>
+    <div class="tab" onclick="switchTab('confessions',this)">Confessions</div>
+  </div>
+
+  <!-- FEED -->
+  <div class="ss" id="tab-feed"><div id="feed-content"></div></div>
+  <!-- FRIENDS -->
+  <div class="ss" id="tab-friends" style="display:none">
+    <div class="fs-wrap"><div class="fs-box"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#9a9088" stroke-width="1.8" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg><input id="fsearch" placeholder="Find a friend…" oninput="filterFriends(this.value)"/></div></div>
+    <div class="slabel">Connected</div><div id="my-friends"></div>
+    <div class="slabel">Suggested</div><div id="sugg-friends"></div>
+  </div>
+  <!-- TAROT -->
+  <div class="ss" id="tab-tarot" style="display:none"><div class="tarot-wrap" id="tarot-inner"></div></div>
+  <!-- TRANSITS -->
+  <div class="ss" id="tab-transits" style="display:none"><div id="transits-content"></div></div>
+  <!-- RADIO -->
+  <div class="ss" id="tab-radio" style="display:none"><div class="radio-wrap" id="radio-content"></div></div>
+  <!-- CONFESSIONS -->
+  <div class="ss" id="tab-confessions" style="display:none"><div id="conf-content"></div></div>
+</div>
+
+<!-- ══════════ GIFT OVERLAY ══════════ -->
+<div class="overlay" id="gift-overlay" onclick="maybeCloseGift(event)">
+  <div class="sheet">
+    <div class="sh-handle"></div>
+    <div class="sh-title">Send a Star Gift ✦</div>
+    <div class="sh-sub">Gift points redeemable for consultations with astrologers on Horocosmo.</div>
+    <div class="sh-recipient" id="gift-recipient"></div>
+    <div class="pts-grid" id="pts-grid"></div>
+    <div class="sh-msg-wrap">
+      <div class="sh-msg-lbl">Add a message</div>
+      <textarea class="sh-msg-input" id="gift-msg" placeholder="e.g. The stars are with you today ✨"></textarea>
+    </div>
+    <button class="sh-send" id="gift-send-btn" onclick="sendGift()">Send Gift</button>
+  </div>
+</div>
+
+<!-- GIFT SENT CONFIRM -->
+<div class="gift-sent" id="gift-sent-screen">
+  <div class="gs-card">
+    <div class="gs-star">⭐</div>
+    <div class="gs-title">Gift Sent</div>
+    <div class="gs-body" id="gs-body">You gifted 50 stars to Rahul.<br/>They can use it for consultations.</div>
+    <button class="gs-close" onclick="closeGiftSent()">Done</button>
+  </div>
+</div>
+
+<!-- ══════════ PROFILE SHEET ══════════ -->
+<div class="overlay" id="prof-overlay" onclick="maybeCloseProf(event)">
+  <div class="sheet" style="max-height:88svh;overflow-y:auto">
+    <div class="sh-handle"></div>
+    <div id="prof-inner"></div>
+  </div>
+</div>
+
+</div><!-- #app -->
+
+<script>
+// ════════════════════════════════════════
+//  DATA
+// ════════════════════════════════════════
+const SIGNS = [
+  {name:'Aries',sym:'♈',el:'Fire',g:'🐏'},{name:'Taurus',sym:'♉',el:'Earth',g:'🐂'},
+  {name:'Gemini',sym:'♊',el:'Air',g:'👯'},{name:'Cancer',sym:'♋',el:'Water',g:'🦀'},
+  {name:'Leo',sym:'♌',el:'Fire',g:'🦁'},{name:'Virgo',sym:'♍',el:'Earth',g:'🌾'},
+  {name:'Libra',sym:'♎',el:'Air',g:'⚖️'},{name:'Scorpio',sym:'♏',el:'Water',g:'🦂'},
+  {name:'Sagittarius',sym:'♐',el:'Fire',g:'🏹'},{name:'Capricorn',sym:'♑',el:'Earth',g:'🐐'},
+  {name:'Aquarius',sym:'♒',el:'Air',g:'🌊'},{name:'Pisces',sym:'♓',el:'Water',g:'🐟'},
+];
+
+const EL_BG = {Fire:'fa-fire',Water:'fa-water',Earth:'fa-earth',Air:'fa-air'};
+
+const HORO = {
+  Aries:'Bold moves pay off today. Channel your fire into one clear intention — scatter it and you lose everything.',
+  Taurus:'Slow down and appreciate what already exists. Stability isn\'t stagnation, it\'s the soil.',
+  Gemini:'Your words carry unusual weight right now. Say the thing you\'ve been drafting in your head.',
+  Cancer:'The feeling you keep dismissing is actually the answer. Trust it before you overthink it.',
+  Leo:'The spotlight isn\'t coming to you today — you walk into it. Own every room, quietly.',
+  Virgo:'The detail you nearly skipped — that\'s where everything changes. Stay in the micro.',
+  Libra:'A conversation today reshapes something important. Listen twice, speak once.',
+  Scorpio:'Transformation doesn\'t announce itself. Something beneath the surface has already shifted.',
+  Sagittarius:'The longest route holds the most. Resist the shortcut.',
+  Capricorn:'Your discipline is aligning with cosmic timing. What you build right now has legs.',
+  Aquarius:'Your unconventional take is the right one. Trust the instinct that seems too out-there.',
+  Pisces:'Dreams are carrying information right now. Pay attention to what surfaces before you sleep.',
+};
+
+const FRIENDS = [
+  {id:1,name:'Rahul Sharma',e:'😎',sign:'Leo',traits:['Charismatic','Intense','Funny'],conn:true,pts:120},
+  {id:2,name:'Priya Patel',e:'🌸',sign:'Pisces',traits:['Empathetic','Dreamy','Creative'],conn:true,pts:80},
+  {id:3,name:'Arjun Singh',e:'⚡',sign:'Scorpio',traits:['Strategic','Deep','Loyal'],conn:false,pts:200},
+  {id:4,name:'Sneha Reddy',e:'🌿',sign:'Libra',traits:['Balanced','Kind','Witty'],conn:false,pts:60},
+  {id:5,name:'Karan Mehta',e:'🔥',sign:'Sagittarius',traits:['Adventurous','Free','Bold'],conn:false,pts:150},
+];
+
+const ASTROS = [
+  {name:'Pandit Anil',r:4.4,e:'🧙',spec:'Vedic · 15 yrs'},
+  {name:'Jyoti Devi',r:4.8,e:'🔮',spec:'Tarot · 10 yrs'},
+  {name:'Arun Sharma',r:4.5,e:'🪐',spec:'Nadi · 8 yrs'},
+  {name:'Meera Ji',r:4.9,e:'✨',spec:'Lal Kitab · 20 yrs'},
+];
+
+const TRANSITS = [
+  {icon:'☿',planet:'Mercury',event:'Enters Taurus',date:'Apr 16',body:'Slower thinking, clearer writing. Not the week for quick decisions — let ideas marinate.'},
+  {icon:'♀',planet:'Venus',event:'Trine Saturn',date:'Apr 18',body:'Practical love. A small, consistent gesture lands more than a grand one right now.'},
+  {icon:'○',planet:'Full Moon',event:'in Scorpio',date:'Apr 23',body:'Emotional clarity through intensity. What you\'ve been avoiding surfaces — and resolves.'},
+  {icon:'♂',planet:'Mars',event:'Square Pluto',date:'Apr 26',body:'Power dynamics are heightened at work. Choose battles with precision, not ego.'},
+  {icon:'♃',planet:'Jupiter',event:'Sextile Neptune',date:'May 2',body:'Spiritual luck is real right now. Trust the pull toward something that makes no logical sense.'},
+];
+
+const TAROT = [
+  {sym:'☀',name:'The Sun',keyword:'Radiance',meaning:'A period of clarity, joy, and visibility. What was hidden becomes obvious, what was difficult becomes light. Step forward without apology.'},
+  {sym:'🌙',name:'The Moon',keyword:'Illusion',meaning:'Not everything is as it seems. Your intuition is sharper than your logic right now — use it. Avoid making permanent decisions in a fog.'},
+  {sym:'⭐',name:'The Star',keyword:'Hope',meaning:'After the storm, stillness. You\'re being asked to trust the process even when the end isn\'t visible. Something is being restored.'},
+  {sym:'⚡',name:'The Tower',keyword:'Disruption',meaning:'A sudden shift. What breaks now needed to break. Let the structure fall — it was built on the wrong foundation anyway.'},
+  {sym:'♾',name:'The World',keyword:'Completion',meaning:'A chapter closes completely. Not with failure, but with wholeness. What you started is finished — allow yourself to feel that.'},
+  {sym:'⚖',name:'Justice',keyword:'Truth',meaning:'Clarity arrives through honesty. Something that felt unfair is being corrected. Your role is to be precise, not loud.'},
+  {sym:'🔥',name:'The Emperor',keyword:'Structure',meaning:'Establish boundaries with clarity. Leadership isn\'t force, it\'s calm conviction. What systems do you need to build right now?'},
+  {sym:'🌿',name:'The Hermit',keyword:'Solitude',meaning:'The answer you\'re seeking isn\'t outside you. Withdraw, sit with the quiet. Clarity lives in the pause.'},
+  {sym:'🌊',name:'The High Priestess',keyword:'Intuition',meaning:'Stop asking other people. You already know. The gut feeling you keep second-guessing — that\'s it.'},
+  {sym:'💫',name:'The Magician',keyword:'Agency',meaning:'Everything you need is already in your hands. The question isn\'t what\'s available — it\'s whether you\'ll use it.'},
+];
+
+const RADIO = [
+  {sign:'Capricorn',sym:'♑',track:'Running Up That Hill',artist:'Kate Bush',vibe:'determined, climbing',likes:34},
+  {sign:'Scorpio',sym:'♏',track:'Dark Red',artist:'Steve Lacy',vibe:'deep, intense, magnetic',likes:28},
+  {sign:'Pisces',sym:'♓',track:'Ocean Eyes',artist:'Billie Eilish',vibe:'dreamy, lost, soft',likes:41},
+  {sign:'Leo',sym:'♌',track:'POWER',artist:'Kanye West',vibe:'loud, bold, unstoppable',likes:22},
+  {sign:'Libra',sym:'♎',track:'Happier Than Ever',artist:'Billie Eilish',vibe:'over it, balanced',likes:19},
+  {sign:'Aries',sym:'♈',track:'B*tch Better Have My Money',artist:'Rihanna',vibe:'no-nonsense energy',likes:31},
+];
+
+const CONFESSIONS = [
+  {id:1,sign:'Scorpio',sym:'♏',body:'i don\'t want closure. i want the other person to feel exactly what they put me through. is that scorpio of me? yes. do i care? no.',reacts:{🤝:88,'💀':42}},
+  {id:2,sign:'Gemini',sym:'♊',body:'texted six different people today with six completely different versions of my feelings about the same situation. gemini behaviour honestly',reacts:{😭:63,'💀':58}},
+  {id:3,sign:'Capricorn',sym:'♑',body:'i cancelled plans to spend 4 hours reorganising my notes app. this is self care.',reacts:{🤝:71,'⭐':34}},
+  {id:4,sign:'Pisces',sym:'♓',body:'someone said "you\'re too sensitive" and i\'ve been thinking about it for 11 days',reacts:{😭:104,'🤝':67}},
+  {id:5,sign:'Leo',sym:'♌',body:'i know i\'m a lot. i prefer "a full course meal".',reacts:{⭐:92,'😭':12}},
+];
+
+// ════════════════════════════════════════
+//  STATE
+// ════════════════════════════════════════
+const S = {
+  pts: 240,
+  connected: new Set([1,2]),
+  likes: new Set(),
+  bookmarks: new Set(),
+  confReacts: {},
+  radioLikes: new Set(),
+  giftTarget: null,
+  giftAmt: null,
+  tarotFlipped: false,
+  tarotCard: null,
+  tarotUsedToday: false,
+};
+
+// ════════════════════════════════════════
+//  NAV
+// ════════════════════════════════════════
+function openSocial(){
+  document.getElementById('vMain').classList.remove('on');
+  document.getElementById('vSocial').classList.add('on');
+  renderAll();
+}
+function goMain(){
+  document.getElementById('vSocial').classList.remove('on');
+  document.getElementById('vMain').classList.add('on');
+}
+function switchTab(tab,el){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
+  el.classList.add('on');
+  ['feed','friends','tarot','transits','radio','confessions'].forEach(t=>{
+    document.getElementById('tab-'+t).style.display=t===tab?'block':'none';
+  });
+}
+function renderAll(){
+  renderFeed(); renderFriends(); renderTarot(); renderTransits(); renderRadio(); renderConfessions();
+  updatePts();
+}
+
+// ════════════════════════════════════════
+//  ASTROLOGERS (main page)
+// ════════════════════════════════════════
+document.getElementById('astro-row').innerHTML = ASTROS.map(a=>`
+  <div class="acard">
+    <div class="acav">${a.e}</div>
+    <div class="acrat">⭐ ${a.r}</div>
+    <div class="acname">${a.name}</div>
+    <div class="acspec">${a.spec}</div>
+    <div class="acbadge">Chat Now</div>
+  </div>`).join('');
+
+// ════════════════════════════════════════
+//  FEED
+// ════════════════════════════════════════
+function renderFeed(){
+  const posts = [];
+  posts.push({id:'u0',name:'Manas',e:'🌟',sign:'Capricorn',body:HORO.Capricorn,time:'Just now'});
+  FRIENDS.filter(f=>S.connected.has(f.id)).forEach((f,i)=>{
+    posts.push({id:'f'+f.id,name:f.name,e:f.e,sign:f.sign,body:HORO[f.sign],time:`${i+1}h ago`,fid:f.id});
+  });
+
+  document.getElementById('feed-content').innerHTML = posts.map((p,idx)=>`
+    <div class="feed-card">
+      <div class="fch">
+        <div class="fch-av ${elBg(p.sign)}">${p.e}</div>
+        <div style="flex:1">
+          <div class="fch-name">${p.name}</div>
+          <div class="fch-time">${p.time}</div>
+        </div>
+        <div class="feed-glyph">${signSym(p.sign)} ${p.sign}</div>
+      </div>
+      ${idx===1?`<div class="feed-transit-banner"><span class="pl">☿</span> Mercury enters Taurus on Apr 16 — write your thoughts down before you speak.</div>`:''}
+      <div class="feed-body">${p.body}</div>
+      <div class="feed-actions">
+        <button class="fca ${S.likes.has(p.id)?'on':''}" onclick="toggleLike('${p.id}',this)">
+          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+          ${S.likes.has(p.id)?'resonated':'resonate'}
+        </button>
+        <button class="fca" onclick="toggleBookmark('${p.id}',this)">
+          <svg viewBox="0 0 24 24" style="fill:${S.bookmarks.has(p.id)?'var(--ink)':'none'}"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>
+          save
+        </button>
+        ${p.fid?`<button class="fca gift-fca" onclick="openGift(${p.fid},this)">
+          <svg viewBox="0 0 16 16"><polygon points="8,1 10.2,6 15.5,6.5 11.5,10 12.9,15.3 8,12.3 3.1,15.3 4.5,10 0.5,6.5 5.8,6"/></svg>
+          gift stars
+        </button>`:''}
+      </div>
+    </div>`).join('');
+}
+
+function toggleLike(id,el){
+  S.likes.has(id)?S.likes.delete(id):S.likes.add(id);
+  const on=S.likes.has(id);
+  el.className='fca'+(on?' on':'');
+  el.innerHTML=`<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.6;fill:${on?'var(--ink)':'none'};stroke-linecap:round;stroke-linejoin:round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>${on?'resonated':'resonate'}`;
+}
+function toggleBookmark(id,el){
+  S.bookmarks.has(id)?S.bookmarks.delete(id):S.bookmarks.add(id);
+  const on=S.bookmarks.has(id);
+  el.innerHTML=`<svg viewBox="0 0 24 24" style="width:14px;height:14px;stroke:currentColor;stroke-width:1.6;fill:${on?'var(--ink)':'none'};stroke-linecap:round;stroke-linejoin:round"><path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z"/></svg>save`;
+}
+
+// ════════════════════════════════════════
+//  FRIENDS
+// ════════════════════════════════════════
+function elBg(sign){const z=SIGNS.find(s=>s.name===sign);return z?EL_BG[z.el]:'fa-air';}
+function signSym(sign){return SIGNS.find(s=>s.name===sign)?.sym||'';}
+function signEl(sign){return SIGNS.find(s=>s.name===sign)?.el||'';}
+
+function friendRow(f,isConn){
+  return `<div class="frow" onclick="openProfile(${f.id})">
+    <div class="fav ${elBg(f.sign)}">${f.e}</div>
+    <div class="fi">
+      <div class="fn">${f.name}</div>
+      <div class="fs"><span class="zg">${signSym(f.sign)}</span>${f.sign} · ${signEl(f.sign)}</div>
+    </div>
+    <div class="frow-actions">
+      ${isConn?`<button class="gift-btn" onclick="event.stopPropagation();openGift(${f.id},this)" title="Gift stars">
+        <svg viewBox="0 0 16 16"><polygon points="8,1 10.2,6 15.5,6.5 11.5,10 12.9,15.3 8,12.3 3.1,15.3 4.5,10 0.5,6.5 5.8,6"/></svg>
+      </button>`:''}
+      ${!isConn?`<button class="add-btn" id="ab-${f.id}" onclick="event.stopPropagation();addFriend(${f.id})">+ Add</button>`:''}
+    </div>
+  </div>`;
+}
+
+function renderFriends(q=''){
+  const ql=q.toLowerCase();
+  const yes=FRIENDS.filter(f=>S.connected.has(f.id)&&(!q||f.name.toLowerCase().includes(ql)));
+  const no=FRIENDS.filter(f=>!S.connected.has(f.id)&&(!q||f.name.toLowerCase().includes(ql)));
+  document.getElementById('my-friends').innerHTML=yes.length?yes.map(f=>friendRow(f,true)).join(''):`<div style="padding:14px 16px;font-size:12.5px;color:var(--ink3)">No connections yet.</div>`;
+  document.getElementById('sugg-friends').innerHTML=no.length?no.map(f=>friendRow(f,false)).join(''):`<div style="padding:14px 16px;font-size:12.5px;color:var(--ink3)">You know everyone here ✦</div>`;
+}
+function filterFriends(q){renderFriends(q);}
+function addFriend(id){S.connected.add(id);renderFriends(document.getElementById('fsearch').value);renderFeed();}
+
+// ════════════════════════════════════════
+//  PROFILE SHEET
+// ════════════════════════════════════════
+function openProfile(id){
+  const f=FRIENDS.find(x=>x.id===id);
+  const z=SIGNS.find(s=>s.name===f.sign);
+  document.getElementById('prof-inner').innerHTML=`
+    <div class="ps-hero">
+      <svg class="ps-wheel" viewBox="0 0 120 120" fill="none">
+        <circle cx="60" cy="60" r="55" stroke="#141210" stroke-width=".8"/>
+        <circle cx="60" cy="60" r="40" stroke="#141210" stroke-width=".5"/>
+        <circle cx="60" cy="60" r="24" stroke="#141210" stroke-width=".5"/>
+        <line x1="60" y1="5" x2="60" y2="115" stroke="#141210" stroke-width=".4"/>
+        <line x1="5" y1="60" x2="115" y2="60" stroke="#141210" stroke-width=".4"/>
+        <line x1="17" y1="17" x2="103" y2="103" stroke="#141210" stroke-width=".4"/>
+        <line x1="103" y1="17" x2="17" y2="103" stroke="#141210" stroke-width=".4"/>
+        <line x1="7" y1="39" x2="113" y2="81" stroke="#141210" stroke-width=".3"/>
+        <line x1="39" y1="7" x2="81" y2="113" stroke="#141210" stroke-width=".3"/>
+        <line x1="113" y1="39" x2="7" y2="81" stroke="#141210" stroke-width=".3"/>
+        <line x1="81" y1="7" x2="39" y2="113" stroke="#141210" stroke-width=".3"/>
+      </svg>
+      <div class="ps-av-big">${f.e}</div>
+      <div class="ps-name">${f.name}</div>
+      <div class="ps-sign-line">${z?.sym} ${f.sign} · ${z?.el}</div>
+      <div class="ps-signs">
+        <div class="ps-sc">☀ ${f.sign}</div>
+        <div class="ps-sc">☽ ${SIGNS[(id*3)%12].name}</div>
+        <div class="ps-sc">↑ ${SIGNS[(id*7)%12].name}</div>
+      </div>
+    </div>
+    <div class="ps-body">
+      <div class="ps-lbl">Today's Horoscope</div>
+      <div class="ps-horo">${HORO[f.sign]}</div>
+      <div class="ps-lbl">Personality</div>
+      <div class="ps-traits">${f.traits.map(t=>`<div class="ps-trait">${t}</div>`).join('')}</div>
+      <button class="ps-gift-btn" onclick="closeProf();openGift(${f.id},null)">
+        <svg viewBox="0 0 16 16"><polygon points="8,1 10.2,6 15.5,6.5 11.5,10 12.9,15.3 8,12.3 3.1,15.3 4.5,10 0.5,6.5 5.8,6"/></svg>
+        Gift Stars to ${f.name.split(' ')[0]}
+      </button>
+    </div>`;
+  document.getElementById('prof-overlay').classList.add('on');
+}
+function closeProf(){document.getElementById('prof-overlay').classList.remove('on');}
+function maybeCloseProf(e){if(e.target===document.getElementById('prof-overlay'))closeProf();}
+
+// ════════════════════════════════════════
+//  GIFT SYSTEM
+// ════════════════════════════════════════
+const GIFT_OPTS = [
+  {pts:25,price:'₹49',label:'Starter'},
+  {pts:50,price:'₹89',label:'Popular'},
+  {pts:100,price:'₹159',label:'Premium'},
+  {pts:200,price:'₹299',label:'Generous'},
+  {pts:500,price:'₹699',label:'Cosmic'},
+  {pts:1000,price:'₹1299',label:'Legendary'},
+];
+
+function openGift(fid){
+  const f=FRIENDS.find(x=>x.id===fid);
+  S.giftTarget=f; S.giftAmt=null;
+  document.getElementById('gift-recipient').innerHTML=`
+    <div class="fav ${elBg(f.sign)}" style="width:40px;height:40px;font-size:19px;flex-shrink:0">${f.e}</div>
+    <div><div class="sh-rec-name">${f.name}</div><div class="sh-rec-sub">${signSym(f.sign)} ${f.sign}</div></div>`;
+  document.getElementById('pts-grid').innerHTML=GIFT_OPTS.map((o,i)=>`
+    <div class="pt-opt" onclick="selectGiftAmt(${i})" id="gopt-${i}">
+      <span class="pt-num">${o.pts}</span>
+      <div class="pt-lbl">${o.label}</div>
+      <div class="pt-price">${o.price}</div>
+    </div>`).join('');
+  document.getElementById('gift-msg').value='';
+  document.getElementById('gift-send-btn').disabled=true;
+  document.getElementById('gift-overlay').classList.add('on');
+}
+function selectGiftAmt(i){
+  document.querySelectorAll('.pt-opt').forEach(el=>el.classList.remove('sel'));
+  document.getElementById('gopt-'+i).classList.add('sel');
+  S.giftAmt=GIFT_OPTS[i];
+  document.getElementById('gift-send-btn').disabled=false;
+}
+function sendGift(){
+  if(!S.giftAmt||!S.giftTarget)return;
+  document.getElementById('gift-overlay').classList.remove('on');
+  document.getElementById('gs-body').innerHTML=`You gifted <strong>${S.giftAmt.pts} stars</strong> to ${S.giftTarget.name.split(' ')[0]}.<br/>They can use it for consultations on Horocosmo.`;
+  document.getElementById('gift-sent-screen').classList.add('on');
+  S.pts = Math.max(0, S.pts - S.giftAmt.pts);
+  updatePts();
+}
+function closeGiftSent(){document.getElementById('gift-sent-screen').classList.remove('on');}
+function maybeCloseGift(e){if(e.target===document.getElementById('gift-overlay'))document.getElementById('gift-overlay').classList.remove('on');}
+function updatePts(){document.getElementById('pts-display').textContent=S.pts+' pts';}
+
+// ════════════════════════════════════════
+//  TAROT
+// ════════════════════════════════════════
+function renderTarot(){
+  const wrap = document.getElementById('tarot-inner');
+  wrap.innerHTML = `
+    <div class="tarot-title">Daily Tarot Pull</div>
+    <div class="tarot-sub">One card. One reading. Resets at midnight.</div>
+    <div class="tarot-deck" id="tarot-deck">
+      <div class="card-shadow2"></div>
+      <div class="card-shadow"></div>
+      <div class="tarot-card" id="tarot-card" onclick="flipTarot()">
+        <div class="card-back">
+          <svg viewBox="0 0 120 185" fill="none">
+            <circle cx="60" cy="92" r="56" stroke="#141210" stroke-width=".8"/>
+            <circle cx="60" cy="92" r="40" stroke="#141210" stroke-width=".6"/>
+            <circle cx="60" cy="92" r="24" stroke="#141210" stroke-width=".5"/>
+            <circle cx="60" cy="92" r="10" stroke="#141210" stroke-width=".5"/>
+            <line x1="60" y1="36" x2="60" y2="148" stroke="#141210" stroke-width=".5"/>
+            <line x1="4" y1="92" x2="116" y2="92" stroke="#141210" stroke-width=".5"/>
+            <line x1="20.6" y1="52.6" x2="99.4" y2="131.4" stroke="#141210" stroke-width=".4"/>
+            <line x1="99.4" y1="52.6" x2="20.6" y2="131.4" stroke="#141210" stroke-width=".4"/>
+            <line x1="9" y1="72" x2="111" y2="112" stroke="#141210" stroke-width=".3" opacity=".6"/>
+            <line x1="72" y1="9" x2="48" y2="175" stroke="#141210" stroke-width=".3" opacity=".6"/>
+            <line x1="111" y1="72" x2="9" y2="112" stroke="#141210" stroke-width=".3" opacity=".6"/>
+            <line x1="48" y1="9" x2="72" y2="175" stroke="#141210" stroke-width=".3" opacity=".6"/>
+            <polygon points="60,48 66,64 82,64 70,74 74,90 60,80 46,90 50,74 38,64 54,64" stroke="#141210" stroke-width=".6" fill="none"/>
+          </svg>
+          <span class="tap-hint">${S.tarotUsedToday?'already pulled':'tap to reveal'}</span>
+        </div>
+        <div class="card-front" id="card-front"></div>
+      </div>
+    </div>
+    <div class="tarot-meaning" id="tarot-meaning"></div>
+    <button class="tarot-again" id="tarot-again" onclick="resetTarot()">Pull Again</button>`;
+}
+
+function flipTarot(){
+  if(S.tarotFlipped) return;
+  S.tarotFlipped = true;
+  const card = TAROT[Math.floor(Math.random()*TAROT.length)];
+  S.tarotCard = card;
+  document.getElementById('card-front').innerHTML=`<div class="cf-symbol">${card.sym}</div><div class="cf-name">${card.name}</div><div class="cf-keyword">${card.keyword}</div>`;
+  document.getElementById('tarot-card').classList.add('flipped');
+  setTimeout(()=>{
+    const m=document.getElementById('tarot-meaning');
+    m.innerHTML=`<div class="tm-title">${card.name}</div><div class="tm-keyword">${card.keyword.toUpperCase()}</div><div class="tm-body">${card.meaning}</div>`;
+    m.classList.add('show');
+    document.getElementById('tarot-again').classList.add('show');
+  },650);
+}
+function resetTarot(){S.tarotFlipped=false;S.tarotCard=null;renderTarot();}
+
+// ════════════════════════════════════════
+//  TRANSITS
+// ════════════════════════════════════════
+function renderTransits(){
+  document.getElementById('transits-content').innerHTML=
+    `<div class="slabel">Upcoming Planetary Transits</div>`+
+    TRANSITS.map(t=>`<div class="tr-row">
+      <div class="tr-icon" style="font-family:serif;font-size:18px;color:var(--ink2)">${t.icon}</div>
+      <div class="tr-body"><h4>${t.planet} ${t.event}</h4><p>${t.body}</p><div class="tr-date">${t.date}</div></div>
+    </div>`).join('');
+}
+
+// ════════════════════════════════════════
+//  COSMIC RADIO
+// ════════════════════════════════════════
+function renderRadio(){
+  document.getElementById('radio-content').innerHTML=`
+    <div class="post-vibe">
+      <div class="pv-label">Post your current vibe</div>
+      <textarea class="pv-input" id="vibe-input" placeholder="e.g. Capricorn listening to Phoebe Bridgers at 2am because Saturn told me to"></textarea>
+      <button class="pv-send" onclick="postVibe()">Post</button>
+    </div>
+    <div class="radio-intro">What each sign is listening to right now ↓</div>
+    ${RADIO.map((r,i)=>`<div class="radio-card">
+      <div class="rc-sign">${r.sym}</div>
+      <div class="rc-body">
+        <div class="rc-sign-name">${r.sign}</div>
+        <div class="rc-track">${r.track} — ${r.artist}</div>
+        <div class="rc-vibe">${r.vibe}</div>
+      </div>
+      <div class="rc-like" onclick="likeRadio(${i},this)" style="cursor:pointer;transition:.12s">
+        <span id="rl-icon-${i}">${S.radioLikes.has(i)?'♥':'♡'}</span>
+        <span id="rl-count-${i}">${r.likes+(S.radioLikes.has(i)?1:0)}</span>
+      </div>
+    </div>`).join('')}`;
+}
+function likeRadio(i,el){
+  S.radioLikes.has(i)?S.radioLikes.delete(i):S.radioLikes.add(i);
+  const on=S.radioLikes.has(i);
+  document.getElementById('rl-icon-'+i).textContent=on?'♥':'♡';
+  document.getElementById('rl-count-'+i).textContent=RADIO[i].likes+(on?1:0);
+}
+function postVibe(){
+  const v=document.getElementById('vibe-input');
+  if(!v.value.trim())return;
+  const newCard=document.createElement('div');
+  newCard.className='radio-card';
+  newCard.style.border='1px solid var(--sky-mid)';
+  newCard.innerHTML=`<div class="rc-sign">♑</div><div class="rc-body"><div class="rc-sign-name">Capricorn · just now</div><div class="rc-track">${v.value.trim()}</div></div>`;
+  const firstCard=document.querySelector('.radio-card');
+  firstCard.parentNode.insertBefore(newCard,firstCard.nextSibling);
+  v.value='';
+}
+
+// ════════════════════════════════════════
+//  CONFESSIONS
+// ════════════════════════════════════════
+function renderConfessions(){
+  document.getElementById('conf-content').innerHTML=`
+    <div class="conf-post-wrap">
+      <div class="conf-post-label">Post Anonymously</div>
+      <select class="conf-select" id="conf-sign-sel">${SIGNS.map(z=>`<option value="${z.name}">${z.sym} ${z.name}</option>`).join('')}</select>
+      <textarea class="conf-textarea" id="conf-text" placeholder="confess something as your sign…"></textarea>
+      <button class="conf-submit" onclick="postConf()">Post</button>
+    </div>
+    <div id="conf-list">${CONFESSIONS.map(c=>confCard(c)).join('')}</div>`;
+}
+function confCard(c){
+  const reacts = c.reacts;
+  return `<div class="conf-card" id="cc-${c.id}">
+    <div class="conf-header">
+      <span class="conf-sign">${c.sym}</span>
+      <span class="conf-sign-name">${c.sign}</span>
+      <span class="conf-anon">anon</span>
+    </div>
+    <div class="conf-body">${c.body}</div>
+    <div class="conf-actions">
+      ${Object.entries(reacts).map(([emoji,count])=>`<button class="conf-react ${S.confReacts[c.id]===emoji?'on':''}" onclick="reactConf(${c.id},'${emoji}',this)">${emoji} <span>${count+(S.confReacts[c.id]===emoji?1:0)}</span></button>`).join('')}
+    </div>
+  </div>`;
+}
+function reactConf(id,emoji,btn){
+  const prev=S.confReacts[id];
+  if(prev===emoji){delete S.confReacts[id];}else{S.confReacts[id]=emoji;}
+  const c=CONFESSIONS.find(x=>x.id===id);
+  document.getElementById('cc-'+id).outerHTML=confCard(c);
+}
+function postConf(){
+  const sign=document.getElementById('conf-sign-sel').value;
+  const text=document.getElementById('conf-text').value.trim();
+  if(!text)return;
+  const z=SIGNS.find(s=>s.name===sign);
+  const newId=Date.now();
+  const newConf={id:newId,sign:sign,sym:z.sym,body:text,reacts:{'🤝':0,'⭐':0}};
+  CONFESSIONS.unshift(newConf);
+  renderConfessions();
+}
+
+// ════════════════════════════════════════
+//  CLOCK
+// ════════════════════════════════════════
+function tick(){const n=new Date();document.getElementById('sb-t').textContent=String(n.getHours()).padStart(2,'0')+':'+String(n.getMinutes()).padStart(2,'0');}
+tick();setInterval(tick,15000);
+</script>
+</body>
+</html>

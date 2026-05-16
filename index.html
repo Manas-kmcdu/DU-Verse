@@ -1096,12 +1096,11 @@ function updateAllCounts() {
 }
 
 // ── ECHO WALL ─────────────────────────────────────────
-// FIX: all strings properly quoted
 var liveEchoes = [
   { name: 'Riya',   year: '2nd yr', college: 'SRCC',              text: 'about time we got something just for us',                              w: 124, l: 3 },
   { name: 'Ananya', year: '1st yr', college: 'Lady Sri Ram',       text: 'DU ka LinkedIn + IG combo?',                                           w: 89,  l: 2 },
   { name: 'Priya',  year: '4th yr', college: 'Hindu College',      text: 'are we moving forward from r/delhiuniversity?',                        w: 81,  l: 5 },
-  { name: 'Nikhil', year: '2nd yr', college: 'Ramjas College',     text: 'if this stops freshers from asking for help every 2 secs I\'m sold',   w: 76,  l: 8 },
+  { name: 'Nikhil', year: '2nd yr', college: 'Ramjas College',     text: "if this stops freshers from asking for help every 2 secs I'm sold",    w: 76,  l: 8 },
   { name: 'Kabir',  year: '1st yr', college: 'Venky',              text: 'south campus representation mattersss! venky is ready',                w: 68,  l: 4 },
   { name: 'Dev',    year: '3rd yr', college: 'Kirori Mal',         text: 'Curious to see how this turns out!',                                   w: 56,  l: 2 },
   { name: 'Sneha',  year: '2nd yr', college: 'Miranda House',      text: 'Finally something built FOR us, not just about us. Love the UI.',      w: 42,  l: 1 },
@@ -1254,6 +1253,8 @@ function rejectEcho(index) {
 updateModQueueUI();
 
 // ── SCROLL REVEAL ─────────────────────────────────────
+// FIX: removed .cd-unit and .college-tile from observer
+// Those elements render before observer attaches → observer hides them → invisible on load
 var observer = new IntersectionObserver(function(entries) {
   entries.forEach(function(e) {
     if (e.isIntersecting) {
@@ -1263,7 +1264,7 @@ var observer = new IntersectionObserver(function(entries) {
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.feature-card, .step, .product-card, .cd-unit, .college-tile').forEach(function(el) {
+document.querySelectorAll('.feature-card, .step, .product-card').forEach(function(el) {
   el.style.opacity   = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';

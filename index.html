@@ -43,9 +43,7 @@
   .nav-cta { background: var(--ink); color: var(--paper) !important; padding: 0.5rem 1.2rem; border-radius: 100px; font-size: 0.82rem !important; font-weight: 600 !important; transition: background 0.2s !important; }
   .nav-cta:hover { background: var(--accent) !important; color: var(--paper) !important; }
 
-  /* ══════════════════════════════
-     HERO
-  ══════════════════════════════ */
+  /* HERO */
   .hero {
     min-height: 100vh;
     display: flex; flex-direction: column;
@@ -55,8 +53,6 @@
     position: relative;
     overflow: hidden;
   }
-
-  /* Layer 1 — warm gradient mesh */
   .hero-bg {
     position: absolute; inset: 0; z-index: 0;
     background:
@@ -66,59 +62,26 @@
       radial-gradient(ellipse 50% 50% at 10% 90%, rgba(42,107,74,0.14) 0%, transparent 45%),
       radial-gradient(ellipse 100% 100% at 50% 50%, rgba(245,242,235,1) 40%, rgba(237,233,223,1) 100%);
   }
-
-  /* Layer 2 — grain texture */
   .hero-grain {
     position: absolute; inset: 0; z-index: 1; opacity: 0.038;
     background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
     background-size: 200px 200px;
   }
-
-  /* Layer 3 — subtle grid lines */
   .hero-lines {
     position: absolute; inset: 0; z-index: 1;
-    background-image:
-      linear-gradient(rgba(200,75,47,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(200,75,47,0.04) 1px, transparent 1px);
+    background-image: linear-gradient(rgba(200,75,47,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(200,75,47,0.04) 1px, transparent 1px);
     background-size: 64px 64px;
     mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 20%, transparent 80%);
   }
-
-  /* Glow orbs */
-  .glow-tl {
-    position: absolute; top: -120px; left: -100px; z-index: 1;
-    width: 600px; height: 600px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(232,160,32,0.28) 0%, transparent 65%);
-    filter: blur(40px);
-    animation: floatA 8s ease-in-out infinite;
-  }
-  .glow-br {
-    position: absolute; bottom: -80px; right: -60px; z-index: 1;
-    width: 500px; height: 500px; border-radius: 50%;
-    background: radial-gradient(circle, rgba(30,79,140,0.22) 0%, transparent 65%);
-    filter: blur(40px);
-    animation: floatB 10s ease-in-out infinite;
-  }
-  .glow-c {
-    position: absolute; top: 30%; left: 50%; transform: translateX(-50%); z-index: 1;
-    width: 400px; height: 300px; border-radius: 50%;
-    background: radial-gradient(ellipse, rgba(200,75,47,0.10) 0%, transparent 70%);
-    filter: blur(30px);
-    animation: floatC 12s ease-in-out infinite;
-  }
+  .glow-tl { position: absolute; top: -120px; left: -100px; z-index: 1; width: 600px; height: 600px; border-radius: 50%; background: radial-gradient(circle, rgba(232,160,32,0.28) 0%, transparent 65%); filter: blur(40px); animation: floatA 8s ease-in-out infinite; }
+  .glow-br { position: absolute; bottom: -80px; right: -60px; z-index: 1; width: 500px; height: 500px; border-radius: 50%; background: radial-gradient(circle, rgba(30,79,140,0.22) 0%, transparent 65%); filter: blur(40px); animation: floatB 10s ease-in-out infinite; }
+  .glow-c { position: absolute; top: 30%; left: 50%; transform: translateX(-50%); z-index: 1; width: 400px; height: 300px; border-radius: 50%; background: radial-gradient(ellipse, rgba(200,75,47,0.10) 0%, transparent 70%); filter: blur(30px); animation: floatC 12s ease-in-out infinite; }
   @keyframes floatA { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(30px,20px) scale(1.05)} }
   @keyframes floatB { 0%,100%{transform:translate(0,0) scale(1)} 50%{transform:translate(-20px,-30px) scale(1.08)} }
   @keyframes floatC { 0%,100%{transform:translateX(-50%) scale(1)} 50%{transform:translateX(-50%) scale(1.12)} }
 
-  /* ── IMAGE COLLAGE SPOTS ── */
   .img-collage { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-  .img-spot {
-    position: absolute; border-radius: 20px; overflow: hidden;
-    box-shadow: 0 16px 40px rgba(14,13,11,0.18);
-    border: 2px solid rgba(255,255,255,0.8);
-    opacity: 0; animation: imgReveal 0.8s ease forwards;
-    display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
-  }
+  .img-spot { position: absolute; border-radius: 20px; overflow: hidden; box-shadow: 0 16px 40px rgba(14,13,11,0.18); border: 2px solid rgba(255,255,255,0.8); opacity: 0; animation: imgReveal 0.8s ease forwards; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px; }
   .img-spot-1 { width: 140px; height: 180px; top: 10%; left: 2%; transform: rotate(-4deg); animation-delay: 0.6s; background: linear-gradient(135deg,#f5e8d0,#e8d0b0,#d4b080); }
   .img-spot-2 { width: 160px; height: 120px; bottom: 20%; left: 1%; transform: rotate(3deg); animation-delay: 0.9s; background: linear-gradient(135deg,#dce8f0,#bdd4e8,#9ab8d4); }
   .img-spot-3 { width: 130px; height: 170px; top: 8%; right: 2%; transform: rotate(5deg); animation-delay: 0.75s; background: linear-gradient(135deg,#f0e8d8,#e0d0b8,#ccba90); }
@@ -126,22 +89,10 @@
   .img-spot-emoji { font-size: 2.2rem; }
   .img-spot-cap { font-size: 0.6rem; font-weight: 600; color: var(--ink2); text-align: center; padding: 0 8px; line-height: 1.3; }
   .img-spot-tag { position: absolute; bottom: 8px; right: 8px; background: rgba(255,255,255,0.8); border-radius: 6px; padding: 2px 6px; font-size: 0.52rem; font-weight: 700; color: var(--ink); letter-spacing: 0.03em; }
-  @keyframes imgReveal {
-    from { opacity: 0; transform: scale(0.85) translateY(20px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-  }
+  @keyframes imgReveal { from { opacity: 0; transform: scale(0.85) translateY(20px); } to { opacity: 1; transform: scale(1) translateY(0); } }
 
-  /* ── FLOATING CARDS ── */
   .float-cards { position: absolute; inset: 0; z-index: 2; pointer-events: none; }
-  .fc {
-    position: absolute;
-    background: rgba(255,255,255,0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
-    border: 0.5px solid rgba(255,255,255,0.9); border-radius: 16px;
-    padding: 10px 14px;
-    box-shadow: 0 8px 32px rgba(14,13,11,0.10), 0 1px 0 rgba(255,255,255,0.8) inset;
-    display: flex; align-items: center; gap: 10px;
-    animation: cardFloat linear infinite; white-space: nowrap;
-  }
+  .fc { position: absolute; background: rgba(255,255,255,0.72); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px); border: 0.5px solid rgba(255,255,255,0.9); border-radius: 16px; padding: 10px 14px; box-shadow: 0 8px 32px rgba(14,13,11,0.10), 0 1px 0 rgba(255,255,255,0.8) inset; display: flex; align-items: center; gap: 10px; animation: cardFloat linear infinite; white-space: nowrap; }
   .fc-icon { font-size: 1.4rem; line-height: 1; flex-shrink: 0; }
   .fc-text { display: flex; flex-direction: column; }
   .fc-title { font-size: 0.72rem; font-weight: 700; color: var(--ink); letter-spacing: -0.01em; }
@@ -152,18 +103,9 @@
   .fc-4 { bottom: 18%; right: 6%; animation-duration: 10s; animation-delay: -1.5s; }
   .fc-5 { top: 55%; left: 7%; animation-duration: 11s; animation-delay: -4s; }
   .fc-6 { top: 50%; right: 4%; animation-duration: 8.5s; animation-delay: -7s; }
-  @keyframes cardFloat {
-    0%,100% { transform: translateY(0px) rotate(-1deg); }
-    33% { transform: translateY(-12px) rotate(0.5deg); }
-    66% { transform: translateY(-6px) rotate(-0.5deg); }
-  }
+  @keyframes cardFloat { 0%,100% { transform: translateY(0px) rotate(-1deg); } 33% { transform: translateY(-12px) rotate(0.5deg); } 66% { transform: translateY(-6px) rotate(-0.5deg); } }
 
-  /* ── STAT BADGES ── */
-  .stat-badge {
-    position: absolute; z-index: 3; background: var(--accent);
-    border-radius: 12px; padding: 10px 16px; pointer-events: none;
-    box-shadow: 0 8px 24px rgba(200,75,47,0.35);
-  }
+  .stat-badge { position: absolute; z-index: 3; background: var(--accent); border-radius: 12px; padding: 10px 16px; pointer-events: none; box-shadow: 0 8px 24px rgba(200,75,47,0.35); }
   .stat-badge.blue { background: var(--blue); box-shadow: 0 8px 24px rgba(30,79,140,0.35); }
   .stat-badge.green { background: var(--green); box-shadow: 0 8px 24px rgba(42,107,74,0.35); }
   .sb-num { font-family: var(--serif); font-size: 1.3rem; color: #fff; line-height: 1; }
@@ -174,111 +116,355 @@
   @keyframes badgePop { from{opacity:0;transform:scale(0.7) translateY(10px)} to{opacity:1;transform:scale(1) translateY(0)} }
   @keyframes statFloat { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
 
-  /* ── PROMO STRIP ── */
-  .promo-strip {
-    position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%);
-    z-index: 3; display: flex; gap: 12px; align-items: center;
-    background: var(--ink); border-radius: 100px; padding: 8px 20px;
-    pointer-events: none; animation: fadeUp 0.6s 0.9s ease both;
-    white-space: nowrap; box-shadow: 0 16px 40px rgba(14,13,11,0.25);
-  }
+  .promo-strip { position: absolute; bottom: 22%; left: 50%; transform: translateX(-50%); z-index: 3; display: flex; gap: 12px; align-items: center; background: var(--ink); border-radius: 100px; padding: 8px 20px; pointer-events: none; animation: fadeUp 0.6s 0.9s ease both; white-space: nowrap; box-shadow: 0 16px 40px rgba(14,13,11,0.25); }
   .promo-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); flex-shrink: 0; animation: pulse 2s infinite; }
   .promo-text { font-size: 0.72rem; font-weight: 600; color: rgba(245,242,235,0.9); letter-spacing: 0.02em; }
   .promo-text strong { color: var(--accent2); }
 
-  /* ── HERO CONTENT ── */
   .hero-content { position: relative; z-index: 10; }
-
-  .hero-badge {
-    display: inline-flex; align-items: center; gap: 0.5rem;
-    background: rgba(255,255,255,0.8); border: 0.5px solid rgba(255,255,255,0.95);
-    border-radius: 100px; padding: 0.3rem 0.9rem;
-    font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em;
-    color: var(--accent); text-transform: uppercase;
-    margin-bottom: 1.5rem;
-    animation: fadeUp 0.6s ease both;
-    backdrop-filter: blur(8px);
-  }
+  .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; background: rgba(255,255,255,0.8); border: 0.5px solid rgba(255,255,255,0.95); border-radius: 100px; padding: 0.3rem 0.9rem; font-size: 0.75rem; font-weight: 600; letter-spacing: 0.06em; color: var(--accent); text-transform: uppercase; margin-bottom: 1.5rem; animation: fadeUp 0.6s ease both; backdrop-filter: blur(8px); }
   .hero-badge::before { content: ''; width: 6px; height: 6px; background: var(--accent); border-radius: 50%; animation: pulse 2s infinite; }
   @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.5;transform:scale(1.4)} }
 
-  .hero h1 {
-    font-family: var(--serif);
-    font-size: clamp(3rem, 8vw, 6.5rem);
-    line-height: 1.0; letter-spacing: -0.03em; color: var(--ink);
-    animation: fadeUp 0.6s 0.1s ease both; max-width: 900px;
-  }
+  .hero h1 { font-family: var(--serif); font-size: clamp(3rem, 8vw, 6.5rem); line-height: 1.0; letter-spacing: -0.03em; color: var(--ink); animation: fadeUp 0.6s 0.1s ease both; max-width: 900px; }
   .hero h1 em { font-style: italic; color: var(--accent); }
   .hero h1 .under { position: relative; display: inline-block; }
-  .hero h1 .under::after {
-    content: ''; position: absolute; bottom: 4px; left: 0; right: 0;
-    height: 3px; background: var(--accent2); border-radius: 2px;
-    transform: scaleX(0); transform-origin: left;
-    animation: underlineIn 0.6s 0.8s ease forwards;
-  }
+  .hero h1 .under::after { content: ''; position: absolute; bottom: 4px; left: 0; right: 0; height: 3px; background: var(--accent2); border-radius: 2px; transform: scaleX(0); transform-origin: left; animation: underlineIn 0.6s 0.8s ease forwards; }
   @keyframes underlineIn { to { transform: scaleX(1); } }
 
-  .hero-sub {
-    font-size: clamp(1rem, 2vw, 1.15rem); color: var(--ink2); font-weight: 400;
-    max-width: 520px; line-height: 1.65; margin: 1.5rem auto;
-    animation: fadeUp 0.6s 0.2s ease both;
-  }
+  .hero-sub { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--ink2); font-weight: 400; max-width: 520px; line-height: 1.65; margin: 1.5rem auto; animation: fadeUp 0.6s 0.2s ease both; }
 
-  .hero-form {
-    display: flex; gap: 0.5rem;
-    background: rgba(255,255,255,0.85); border: 0.5px solid rgba(255,255,255,0.95);
-    border-radius: 100px; padding: 0.35rem;
-    width: 100%; max-width: 440px; margin: 0 auto 1rem;
-    animation: fadeUp 0.6s 0.3s ease both;
-    box-shadow: 0 2px 24px rgba(14,13,11,0.10);
-    backdrop-filter: blur(10px);
-  }
+  .hero-form { display: flex; gap: 0.5rem; background: rgba(255,255,255,0.85); border: 0.5px solid rgba(255,255,255,0.95); border-radius: 100px; padding: 0.35rem; width: 100%; max-width: 440px; margin: 0 auto 1rem; animation: fadeUp 0.6s 0.3s ease both; box-shadow: 0 2px 24px rgba(14,13,11,0.10); backdrop-filter: blur(10px); }
   .hero-form input { flex: 1; background: none; border: none; outline: none; padding: 0.5rem 0.75rem; font-family: var(--sans); font-size: 0.9rem; color: var(--ink); }
   .hero-form input::placeholder { color: var(--ink3); }
-  .hero-form button {
-    background: var(--ink); color: var(--paper); border: none; border-radius: 100px;
-    padding: 0.6rem 1.4rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 600;
-    cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap;
-  }
+  .hero-form button { background: var(--ink); color: var(--paper); border: none; border-radius: 100px; padding: 0.6rem 1.4rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 600; cursor: pointer; transition: background 0.2s, transform 0.15s; white-space: nowrap; }
   .hero-form button:hover { background: var(--accent); transform: scale(1.02); }
   .hero-form button:active { transform: scale(0.98); }
 
   .hero-note { font-size: 0.75rem; color: var(--ink3); animation: fadeUp 0.6s 0.4s ease both; }
 
-  .hero-colleges {
-    display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; justify-content: center;
-    margin-top: 2.5rem; animation: fadeUp 0.6s 0.5s ease both;
-  }
+  .hero-colleges { display: flex; align-items: center; gap: 0.6rem; flex-wrap: wrap; justify-content: center; margin-top: 2.5rem; animation: fadeUp 0.6s 0.5s ease both; }
   .hero-colleges span { font-size: 0.72rem; font-weight: 500; color: var(--ink3); letter-spacing: 0.04em; text-transform: uppercase; }
-  .college-pill {
-    background: rgba(255,255,255,0.75); border: 0.5px solid rgba(255,255,255,0.9);
-    border-radius: 100px; padding: 0.25rem 0.75rem;
-    font-size: 0.72rem; font-weight: 600; color: var(--ink2);
-    backdrop-filter: blur(8px); transition: all 0.2s; cursor: default;
-  }
+  .college-pill { background: rgba(255,255,255,0.75); border: 0.5px solid rgba(255,255,255,0.9); border-radius: 100px; padding: 0.25rem 0.75rem; font-size: 0.72rem; font-weight: 600; color: var(--ink2); backdrop-filter: blur(8px); transition: all 0.2s; cursor: default; }
   .college-pill:hover { background: var(--ink); color: var(--paper); border-color: var(--ink); }
 
   @keyframes fadeUp { from{opacity:0;transform:translateY(18px)} to{opacity:1;transform:translateY(0)} }
 
-  /* SUCCESS STATE */
-  .success-msg {
-    display: none; padding: 0.6rem 1.2rem;
-    background: rgba(42,107,74,0.15); border: 0.5px solid rgba(42,107,74,0.3);
-    border-radius: 100px; color: #2a6b4a; font-size: 0.82rem; font-weight: 500;
-    margin: 0 auto; max-width: 300px; text-align: center;
+  .success-msg { display: none; padding: 0.6rem 1.2rem; background: rgba(42,107,74,0.15); border: 0.5px solid rgba(42,107,74,0.3); border-radius: 100px; color: #2a6b4a; font-size: 0.82rem; font-weight: 500; margin: 0 auto; max-width: 300px; text-align: center; }
+
+  /* ══════════════════════════════
+     COUNTDOWN SECTION
+  ══════════════════════════════ */
+  .countdown-section {
+    background: var(--ink);
+    padding: 5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .countdown-section::before {
+    content: '';
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 60% 60% at 20% 50%, rgba(200,75,47,0.15) 0%, transparent 60%),
+      radial-gradient(ellipse 60% 60% at 80% 50%, rgba(30,79,140,0.15) 0%, transparent 60%);
+  }
+  .countdown-inner { position: relative; z-index: 1; max-width: 900px; margin: 0 auto; }
+  .countdown-eyebrow { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent2); margin-bottom: 1rem; }
+  .countdown-title { font-family: var(--serif); font-size: clamp(1.8rem, 4vw, 2.8rem); color: var(--paper); margin-bottom: 0.5rem; }
+  .countdown-title em { font-style: italic; color: var(--accent2); }
+  .countdown-sub { font-size: 0.9rem; color: rgba(245,242,235,0.4); margin-bottom: 3rem; }
+  .countdown-grid {
+    display: flex; justify-content: center; gap: 1rem; flex-wrap: wrap;
+  }
+  .cd-unit {
+    display: flex; flex-direction: column; align-items: center;
+    background: rgba(245,242,235,0.06);
+    border: 0.5px solid rgba(245,242,235,0.1);
+    border-radius: 20px;
+    padding: 1.5rem 2rem;
+    min-width: 110px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cd-unit::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(245,242,235,0.05) 0%, transparent 60%);
+  }
+  .cd-num {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 5rem);
+    color: var(--paper);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    position: relative;
+  }
+  .cd-num.flip { animation: numFlip 0.4s ease; }
+  @keyframes numFlip {
+    0% { transform: translateY(-8px) scale(0.9); opacity: 0.5; }
+    60% { transform: translateY(4px) scale(1.05); }
+    100% { transform: translateY(0) scale(1); opacity: 1; }
+  }
+  .cd-label { font-size: 0.62rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(245,242,235,0.35); margin-top: 0.5rem; }
+  .cd-accent { position: absolute; top: 8px; right: 8px; width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; }
+
+  .launch-bar {
+    margin-top: 2.5rem;
+    background: rgba(245,242,235,0.06);
+    border: 0.5px solid rgba(245,242,235,0.1);
+    border-radius: 100px;
+    height: 6px;
+    max-width: 400px;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+  }
+  .launch-bar-fill {
+    height: 100%;
+    border-radius: 100px;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    transition: width 1s ease;
+  }
+  .launch-bar-label { font-size: 0.7rem; color: rgba(245,242,235,0.3); margin-top: 0.75rem; }
+
+  /* ══════════════════════════════
+     COLLEGE ROLL CALL
+  ══════════════════════════════ */
+  .rollcall-section {
+    padding: 5rem 2rem;
+    background: var(--paper);
+    position: relative;
+    overflow: hidden;
+  }
+  .rollcall-inner { max-width: 1100px; margin: 0 auto; }
+  .rollcall-head { text-align: center; margin-bottom: 3rem; }
+  .rollcall-head p { font-size: 1rem; color: var(--ink2); max-width: 480px; margin: 0.75rem auto 0; line-height: 1.6; }
+  .rollcall-counter {
+    display: inline-flex; align-items: center; gap: 0.75rem;
+    background: rgba(200,75,47,0.1); border: 0.5px solid rgba(200,75,47,0.2);
+    border-radius: 100px; padding: 0.4rem 1rem;
+    font-size: 0.8rem; font-weight: 600; color: var(--accent);
+    margin-top: 1rem;
+  }
+  .rc-count-num { font-family: var(--serif); font-size: 1.1rem; }
+
+  .college-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+    gap: 12px;
+    margin-top: 2rem;
+  }
+
+  .college-tile {
+    border: 1.5px solid var(--border);
+    border-radius: 16px;
+    padding: 1rem;
+    cursor: pointer;
+    transition: all 0.25s cubic-bezier(0.34,1.3,0.64,1);
+    background: rgba(255,255,255,0.5);
+    position: relative;
+    overflow: hidden;
+    user-select: none;
+  }
+  .college-tile::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: var(--tile-color, var(--accent));
+    opacity: 0;
+    transition: opacity 0.25s;
+    border-radius: inherit;
+  }
+  .college-tile:hover { transform: translateY(-3px) scale(1.02); border-color: var(--tile-color, var(--accent)); box-shadow: 0 8px 24px rgba(14,13,11,0.1); }
+  .college-tile.claimed { border-color: var(--tile-color, var(--accent)); background: rgba(255,255,255,0.9); }
+  .college-tile.claimed::before { opacity: 0.08; }
+  .college-tile:active { transform: scale(0.97); }
+
+  .tile-emoji { font-size: 1.5rem; margin-bottom: 0.4rem; display: block; }
+  .tile-name { font-size: 0.82rem; font-weight: 700; color: var(--ink); line-height: 1.2; margin-bottom: 0.2rem; position: relative; }
+  .tile-full { font-size: 0.65rem; color: var(--ink3); line-height: 1.3; position: relative; }
+  .tile-count {
+    display: flex; align-items: center; gap: 4px;
+    margin-top: 0.5rem;
+    font-size: 0.65rem; font-weight: 700;
+    color: var(--tile-color, var(--accent));
+    position: relative;
+  }
+  .tile-count-dot { width: 5px; height: 5px; border-radius: 50%; background: currentColor; }
+  .tile-check {
+    position: absolute; top: 8px; right: 8px;
+    width: 22px; height: 22px; border-radius: 50%;
+    background: var(--tile-color, var(--accent));
+    display: none; align-items: center; justify-content: center;
+    font-size: 0.65rem; color: white;
+    animation: checkPop 0.4s cubic-bezier(0.34,1.56,0.64,1);
+  }
+  .college-tile.claimed .tile-check { display: flex; }
+  @keyframes checkPop { from{transform:scale(0)} to{transform:scale(1)} }
+
+  .rollcall-cta { text-align: center; margin-top: 2rem; font-size: 0.82rem; color: var(--ink3); }
+  .rollcall-cta strong { color: var(--ink); }
+
+  /* CONFETTI burst */
+  .confetti-container { position: fixed; inset: 0; pointer-events: none; z-index: 9999; }
+  .confetti-piece { position: absolute; width: 8px; height: 8px; border-radius: 2px; animation: confettiFall linear forwards; }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
   }
 
   /* ══════════════════════════════
-     REST OF PAGE (unchanged)
+     PLEDGE WALL — BRICK
   ══════════════════════════════ */
-
-  /* MOCKUP PREVIEW */
-  .preview { padding: 4rem 2rem 5rem; display: flex; justify-content: center; overflow: hidden; }
-  .phone-frame {
-    width: 280px; flex-shrink: 0; background: var(--ink); border-radius: 36px;
-    padding: 12px; box-shadow: 0 32px 64px rgba(14,13,11,0.2);
-    transform: rotate(-2deg); transition: transform 0.4s;
+  .pledge-section {
+    padding: 5rem 0 0;
+    background: #1a1512;
+    position: relative;
+    overflow: hidden;
   }
+  .pledge-wall-bg {
+    position: absolute; inset: 0; z-index: 0;
+    background:
+      repeating-linear-gradient(
+        0deg,
+        #6b3020 0px, #6b3020 48px,
+        #3d1a0e 48px, #3d1a0e 52px,
+        #7a3828 52px, #7a3828 100px,
+        #3d1a0e 100px, #3d1a0e 104px
+      );
+    opacity: 0.9;
+  }
+  .pledge-section::before {
+    content: '';
+    position: absolute; inset: 0; z-index: 1;
+    background-image:
+      repeating-linear-gradient(0deg, transparent, transparent 48px, rgba(0,0,0,0.55) 48px, rgba(0,0,0,0.55) 52px),
+      repeating-linear-gradient(90deg, transparent, transparent 119px, rgba(0,0,0,0.45) 119px, rgba(0,0,0,0.45) 123px);
+    background-size: 123px 52px;
+  }
+  .pledge-section::after {
+    content: ''; position: absolute; inset: 0; z-index: 1;
+    background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232,160,32,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .pledge-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; padding: 0 2rem; }
+  .pledge-head { padding-top: 5rem; margin-bottom: 2rem; }
+  .pledge-head .section-label { color: var(--accent2); }
+  .pledge-head .section-label::before { background: var(--accent2); }
+  .pledge-head h2 { color: #f5f2eb; }
+  .pledge-head p { color: rgba(245,242,235,0.5); font-size: 1rem; max-width: 480px; line-height: 1.6; margin-top: 0.5rem; }
+
+  .wall-count-tag {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: rgba(232,160,32,0.15); border: 1px solid rgba(232,160,32,0.3);
+    border-radius: 8px; padding: 6px 14px;
+    font-size: 0.75rem; font-weight: 700; color: var(--accent2);
+    letter-spacing: 0.04em; margin-bottom: 1.5rem;
+  }
+
+  /* form */
+  .pledge-form-wrap {
+    background: rgba(14,13,11,0.75);
+    border: 1px solid rgba(245,242,235,0.1);
+    border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
+  }
+  .pledge-form-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .pledge-field-wrap { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 130px; }
+  .pledge-field-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,242,235,0.35); padding-left: 2px; }
+  .pledge-select, .pledge-input-field {
+    background: rgba(245,242,235,0.07); border: 1px solid rgba(245,242,235,0.15);
+    border-radius: 10px; padding: 0.55rem 0.85rem;
+    font-family: var(--sans); font-size: 0.82rem; color: #f5f2eb;
+    outline: none; transition: border-color 0.2s; width: 100%;
+  }
+  .pledge-select option { background: #1a1512; color: #f5f2eb; }
+  .pledge-select:focus, .pledge-input-field:focus { border-color: var(--accent2); background: rgba(245,242,235,0.10); }
+  .pledge-input-field::placeholder { color: rgba(245,242,235,0.25); }
+  .pledge-textarea {
+    background: rgba(245,242,235,0.07); border: 1px solid rgba(245,242,235,0.15);
+    border-radius: 10px; padding: 0.7rem 0.85rem;
+    font-family: var(--sans); font-size: 0.85rem; color: #f5f2eb;
+    outline: none; resize: none; width: 100%; min-height: 64px;
+    transition: border-color 0.2s;
+  }
+  .pledge-textarea::placeholder { color: rgba(245,242,235,0.25); }
+  .pledge-textarea:focus { border-color: var(--accent2); background: rgba(245,242,235,0.10); }
+  .pledge-form-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 0.6rem; flex-wrap: wrap; gap: 8px; }
+  .pledge-char { font-size: 0.68rem; color: rgba(245,242,235,0.3); }
+  .pledge-submit {
+    background: var(--accent2); color: var(--ink); border: none; border-radius: 10px;
+    padding: 0.6rem 1.4rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 700;
+    cursor: pointer; transition: opacity 0.2s, transform 0.15s; white-space: nowrap;
+  }
+  .pledge-submit:hover { opacity: 0.88; transform: scale(1.02); }
+  .pledge-pending-notice {
+    display: none; align-items: center; gap: 8px; margin-top: 0.75rem;
+    padding: 0.6rem 0.9rem;
+    background: rgba(232,160,32,0.1); border: 0.5px solid rgba(232,160,32,0.25);
+    border-radius: 10px; font-size: 0.75rem; color: rgba(245,242,235,0.6);
+  }
+  .ppn-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent2); animation: pulse 2s infinite; flex-shrink: 0; }
+
+  /* mod queue */
+  .mod-queue-wrap {
+    background: rgba(14,13,11,0.85); border: 1px solid rgba(200,75,47,0.3);
+    border-radius: 14px; padding: 1.2rem; margin-bottom: 1.5rem; display: none;
+  }
+  .mod-queue-wrap.visible { display: block; }
+  .mod-queue-title { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 0.75rem; display: flex; align-items: center; gap: 8px; }
+  .mod-badge { background: var(--accent); color: #fff; border-radius: 100px; padding: 1px 7px; font-size: 0.62rem; }
+  .mod-items { display: flex; flex-direction: column; gap: 8px; }
+  .mod-item { display: flex; align-items: flex-start; gap: 10px; background: rgba(245,242,235,0.04); border-radius: 10px; padding: 10px 12px; border: 0.5px solid rgba(245,242,235,0.08); }
+  .mod-info { flex: 1; }
+  .mod-meta { font-size: 0.65rem; color: rgba(245,242,235,0.4); margin-bottom: 3px; }
+  .mod-text-preview { font-size: 0.82rem; color: rgba(245,242,235,0.8); font-style: italic; }
+  .mod-actions { display: flex; gap: 6px; flex-shrink: 0; margin-top: 2px; }
+  .mod-approve { background: rgba(42,107,74,0.3); border: 1px solid rgba(42,107,74,0.5); color: #7dd3b0; border-radius: 8px; padding: 4px 12px; font-size: 0.72rem; font-weight: 600; cursor: pointer; transition: background 0.2s; }
+  .mod-approve:hover { background: rgba(42,107,74,0.5); }
+  .mod-reject { background: rgba(200,75,47,0.2); border: 1px solid rgba(200,75,47,0.4); color: #e07060; border-radius: 8px; padding: 4px 10px; font-size: 0.72rem; cursor: pointer; transition: background 0.2s; }
+  .mod-reject:hover { background: rgba(200,75,47,0.4); }
+
+  /* brick wall */
+  .pledge-wall {
+    column-count: 3; column-gap: 0;
+  }
+  @media (max-width: 900px) { .pledge-wall { column-count: 2; } }
+  @media (max-width: 560px) { .pledge-wall { column-count: 1; } }
+
+  .pledge-brick {
+    break-inside: avoid; display: block;
+    background: var(--brick-bg, #7a3828);
+    border: 3px solid #2e1208;
+    box-shadow: inset 2px 2px 0 rgba(255,255,255,0.07), inset -2px -2px 0 rgba(0,0,0,0.35), 2px 3px 0 rgba(0,0,0,0.5);
+    padding: 1.1rem 1.2rem 1rem 1.4rem;
+    position: relative; cursor: default; margin: 0;
+    animation: brickReveal 0.5s ease both;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .pledge-brick:nth-child(6n+1) { --brick-bg: #7a3828; }
+  .pledge-brick:nth-child(6n+2) { --brick-bg: #6b3020; }
+  .pledge-brick:nth-child(6n+3) { --brick-bg: #823d2c; }
+  .pledge-brick:nth-child(6n+4) { --brick-bg: #713325; }
+  .pledge-brick:nth-child(6n+5) { --brick-bg: #7d3a27; }
+  .pledge-brick:nth-child(6n+6) { --brick-bg: #694f3a; }
+  .pledge-brick:hover { transform: translateY(-2px) scale(1.01); z-index: 1; box-shadow: inset 2px 2px 0 rgba(255,255,255,0.12), inset -2px -2px 0 rgba(0,0,0,0.25), 3px 6px 0 rgba(0,0,0,0.6), 0 0 20px rgba(232,160,32,0.15); }
+  @keyframes brickReveal { from{opacity:0;transform:scale(0.94) translateY(6px)} to{opacity:1;transform:scale(1) translateY(0)} }
+
+  .brick-stripe { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--bs-color, var(--accent2)); opacity: 0.65; }
+  .brick-quote { font-family: var(--serif); font-size: 0.92rem; font-style: italic; color: rgba(245,242,235,0.88); line-height: 1.5; margin-bottom: 0.6rem; text-shadow: 0 1px 3px rgba(0,0,0,0.6); }
+  .brick-meta { display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
+  .brick-username { font-size: 0.68rem; font-weight: 700; color: var(--accent2); text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
+  .brick-sep { color: rgba(245,242,235,0.2); font-size: 0.65rem; }
+  .brick-college { font-size: 0.62rem; font-weight: 600; color: rgba(245,242,235,0.55); text-shadow: 0 1px 3px rgba(0,0,0,0.5); }
+  .brick-year { font-size: 0.58rem; font-weight: 600; background: rgba(0,0,0,0.3); border-radius: 4px; padding: 1px 5px; color: rgba(245,242,235,0.45); }
+  .wall-cap { height: 24px; background: linear-gradient(180deg, #2a1e16 0%, #1a1512 100%); border-top: 4px solid #3d2a1e; box-shadow: 0 -4px 16px rgba(0,0,0,0.4); }
+
+  /* PREVIEW */
+  .preview { padding: 4rem 2rem 5rem; display: flex; justify-content: center; overflow: hidden; }
+  .phone-frame { width: 280px; flex-shrink: 0; background: var(--ink); border-radius: 36px; padding: 12px; box-shadow: 0 32px 64px rgba(14,13,11,0.2); transform: rotate(-2deg); transition: transform 0.4s; }
   .phone-frame:hover { transform: rotate(0deg) scale(1.02); }
   .phone-screen { background: var(--paper); border-radius: 26px; overflow: hidden; height: 520px; }
   .phone-status { height: 32px; background: var(--paper); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font-size: 0.65rem; font-weight: 600; color: var(--ink); }
@@ -308,11 +494,7 @@
   .product-name { font-size: 0.6rem; font-weight: 600; color: var(--ink); }
   .product-price { font-size: 0.65rem; font-weight: 700; color: var(--accent); margin-top: 2px; }
   .product-college { font-size: 0.52rem; color: var(--ink3); }
-  .phone-frame2 {
-    width: 260px; flex-shrink: 0; background: var(--ink); border-radius: 36px;
-    padding: 12px; box-shadow: 0 24px 48px rgba(14,13,11,0.15);
-    transform: rotate(2deg) translateY(30px); transition: transform 0.4s; margin-left: -30px;
-  }
+  .phone-frame2 { width: 260px; flex-shrink: 0; background: var(--ink); border-radius: 36px; padding: 12px; box-shadow: 0 24px 48px rgba(14,13,11,0.15); transform: rotate(2deg) translateY(30px); transition: transform 0.4s; margin-left: -30px; }
   .phone-frame2:hover { transform: rotate(0deg) translateY(0) scale(1.02); }
   .phone-screen2 { background: #0e0d0b; border-radius: 26px; overflow: hidden; height: 480px; }
   .dark-nav { height: 44px; background: #1a1916; display: flex; align-items: center; padding: 0 14px; gap: 10px; }
@@ -337,7 +519,6 @@
   h2 { font-family: var(--serif); font-size: clamp(2rem, 5vw, 3.5rem); line-height: 1.1; letter-spacing: -0.02em; color: var(--ink); margin-bottom: 1rem; }
   h2 em { font-style: italic; color: var(--accent); }
 
-  /* FEATURES */
   .features { background: var(--cream); }
   .features-inner { max-width: 1100px; margin: 0 auto; }
   .features-head { text-align: center; margin-bottom: 3.5rem; }
@@ -350,7 +531,6 @@
   .feat-desc { font-size: 0.88rem; color: var(--ink2); line-height: 1.6; }
   .feat-tag { display: inline-block; margin-top: 0.75rem; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.05em; padding: 0.2rem 0.6rem; border-radius: 100px; text-transform: uppercase; }
 
-  /* HOW IT WORKS */
   .how { max-width: 900px; margin: 0 auto; }
   .how-head { margin-bottom: 3rem; }
   .steps { display: flex; flex-direction: column; gap: 0; }
@@ -361,7 +541,6 @@
   .step-title { font-size: 1.2rem; font-weight: 600; color: var(--ink); margin-bottom: 0.4rem; }
   .step-desc { font-size: 0.9rem; color: var(--ink2); line-height: 1.65; }
 
-  /* TICKER */
   .ticker-section { padding: 2rem 0; overflow: hidden; background: var(--ink); }
   .ticker-wrap { display: flex; }
   .ticker-track { display: flex; gap: 1.5rem; align-items: center; animation: ticker 25s linear infinite; white-space: nowrap; padding-right: 1.5rem; }
@@ -371,7 +550,6 @@
   .ticker-item.hi { color: rgba(245,242,235,0.9); }
   .ticker-dot { width: 4px; height: 4px; border-radius: 50%; background: rgba(245,242,235,0.2); flex-shrink: 0; }
 
-  /* WAITLIST */
   .waitlist { background: var(--ink); color: var(--paper); text-align: center; padding: 6rem 2rem; }
   .waitlist h2 { color: var(--paper); }
   .waitlist h2 em { color: var(--accent2); }
@@ -387,7 +565,6 @@
   .count-av { width: 26px; height: 26px; border-radius: 50%; border: 2px solid var(--ink); margin-left: -6px; font-size: 0.55rem; font-weight: 700; color: #fff; display: flex; align-items: center; justify-content: center; }
   .count-av:first-child { margin-left: 0; }
 
-  /* FOOTER */
   footer { background: var(--ink); border-top: 0.5px solid rgba(245,242,235,0.08); padding: 2rem 2.5rem; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
   footer .foot-logo { font-family: var(--serif); font-size: 1.2rem; color: var(--paper); }
   footer .foot-logo span { color: var(--accent); font-style: italic; }
@@ -396,12 +573,57 @@
   footer nav a { font-size: 0.78rem; color: rgba(245,242,235,0.4); }
   footer nav a:hover { color: var(--paper); }
 
-  /* RESPONSIVE */
+  /* ══════════════════════════════
+     LIVE PULSE SECTION
+  ══════════════════════════════ */
+  .pulse-section {
+    padding: 3rem 2rem;
+    background: var(--paper);
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    overflow: hidden;
+  }
+  .pulse-inner { max-width: 900px; margin: 0 auto; display: flex; align-items: center; gap: 2rem; flex-wrap: wrap; }
+  .pulse-left { flex: 1; min-width: 200px; }
+  .pulse-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink3); margin-bottom: 0.25rem; }
+  .pulse-num {
+    font-family: var(--serif);
+    font-size: clamp(3rem, 6vw, 4.5rem);
+    color: var(--ink);
+    line-height: 1;
+    letter-spacing: -0.04em;
+  }
+  .pulse-num span { color: var(--accent); }
+  .pulse-sub { font-size: 0.8rem; color: var(--ink3); margin-top: 0.25rem; }
+  .pulse-feed { flex: 2; min-width: 280px; display: flex; flex-direction: column; gap: 8px; max-height: 160px; overflow: hidden; position: relative; }
+  .pulse-feed::after { content: ''; position: absolute; bottom: 0; left: 0; right: 0; height: 40px; background: linear-gradient(transparent, var(--paper)); pointer-events: none; }
+  .pulse-item {
+    display: flex; align-items: center; gap: 10px;
+    padding: 8px 12px;
+    background: rgba(255,255,255,0.7);
+    border: 0.5px solid rgba(255,255,255,0.95);
+    border-radius: 10px;
+    font-size: 0.78rem; color: var(--ink2);
+    animation: slideInRight 0.5s cubic-bezier(0.34,1.3,0.64,1) both;
+  }
+  @keyframes slideInRight { from{opacity:0;transform:translateX(20px)} to{opacity:1;transform:translateX(0)} }
+  .pulse-avatar { width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.55rem; font-weight: 700; color: #fff; flex-shrink: 0; }
+  .pulse-name { font-weight: 600; color: var(--ink); }
+  .pulse-time { font-size: 0.65rem; color: var(--ink3); margin-left: auto; flex-shrink: 0; }
+  .pulse-bar-wrap { flex: 0 0 160px; }
+  .pulse-college-bars { display: flex; flex-direction: column; gap: 6px; }
+  .pcb-row { display: flex; align-items: center; gap: 8px; }
+  .pcb-name { font-size: 0.65rem; font-weight: 600; color: var(--ink2); width: 70px; flex-shrink: 0; }
+  .pcb-track { flex: 1; height: 5px; background: var(--cream); border-radius: 100px; overflow: hidden; }
+  .pcb-fill { height: 100%; border-radius: 100px; background: var(--accent); transition: width 1s ease; }
+  .pcb-count { font-size: 0.6rem; color: var(--ink3); width: 20px; text-align: right; flex-shrink: 0; }
+
   @media (max-width: 900px) {
     .img-spot-1, .img-spot-3 { width: 100px; height: 130px; }
     .img-spot-2, .img-spot-4 { width: 110px; height: 90px; }
     .stat-1, .stat-2, .stat-3 { display: none; }
     .fc-5, .fc-6 { display: none; }
+    .college-grid { grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
   }
   @media (max-width: 768px) {
     nav { padding: 0 1.25rem; }
@@ -411,10 +633,14 @@
     .img-spot-1, .img-spot-2, .img-spot-3, .img-spot-4 { display: none; }
     .fc-3, .fc-4 { display: none; }
     .promo-strip { font-size: 0.65rem; padding: 6px 14px; }
+    .cd-unit { padding: 1rem 1.2rem; min-width: 80px; }
+    .countdown-grid { gap: 8px; }
   }
   @media (max-width: 480px) {
     .fc-1, .fc-2 { display: none; }
     .promo-strip { display: none; }
+    .pledge-form-row { flex-direction: column; }
+    .pulse-bar-wrap { display: none; }
   }
 </style>
 </head>
@@ -425,16 +651,14 @@
   <a href="#" class="nav-logo">DU<span>verse</span></a>
   <div class="nav-links">
     <a href="#features">Features</a>
-    <a href="#how">How it works</a>
-    <a href="#store">Store</a>
+    <a href="#rollcall">Roll Call</a>
+    <a href="#pledge">Pledge Wall</a>
     <a href="#waitlist" class="nav-cta">Join waitlist</a>
   </div>
 </nav>
 
 <!-- HERO -->
 <section class="hero">
-
-  <!-- Background layers -->
   <div class="hero-bg"></div>
   <div class="hero-grain"></div>
   <div class="hero-lines"></div>
@@ -442,115 +666,38 @@
   <div class="glow-br"></div>
   <div class="glow-c"></div>
 
-  <!-- Photo-style collage corners -->
   <div class="img-collage">
-    <div class="img-spot img-spot-1">
-      <div class="img-spot-emoji">🏔️</div>
-      <div class="img-spot-cap">Winter Trip — Manali Dec '25</div>
-      <div class="img-spot-tag">Trip</div>
-    </div>
-    <div class="img-spot img-spot-2">
-      <div class="img-spot-emoji">🎪</div>
-      <div class="img-spot-cap">Fest Season Nov–Dec</div>
-      <div class="img-spot-tag">Fests</div>
-    </div>
-    <div class="img-spot img-spot-3">
-      <div class="img-spot-emoji">💼</div>
-      <div class="img-spot-cap">Placement Drive '26 — prep starts now</div>
-      <div class="img-spot-tag">Careers</div>
-    </div>
-    <div class="img-spot img-spot-4">
-      <div class="img-spot-emoji">🏆</div>
-      <div class="img-spot-cap">Case Comp Season · SRCC · Hindu · LSR</div>
-      <div class="img-spot-tag">Compete</div>
-    </div>
+    <div class="img-spot img-spot-1"><div class="img-spot-emoji">🏔️</div><div class="img-spot-cap">Winter Trip — Manali Dec '25</div><div class="img-spot-tag">Trip</div></div>
+    <div class="img-spot img-spot-2"><div class="img-spot-emoji">🎪</div><div class="img-spot-cap">Fest Season Nov–Dec</div><div class="img-spot-tag">Fests</div></div>
+    <div class="img-spot img-spot-3"><div class="img-spot-emoji">💼</div><div class="img-spot-cap">Placement Drive '26 — prep starts now</div><div class="img-spot-tag">Careers</div></div>
+    <div class="img-spot img-spot-4"><div class="img-spot-emoji">🏆</div><div class="img-spot-cap">Case Comp Season · SRCC · Hindu · LSR</div><div class="img-spot-tag">Compete</div></div>
   </div>
 
-  <!-- Floating activity cards -->
   <div class="float-cards">
-    <div class="fc fc-1">
-      <div class="fc-icon">🎪</div>
-      <div class="fc-text">
-        <div class="fc-title">Fest Season is here 🔥</div>
-        <div class="fc-sub">Zeitgeist · Mecca · Antaragni · and 20+ more</div>
-      </div>
-    </div>
-    <div class="fc fc-2">
-      <div class="fc-icon">💼</div>
-      <div class="fc-text">
-        <div class="fc-title">Placement Season '26</div>
-        <div class="fc-sub">Mock interviews, CV reviews &amp; referrals on DUverse</div>
-      </div>
-    </div>
-    <div class="fc fc-3">
-      <div class="fc-icon">🏔️</div>
-      <div class="fc-text">
-        <div class="fc-title">Winter Trip — Manali</div>
-        <div class="fc-sub">Dec 22–27 · 38 students joining · ₹4,200/head</div>
-      </div>
-    </div>
-    <div class="fc fc-4">
-      <div class="fc-icon">🏆</div>
-      <div class="fc-text">
-        <div class="fc-title">IIM Case Competition</div>
-        <div class="fc-sub">Team of 3 · Deadline Nov 10 · find teammates here</div>
-      </div>
-    </div>
-    <div class="fc fc-5">
-      <div class="fc-icon">📝</div>
-      <div class="fc-text">
-        <div class="fc-title">End-Sem Prep Mode</div>
-        <div class="fc-sub">Notes, PYQs &amp; study groups — all on DUverse</div>
-      </div>
-    </div>
-    <div class="fc fc-6">
-      <div class="fc-icon">🎯</div>
-      <div class="fc-text">
-        <div class="fc-title">Quiz Fest — Hindu College</div>
-        <div class="fc-sub">Intl. Quiz · Nov 18 · ₹10,000 prize pool</div>
-      </div>
-    </div>
+    <div class="fc fc-1"><div class="fc-icon">🎪</div><div class="fc-text"><div class="fc-title">Fest Season is here 🔥</div><div class="fc-sub">Zeitgeist · Mecca · Antaragni · and 20+ more</div></div></div>
+    <div class="fc fc-2"><div class="fc-icon">💼</div><div class="fc-text"><div class="fc-title">Placement Season '26</div><div class="fc-sub">Mock interviews, CV reviews &amp; referrals on DUverse</div></div></div>
+    <div class="fc fc-3"><div class="fc-icon">🏔️</div><div class="fc-text"><div class="fc-title">Winter Trip — Manali</div><div class="fc-sub">Dec 22–27 · 38 students joining · ₹4,200/head</div></div></div>
+    <div class="fc fc-4"><div class="fc-icon">🏆</div><div class="fc-text"><div class="fc-title">IIM Case Competition</div><div class="fc-sub">Team of 3 · Deadline Nov 10 · find teammates here</div></div></div>
+    <div class="fc fc-5"><div class="fc-icon">📝</div><div class="fc-text"><div class="fc-title">End-Sem Prep Mode</div><div class="fc-sub">Notes, PYQs &amp; study groups — all on DUverse</div></div></div>
+    <div class="fc fc-6"><div class="fc-icon">🎯</div><div class="fc-text"><div class="fc-title">Quiz Fest — Hindu College</div><div class="fc-sub">Intl. Quiz · Nov 18 · ₹10,000 prize pool</div></div></div>
   </div>
 
-  <!-- Stat badges -->
-  <div class="stat-badge stat-1">
-    <div class="sb-num">90+</div>
-    <div class="sb-label">DU Colleges</div>
-  </div>
-  <div class="stat-badge blue stat-2">
-    <div class="sb-num">Free</div>
-    <div class="sb-label">Forever for students</div>
-  </div>
-  <div class="stat-badge green stat-3">
-    <div class="sb-num">247</div>
-    <div class="sb-label">On the waitlist</div>
-  </div>
+  <div class="stat-badge stat-1"><div class="sb-num">90+</div><div class="sb-label">DU Colleges</div></div>
+  <div class="stat-badge blue stat-2"><div class="sb-num">Free</div><div class="sb-label">Forever for students</div></div>
+  <div class="stat-badge green stat-3"><div class="sb-num" id="hero-live-count">247</div><div class="sb-label">On the waitlist</div></div>
 
-  <!-- Promo strip -->
-  <div class="promo-strip">
-    <div class="promo-dot"></div>
-    <div class="promo-text">
-      🎪 <strong>Fest season is live</strong> · 💼 Placement prep · 🏔️ Manali Dec 22 · 🏆 Case comps open
-    </div>
-  </div>
+  <div class="promo-strip"><div class="promo-dot"></div><div class="promo-text">🎪 <strong>Fest season is live</strong> · 💼 Placement prep · 🏔️ Manali Dec 22 · 🏆 Case comps open</div></div>
 
-  <!-- Main hero text -->
   <div class="hero-content">
     <div class="hero-badge">Now accepting early access</div>
-
     <h1>Delhi University's<br><em>campus network</em><br>finally <span class="under">exists</span></h1>
-
-    <p class="hero-sub">
-      A verified social network, marketplace, and community hub — built exclusively for DU students. Your college identity, your people, your store.
-    </p>
-
+    <p class="hero-sub">A verified social network, marketplace, and community hub — built exclusively for DU students. Your college identity, your people, your store.</p>
     <div class="hero-form" id="hero-form">
       <input type="email" placeholder="Enter your DU email" id="hero-email">
       <button onclick="joinWaitlist('hero')">Get early access</button>
     </div>
     <div class="success-msg" id="hero-success">🎉 You're on the list! We'll be in touch.</div>
-    <p class="hero-note">Free forever for students · No spam · Launch Q3 2025</p>
-
+    <p class="hero-note">Free forever for students · No spam · Launch 11 June 2026</p>
     <div class="hero-colleges">
       <span>Launching at →</span>
       <div class="college-pill">SRCC</div>
@@ -561,148 +708,135 @@
       <div class="college-pill">+ 85 more</div>
     </div>
   </div>
-
 </section>
+
+<!-- ══════════════════════════════
+     COUNTDOWN TO LAUNCH
+══════════════════════════════ -->
+<div class="countdown-section" id="countdown">
+  <div class="countdown-inner">
+    <div class="countdown-eyebrow">🚀 Launch countdown</div>
+    <h2 class="countdown-title">DUverse goes live on <em>11 June 2026</em></h2>
+    <p class="countdown-sub">Founding members get early access, free merch, and a verified badge. Claim your spot.</p>
+    <div class="countdown-grid">
+      <div class="cd-unit">
+        <div class="cd-accent"></div>
+        <div class="cd-num" id="cd-days">--</div>
+        <div class="cd-label">Days</div>
+      </div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-hours">--</div>
+        <div class="cd-label">Hours</div>
+      </div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-mins">--</div>
+        <div class="cd-label">Minutes</div>
+      </div>
+      <div class="cd-unit">
+        <div class="cd-num" id="cd-secs">--</div>
+        <div class="cd-label">Seconds</div>
+      </div>
+    </div>
+    <div style="margin-top:2.5rem">
+      <div class="launch-bar"><div class="launch-bar-fill" id="launch-fill" style="width:0%"></div></div>
+      <div class="launch-bar-label" id="launch-pct">Calculating progress...</div>
+    </div>
+  </div>
+</div>
 
 <!-- COLLEGES TICKER -->
 <div class="ticker-section">
   <div class="ticker-wrap">
     <div class="ticker-track">
-      <span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Miranda House</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span>
-      <span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Hansraj</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Kirori Mal</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Ramjas</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Gargi</span><span class="ticker-dot"></span>
-      <span class="ticker-item">IP College</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Venky</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Miranda House</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span>
-      <span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Hansraj</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Kirori Mal</span><span class="ticker-dot"></span>
+      <span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span><span class="ticker-item">Miranda House</span><span class="ticker-dot"></span><span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span><span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span><span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span><span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span><span class="ticker-item">Hansraj</span><span class="ticker-dot"></span><span class="ticker-item hi">Kirori Mal</span><span class="ticker-dot"></span><span class="ticker-item">Ramjas</span><span class="ticker-dot"></span><span class="ticker-item hi">Gargi</span><span class="ticker-dot"></span><span class="ticker-item">IP College</span><span class="ticker-dot"></span><span class="ticker-item">Venky</span><span class="ticker-dot"></span><span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span><span class="ticker-item">Miranda House</span><span class="ticker-dot"></span><span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span><span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span><span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span><span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span><span class="ticker-item">Hansraj</span><span class="ticker-dot"></span><span class="ticker-item hi">Kirori Mal</span>
     </div>
     <div class="ticker-track ticker-track2" aria-hidden="true">
-      <span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Miranda House</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span>
-      <span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Hansraj</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Kirori Mal</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Ramjas</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Gargi</span><span class="ticker-dot"></span>
-      <span class="ticker-item">IP College</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Venky</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Miranda House</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span>
-      <span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span>
-      <span class="ticker-item">Hansraj</span><span class="ticker-dot"></span>
-      <span class="ticker-item hi">Kirori Mal</span><span class="ticker-dot"></span>
+      <span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span><span class="ticker-item">Miranda House</span><span class="ticker-dot"></span><span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span><span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span><span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span><span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span><span class="ticker-item">Hansraj</span><span class="ticker-dot"></span><span class="ticker-item hi">Kirori Mal</span><span class="ticker-dot"></span><span class="ticker-item">Ramjas</span><span class="ticker-dot"></span><span class="ticker-item hi">Gargi</span><span class="ticker-dot"></span><span class="ticker-item">IP College</span><span class="ticker-dot"></span><span class="ticker-item">Venky</span><span class="ticker-dot"></span><span class="ticker-item hi">SRCC</span><span class="ticker-dot"></span><span class="ticker-item">Miranda House</span><span class="ticker-dot"></span><span class="ticker-item hi">Hindu College</span><span class="ticker-dot"></span><span class="ticker-item">St. Stephen's</span><span class="ticker-dot"></span><span class="ticker-item hi">Lady Sri Ram</span><span class="ticker-dot"></span><span class="ticker-item">Dyal Singh</span><span class="ticker-dot"></span><span class="ticker-item">Hansraj</span><span class="ticker-dot"></span><span class="ticker-item hi">Kirori Mal</span>
     </div>
   </div>
 </div>
+
+<!-- ══════════════════════════════
+     LIVE PULSE
+══════════════════════════════ -->
+<div class="pulse-section">
+  <div class="pulse-inner">
+    <div class="pulse-left">
+      <div class="pulse-label">🔴 Live signups</div>
+      <div class="pulse-num"><span id="pulse-count">247</span></div>
+      <div class="pulse-sub">students on the waitlist</div>
+    </div>
+    <div class="pulse-feed" id="pulse-feed">
+      <!-- JS fills this -->
+    </div>
+    <div class="pulse-bar-wrap">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.08em;text-transform:uppercase;color:var(--ink3);margin-bottom:10px">Top colleges</div>
+      <div class="pulse-college-bars" id="pcb-wrap">
+        <!-- JS fills this -->
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════════════════════════
+     COLLEGE ROLL CALL
+══════════════════════════════ -->
+<section class="rollcall-section" id="rollcall">
+  <div class="rollcall-inner">
+    <div class="rollcall-head">
+      <div class="section-label">College roll call</div>
+      <h2>Is your college <em>in?</em></h2>
+      <p>Click your college tile to mark your attendance. Show the DUverse team which colleges want it most.</p>
+      <div class="rollcall-counter">
+        <span>🏫</span>
+        <span id="colleges-claimed">0</span> colleges represented
+        <span>·</span>
+        <span id="total-marked">0</span> students marked present
+      </div>
+    </div>
+    <div class="college-grid" id="college-grid">
+      <!-- JS fills this -->
+    </div>
+    <p class="rollcall-cta">Don't see your college? <strong>DM us @duverse.in</strong> — we'll add it in 24 hours.</p>
+  </div>
+</section>
 
 <!-- PHONE PREVIEW -->
 <div class="preview" id="store">
   <div class="phone-frame">
     <div class="phone-screen">
       <div class="phone-status"><span>9:41</span><span>●●● 100%</span></div>
-      <div class="phone-nav">
-        <div class="phone-nav-logo">DU<span>verse</span></div>
-        <svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#7a776e" stroke-width="1.5"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-      </div>
-      <div class="phone-tabs">
-        <div class="phone-tab active">Feed</div>
-        <div class="phone-tab">Store</div>
-        <div class="phone-tab">Explore</div>
-      </div>
+      <div class="phone-nav"><div class="phone-nav-logo">DU<span>verse</span></div><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#7a776e" stroke-width="1.5"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></div>
+      <div class="phone-tabs"><div class="phone-tab active">Feed</div><div class="phone-tab">Store</div><div class="phone-tab">Explore</div></div>
       <div class="feed">
         <div class="post">
-          <div class="post-head">
-            <div class="avatar" style="background:#c84b2f">RK</div>
-            <div class="post-meta">
-              <div class="post-name">Riya Kapoor</div>
-              <div class="post-college">SRCC · 2nd year</div>
-            </div>
-            <div class="post-badge" style="background:#fef0ec;color:#c84b2f">SRCC</div>
-          </div>
-          <div class="post-img" style="background:#fef0ec;font-family:'Instrument Serif',serif;font-size:0.8rem;color:#c84b2f;padding:8px;text-align:center;flex-direction:column;display:flex;justify-content:center;">
-            <div style="font-size:1.8rem;margin-bottom:4px;">🎓</div>
-            <div>Economics fest '25 — registrations open!</div>
-          </div>
+          <div class="post-head"><div class="avatar" style="background:#c84b2f">RK</div><div class="post-meta"><div class="post-name">Riya Kapoor</div><div class="post-college">SRCC · 2nd year</div></div><div class="post-badge" style="background:#fef0ec;color:#c84b2f">SRCC</div></div>
+          <div class="post-img" style="background:#fef0ec;font-family:'Instrument Serif',serif;font-size:0.8rem;color:#c84b2f;padding:8px;text-align:center;flex-direction:column;display:flex;justify-content:center;"><div style="font-size:1.8rem;margin-bottom:4px;">🎓</div><div>Economics fest '25 — registrations open!</div></div>
           <div class="post-body">EconFest this Friday at SRCC auditorium. Case comps, guest lectures, networking. Free for DU students 🔥</div>
-          <div class="post-actions">
-            <span class="post-act">❤ 142</span><span class="post-act">💬 28</span><span class="post-act">↗ Share</span>
-          </div>
+          <div class="post-actions"><span class="post-act">❤ 142</span><span class="post-act">💬 28</span><span class="post-act">↗ Share</span></div>
         </div>
         <div class="post">
-          <div class="post-head">
-            <div class="avatar" style="background:#1e4f8c">AS</div>
-            <div class="post-meta">
-              <div class="post-name">Aryan Singh</div>
-              <div class="post-college">Hindu College · 3rd year</div>
-            </div>
-            <div class="post-badge" style="background:#e8f0fb;color:#1e4f8c">Hindu</div>
-          </div>
+          <div class="post-head"><div class="avatar" style="background:#1e4f8c">AS</div><div class="post-meta"><div class="post-name">Aryan Singh</div><div class="post-college">Hindu College · 3rd year</div></div><div class="post-badge" style="background:#e8f0fb;color:#1e4f8c">Hindu</div></div>
           <div class="post-body">Anyone selling their Macroeconomics notes from last sem? DM me 🙏 #Hindu #Economics</div>
-          <div class="post-actions">
-            <span class="post-act">❤ 34</span><span class="post-act">💬 12</span><span class="post-act">↗ Share</span>
-          </div>
+          <div class="post-actions"><span class="post-act">❤ 34</span><span class="post-act">💬 12</span><span class="post-act">↗ Share</span></div>
         </div>
       </div>
     </div>
   </div>
-
   <div class="phone-frame2">
     <div class="phone-screen2">
       <div class="phone-status" style="background:#1a1916;color:#f5f2eb;"><span>9:41</span><span>●●● 100%</span></div>
-      <div class="dark-nav">
-        <div class="dark-logo">DU<span>verse</span></div>
-        <span style="font-size:0.62rem;font-weight:600;color:#7a776e;margin-left:auto;text-transform:uppercase;letter-spacing:.05em">Store</span>
-      </div>
+      <div class="dark-nav"><div class="dark-logo">DU<span>verse</span></div><span style="font-size:0.62rem;font-weight:600;color:#7a776e;margin-left:auto;text-transform:uppercase;letter-spacing:.05em">Store</span></div>
       <div class="dark-label">Your college picks</div>
       <div class="store-scroll">
-        <div class="product-card">
-          <div class="product-img" style="background:#2a1a16;">👕</div>
-          <div class="product-info"><div class="product-name">SRCC Classic Tee</div><div class="product-college">SRCC</div><div class="product-price">₹799</div></div>
-        </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#1a2a1e;">📓</div>
-          <div class="product-info"><div class="product-name">Campus Notebook</div><div class="product-college">All colleges</div><div class="product-price">₹249</div></div>
-        </div>
-        <div class="product-card">
-          <div class="product-img" style="background:#1a1a2a;">🧢</div>
-          <div class="product-info"><div class="product-name">Miranda Cap</div><div class="product-college">Miranda</div><div class="product-price">₹599</div></div>
-        </div>
+        <div class="product-card"><div class="product-img" style="background:#2a1a16;">👕</div><div class="product-info"><div class="product-name">SRCC Classic Tee</div><div class="product-college">SRCC</div><div class="product-price">₹799</div></div></div>
+        <div class="product-card"><div class="product-img" style="background:#1a2a1e;">📓</div><div class="product-info"><div class="product-name">Campus Notebook</div><div class="product-college">All colleges</div><div class="product-price">₹249</div></div></div>
+        <div class="product-card"><div class="product-img" style="background:#1a1a2a;">🧢</div><div class="product-info"><div class="product-name">Miranda Cap</div><div class="product-college">Miranda</div><div class="product-price">₹599</div></div></div>
       </div>
       <div class="dark-label" style="margin-top:6px">Your profile</div>
-      <div class="profile-card">
-        <div class="profile-av">M</div>
-        <div class="profile-name">Manas Sharma</div>
-        <div class="profile-college">Delhi University · Founder's Office</div>
-        <div class="profile-stats">
-          <div class="pstat"><div class="pstat-n">342</div><div class="pstat-l">Following</div></div>
-          <div class="pstat"><div class="pstat-n">1.2K</div><div class="pstat-l">Followers</div></div>
-          <div class="pstat"><div class="pstat-n">48</div><div class="pstat-l">Posts</div></div>
-        </div>
-      </div>
+      <div class="profile-card"><div class="profile-av">M</div><div class="profile-name">Manas Sharma</div><div class="profile-college">Delhi University · Founder's Office</div><div class="profile-stats"><div class="pstat"><div class="pstat-n">342</div><div class="pstat-l">Following</div></div><div class="pstat"><div class="pstat-n">1.2K</div><div class="pstat-l">Followers</div></div><div class="pstat"><div class="pstat-n">48</div><div class="pstat-l">Posts</div></div></div></div>
       <div class="dark-label" style="margin-top:4px">Recent posts</div>
-      <div class="dark-grid">
-        <div class="dark-post" style="background:#2a1a16">📸</div>
-        <div class="dark-post" style="background:#1a2a1e">🎉</div>
-      </div>
+      <div class="dark-grid"><div class="dark-post" style="background:#2a1a16">📸</div><div class="dark-post" style="background:#1a2a1e">🎉</div></div>
     </div>
   </div>
 </div>
@@ -716,42 +850,12 @@
       <p>From your morning lecture to the fest after-party — one app covers it all.</p>
     </div>
     <div class="feature-grid">
-      <div class="feature-card">
-        <div class="feat-icon" style="background:#fef0ec">🎓</div>
-        <div class="feat-title">Verified student identity</div>
-        <div class="feat-desc">Sign up with your DU college email. Get a verified college badge. Only real DU students, no outsiders.</div>
-        <span class="feat-tag" style="background:#fef0ec;color:#c84b2f">Core</span>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:#eef4fd">📱</div>
-        <div class="feat-title">College-gated feed</div>
-        <div class="feat-desc">See posts from your college, your department, and all-DU. Filter by year, topic, or college.</div>
-        <span class="feat-tag" style="background:#eef4fd;color:#1e4f8c">Social</span>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:#f0f9f4">🛍️</div>
-        <div class="feat-title">Campus marketplace</div>
-        <div class="feat-desc">Buy your college merch, stationery, and notes. Sell your old books, cycles, and gadgets to other students.</div>
-        <span class="feat-tag" style="background:#f0f9f4;color:#2a6b4a">Commerce</span>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:#fdf8ec">📅</div>
-        <div class="feat-title">Events & fests hub</div>
-        <div class="feat-desc">Never miss a fest, audition, or society recruitment again. DU's event calendar, all in one place.</div>
-        <span class="feat-tag" style="background:#fdf8ec;color:#8a5c0a">Coming soon</span>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:#fef0ec">💼</div>
-        <div class="feat-title">Internships & jobs</div>
-        <div class="feat-desc">Seniors refer juniors. Companies post DU-specific opportunities. LinkedIn but actually for students.</div>
-        <span class="feat-tag" style="background:#fef0ec;color:#c84b2f">Coming soon</span>
-      </div>
-      <div class="feature-card">
-        <div class="feat-icon" style="background:#eef4fd">🔒</div>
-        <div class="feat-title">Safe & private</div>
-        <div class="feat-desc">No random strangers. Report & block built in. Community moderators at every college. Your data stays yours.</div>
-        <span class="feat-tag" style="background:#eef4fd;color:#1e4f8c">Core</span>
-      </div>
+      <div class="feature-card"><div class="feat-icon" style="background:#fef0ec">🎓</div><div class="feat-title">Verified student identity</div><div class="feat-desc">Sign up with your DU college email. Get a verified college badge. Only real DU students, no outsiders.</div><span class="feat-tag" style="background:#fef0ec;color:#c84b2f">Core</span></div>
+      <div class="feature-card"><div class="feat-icon" style="background:#eef4fd">📱</div><div class="feat-title">College-gated feed</div><div class="feat-desc">See posts from your college, your department, and all-DU. Filter by year, topic, or college.</div><span class="feat-tag" style="background:#eef4fd;color:#1e4f8c">Social</span></div>
+      <div class="feature-card"><div class="feat-icon" style="background:#f0f9f4">🛍️</div><div class="feat-title">Campus marketplace</div><div class="feat-desc">Buy your college merch, stationery, and notes. Sell your old books, cycles, and gadgets to other students.</div><span class="feat-tag" style="background:#f0f9f4;color:#2a6b4a">Commerce</span></div>
+      <div class="feature-card"><div class="feat-icon" style="background:#fdf8ec">📅</div><div class="feat-title">Events & fests hub</div><div class="feat-desc">Never miss a fest, audition, or society recruitment again. DU's event calendar, all in one place.</div><span class="feat-tag" style="background:#fdf8ec;color:#8a5c0a">Coming soon</span></div>
+      <div class="feature-card"><div class="feat-icon" style="background:#fef0ec">💼</div><div class="feat-title">Internships & jobs</div><div class="feat-desc">Seniors refer juniors. Companies post DU-specific opportunities. LinkedIn but actually for students.</div><span class="feat-tag" style="background:#fef0ec;color:#c84b2f">Coming soon</span></div>
+      <div class="feature-card"><div class="feat-icon" style="background:#eef4fd">🔒</div><div class="feat-title">Safe & private</div><div class="feat-desc">No random strangers. Report & block built in. Community moderators at every college. Your data stays yours.</div><span class="feat-tag" style="background:#eef4fd;color:#1e4f8c">Core</span></div>
     </div>
   </div>
 </section>
@@ -759,49 +863,60 @@
 <!-- HOW IT WORKS -->
 <section id="how">
   <div class="how">
-    <div class="how-head">
-      <div class="section-label">How it works</div>
-      <h2>Simple as <em>semester 1</em></h2>
-    </div>
+    <div class="how-head"><div class="section-label">How it works</div><h2>Simple as <em>semester 1</em></h2></div>
     <div class="steps">
-      <div class="step">
-        <div class="step-num">01</div>
-        <div class="step-content">
-          <div class="step-title">Sign up with your college email</div>
-          <div class="step-desc">Use your official DU college email to verify your identity. You get a verified badge for your college — SRCC, Miranda, Hindu, whoever. No outsiders allowed.</div>
-        </div>
+      <div class="step"><div class="step-num">01</div><div class="step-content"><div class="step-title">Sign up with your college email</div><div class="step-desc">Use your official DU college email to verify your identity. You get a verified badge for your college — SRCC, Miranda, Hindu, whoever. No outsiders allowed.</div></div></div>
+      <div class="step"><div class="step-num">02</div><div class="step-content"><div class="step-title">Build your campus profile</div><div class="step-desc">Set your college, year, department, and interests. Follow people from your college and across DU. Your profile is your DU identity — more real than LinkedIn.</div></div></div>
+      <div class="step"><div class="step-num">03</div><div class="step-content"><div class="step-title">Post, discover, and connect</div><div class="step-desc">Share campus moments, ask questions, post opportunities. See what's happening at every DU college in real time. Your feed, your people.</div></div></div>
+      <div class="step"><div class="step-num">04</div><div class="step-content"><div class="step-title">Shop the campus store</div><div class="step-desc">Buy your college merch — tees, hoodies, notebooks with your college name. Sell old books and gear to fellow students. Commerce that actually makes sense for campus life.</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════
+     PLEDGE WALL
+══════════════════════════════ -->
+<section class="pledge-section" id="pledge">
+  <div class="pledge-inner">
+    <div class="pledge-head">
+      <div class="section-label">Pledge wall</div>
+      <h2>Tell us <em>why</em> you're in</h2>
+      <p style="font-size:1rem;color:var(--ink2);max-width:480px;line-height:1.6;margin-top:0.5rem">Leave a note from your college. The best pledges get featured at launch.</p>
+    </div>
+    <div class="pledge-form-wrap">
+      <div class="pledge-form-row">
+        <select class="pledge-select" id="pledge-college">
+          <option value="" disabled selected>Pick your college</option>
+          <option>SRCC</option>
+          <option>Miranda House</option>
+          <option>Hindu College</option>
+          <option>St. Stephen's</option>
+          <option>Lady Sri Ram</option>
+          <option>Hansraj College</option>
+          <option>Kirori Mal</option>
+          <option>Ramjas College</option>
+          <option>Gargi College</option>
+          <option>IP College</option>
+          <option>Dyal Singh</option>
+          <option>Deshbandhu</option>
+          <option>Zakir Husain</option>
+          <option>Motilal Nehru</option>
+          <option>Other DU College</option>
+        </select>
+        <input class="pledge-input" id="pledge-text" type="text" placeholder="We've been waiting for this since first year... 🔥" maxlength="100">
+        <span class="pledge-char" id="pledge-char">100</span>
+        <button class="pledge-submit" onclick="submitPledge()">Post pledge →</button>
       </div>
-      <div class="step">
-        <div class="step-num">02</div>
-        <div class="step-content">
-          <div class="step-title">Build your campus profile</div>
-          <div class="step-desc">Set your college, year, department, and interests. Follow people from your college and across DU. Your profile is your DU identity — more real than LinkedIn.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">03</div>
-        <div class="step-content">
-          <div class="step-title">Post, discover, and connect</div>
-          <div class="step-desc">Share campus moments, ask questions, post opportunities. See what's happening at every DU college in real time. Your feed, your people.</div>
-        </div>
-      </div>
-      <div class="step">
-        <div class="step-num">04</div>
-        <div class="step-content">
-          <div class="step-title">Shop the campus store</div>
-          <div class="step-desc">Buy your college merch — tees, hoodies, notebooks with your college name. Sell old books and gear to fellow students. Commerce that actually makes sense for campus life.</div>
-        </div>
-      </div>
+    </div>
+    <div class="pledge-wall" id="pledge-wall">
+      <!-- Seed pledges + user pledges -->
     </div>
   </div>
 </section>
 
 <!-- WAITLIST -->
 <section class="waitlist" id="waitlist">
-  <div class="section-label" style="color:var(--accent2);justify-content:center">
-    <span style="background:var(--accent2);height:1.5px;width:20px;display:inline-block"></span>
-    Early access
-  </div>
+  <div class="section-label" style="color:var(--accent2);justify-content:center"><span style="background:var(--accent2);height:1.5px;width:20px;display:inline-block"></span>Early access</div>
   <h2>Be the <em>first</em> at your college</h2>
   <p>Join the waitlist. We're launching college by college — and the first 500 students at each college get founding member status and free merch.</p>
   <div class="waitlist-form" id="waitlist-form">
@@ -809,7 +924,7 @@
     <button onclick="joinWaitlist('waitlist')">Secure my spot</button>
   </div>
   <div class="success-msg" id="waitlist-success" style="background:rgba(42,107,74,0.2);border-color:rgba(42,107,74,0.4)">🎉 You're on the list! Check your email.</div>
-  <p class="waitlist-note">Free for students · Launching Q3 2025 · No spam ever</p>
+  <p class="waitlist-note">Free for students · Launching 11 June 2026 · No spam ever</p>
   <div class="waitlist-count">
     <div class="count-avatars">
       <div class="count-av" style="background:#c84b2f">RK</div>
@@ -824,49 +939,361 @@
 <!-- FOOTER -->
 <footer>
   <div class="foot-logo">DU<span>verse</span></div>
-  <p>© 2025 DUverse · Built by a DU student, for DU students</p>
-  <nav style="display:flex;gap:1.5rem">
-    <a href="#">Privacy</a>
-    <a href="#">Terms</a>
-    <a href="mailto:hello@duverse.in">Contact</a>
-  </nav>
+  <p>© 2026 DUverse · Built by a DU student, for DU students</p>
+  <nav style="display:flex;gap:1.5rem"><a href="#">Privacy</a><a href="#">Terms</a><a href="mailto:hello@duverse.in">Contact</a></nav>
 </footer>
 
-<script>
-  let count = 247;
+<!-- CONFETTI CONTAINER -->
+<div class="confetti-container" id="confetti-container"></div>
 
-  function joinWaitlist(source) {
-    const emailEl = document.getElementById(source === 'hero' ? 'hero-email' : 'waitlist-email');
-    const email = emailEl.value.trim();
-    if (!email || !email.includes('@')) {
-      emailEl.style.outline = '2px solid #c84b2f';
-      emailEl.placeholder = 'Enter a valid email';
-      setTimeout(() => { emailEl.style.outline = ''; emailEl.placeholder = source === 'hero' ? 'Enter your DU email' : 'your@college.du.ac.in'; }, 2000);
-      return;
-    }
-    const formEl = document.getElementById(source === 'hero' ? 'hero-form' : 'waitlist-form');
-    const successEl = document.getElementById(source === 'hero' ? 'hero-success' : 'waitlist-success');
-    formEl.style.display = 'none';
-    successEl.style.display = 'block';
-    count++;
-    document.getElementById('count-text').textContent = count + ' students already joined';
+<script>
+// ════════════════════════════════
+// DATA
+// ════════════════════════════════
+const COLLEGES = [
+  { id:'srcc',      name:'SRCC',          full:'Shri Ram College of Commerce',      emoji:'🏛️', color:'#c84b2f', seed:58 },
+  { id:'miranda',   name:'Miranda House', full:'Miranda House',                      emoji:'🌸', color:'#9c27b0', seed:47 },
+  { id:'hindu',     name:'Hindu College', full:'Hindu College',                      emoji:'🎓', color:'#1e4f8c', seed:43 },
+  { id:'stephens',  name:"St. Stephen's", full:"St. Stephen's College",              emoji:'⛪', color:'#5d4037', seed:38 },
+  { id:'lsr',       name:'LSR',           full:'Lady Shri Ram College',              emoji:'💜', color:'#7b1fa2', seed:35 },
+  { id:'hansraj',   name:'Hansraj',       full:'Hansraj College',                    emoji:'🔬', color:'#0097a7', seed:29 },
+  { id:'kirorimal', name:'Kirori Mal',    full:'Kirori Mal College',                 emoji:'🏗️', color:'#e65100', seed:26 },
+  { id:'ramjas',    name:'Ramjas',        full:'Ramjas College',                     emoji:'📚', color:'#2e7d32', seed:22 },
+  { id:'gargi',     name:'Gargi',         full:'Gargi College',                      emoji:'🌺', color:'#c2185b', seed:19 },
+  { id:'ipcollege', name:'IP College',    full:'Indraprastha College for Women',     emoji:'🌟', color:'#00838f', seed:17 },
+  { id:'dyal',      name:'Dyal Singh',    full:'Dyal Singh College',                 emoji:'🏫', color:'#455a64', seed:14 },
+  { id:'venky',     name:'Venky',         full:"Venkateswara College",               emoji:'🦅', color:'#6d4c41', seed:12 },
+  { id:'motilal',   name:'Motilal Nehru', full:'Motilal Nehru College',              emoji:'🎯', color:'#1565c0', seed:10 },
+  { id:'zakir',     name:'Zakir Husain',  full:'Zakir Husain Delhi College',         emoji:'🎨', color:'#00695c', seed:9  },
+  { id:'deshbandhu',name:'Deshbandhu',   full:'Deshbandhu College',                 emoji:'🌿', color:'#558b2f', seed:8  },
+];
+
+// In-memory state (reset per session — typical for a demo landing page)
+let collegeCounts = {};
+let claimedColleges = new Set();
+let waitlistCount = 247;
+let pledges = [
+  { college:'SRCC',          text:"Finance Twitter is good but DUverse will hit different.", color:'#c84b2f', bg:'rgba(200,75,47,0.08)' },
+  { college:'Miranda House', text:"Finally something built FOR us, not just about us.",       color:'#9c27b0', bg:'rgba(156,39,176,0.08)' },
+  { college:'Hindu College', text:"Placement season is chaotic. Need this yesterday.",        color:'#1e4f8c', bg:'rgba(30,79,140,0.08)' },
+  { college:"St. Stephen's", text:"Even Stephanians need a campus network. 👀",               color:'#5d4037', bg:'rgba(93,64,55,0.08)'  },
+  { college:'LSR',           text:"DU ka LinkedIn + Instagram combo? Say less.",              color:'#7b1fa2', bg:'rgba(123,31,162,0.08)' },
+];
+
+// Seed college counts
+COLLEGES.forEach(c => { collegeCounts[c.id] = c.seed; });
+
+// ════════════════════════════════
+// COUNTDOWN
+// ════════════════════════════════
+const LAUNCH_DATE = new Date('2026-06-11T00:00:00+05:30');
+const CAMPAIGN_START = new Date('2025-09-01T00:00:00+05:30'); // reference start for % bar
+
+function padZ(n) { return String(n).padStart(2, '0'); }
+
+let lastSecs = -1;
+function updateCountdown() {
+  const now = new Date();
+  const diff = LAUNCH_DATE - now;
+  if (diff <= 0) {
+    document.getElementById('cd-days').textContent = '00';
+    document.getElementById('cd-hours').textContent = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
+    document.getElementById('launch-pct').textContent = '🎉 We\'re live!';
+    document.getElementById('launch-fill').style.width = '100%';
+    return;
+  }
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000)  / 60000);
+  const secs  = Math.floor((diff % 60000)    / 1000);
+
+  const dEl = document.getElementById('cd-days');
+  const hEl = document.getElementById('cd-hours');
+  const mEl = document.getElementById('cd-mins');
+  const sEl = document.getElementById('cd-secs');
+
+  dEl.textContent = padZ(days);
+  hEl.textContent = padZ(hours);
+  mEl.textContent = padZ(mins);
+
+  if (secs !== lastSecs) {
+    sEl.textContent = padZ(secs);
+    sEl.classList.remove('flip');
+    void sEl.offsetWidth;
+    sEl.classList.add('flip');
+    lastSecs = secs;
   }
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(e => {
-      if (e.isIntersecting) {
-        e.target.style.opacity = '1';
-        e.target.style.transform = 'translateY(0)';
-      }
-    });
-  }, { threshold: 0.1 });
+  // Progress bar: from campaign start to launch
+  const total = LAUNCH_DATE - CAMPAIGN_START;
+  const elapsed = now - CAMPAIGN_START;
+  const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
+  document.getElementById('launch-fill').style.width = pct.toFixed(1) + '%';
+  document.getElementById('launch-pct').textContent = `${pct.toFixed(0)}% of the journey done · ${days} days to go`;
+}
 
-  document.querySelectorAll('.feature-card, .step, .product-card').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
+updateCountdown();
+setInterval(updateCountdown, 1000);
+
+// ════════════════════════════════
+// COLLEGE GRID (ROLL CALL)
+// ════════════════════════════════
+function renderCollegeGrid() {
+  const grid = document.getElementById('college-grid');
+  grid.innerHTML = '';
+  COLLEGES.forEach(c => {
+    const claimed = claimedColleges.has(c.id);
+    const count = collegeCounts[c.id] || 0;
+    const tile = document.createElement('div');
+    tile.className = 'college-tile' + (claimed ? ' claimed' : '');
+    tile.style.setProperty('--tile-color', c.color);
+    tile.innerHTML = `
+      <span class="tile-emoji">${c.emoji}</span>
+      <div class="tile-name">${c.name}</div>
+      <div class="tile-full">${c.full}</div>
+      <div class="tile-count"><div class="tile-count-dot"></div>${count} here</div>
+      <div class="tile-check">✓</div>
+    `;
+    tile.addEventListener('click', () => claimCollege(c.id, tile, c));
+    grid.appendChild(tile);
   });
+  updateRollCallStats();
+}
+
+function claimCollege(id, tile, c) {
+  if (claimedColleges.has(id)) return; // already claimed — no double dip
+  claimedColleges.add(id);
+  collegeCounts[id] = (collegeCounts[id] || 0) + 1;
+  tile.classList.add('claimed');
+  tile.querySelector('.tile-count').innerHTML = `<div class="tile-count-dot"></div>${collegeCounts[id]} here`;
+  tile.style.setProperty('--tile-color', c.color);
+  updateRollCallStats();
+  updatePulseBar();
+  spawnConfetti(c.color);
+  addPulseItem(c);
+  // bump waitlist counter
+  waitlistCount++;
+  updateAllCounts();
+}
+
+function updateRollCallStats() {
+  const nonEmpty = COLLEGES.filter(c => claimedColleges.has(c.id) || c.seed > 0);
+  const totalMarked = COLLEGES.reduce((a, c) => a + (collegeCounts[c.id] || 0), 0);
+  document.getElementById('colleges-claimed').textContent = COLLEGES.length;
+  document.getElementById('total-marked').textContent = totalMarked;
+}
+
+renderCollegeGrid();
+
+// ════════════════════════════════
+// CONFETTI
+// ════════════════════════════════
+const CONFETTI_COLORS = ['#c84b2f','#e8a020','#2a6b4a','#1e4f8c','#9c27b0','#00838f'];
+function spawnConfetti(color) {
+  const container = document.getElementById('confetti-container');
+  for (let i = 0; i < 28; i++) {
+    const piece = document.createElement('div');
+    piece.className = 'confetti-piece';
+    const x = 20 + Math.random() * 60;
+    const duration = 1.2 + Math.random() * 1.2;
+    const size = 6 + Math.random() * 8;
+    piece.style.cssText = `
+      left: ${x}vw;
+      top: ${30 + Math.random() * 20}vh;
+      width: ${size}px; height: ${size}px;
+      background: ${Math.random() > 0.5 ? color : CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-duration: ${duration}s;
+      animation-delay: ${Math.random() * 0.3}s;
+    `;
+    container.appendChild(piece);
+    setTimeout(() => piece.remove(), (duration + 0.5) * 1000);
+  }
+}
+
+// ════════════════════════════════
+// LIVE PULSE FEED
+// ════════════════════════════════
+const FAKE_NAMES = [
+  ['RK','Riya K.','SRCC','#c84b2f'], ['AS','Aryan S.','Hindu College','#1e4f8c'],
+  ['PM','Priya M.','Miranda House','#9c27b0'], ['ND','Nikhil D.','Hansraj','#0097a7'],
+  ['SS','Shreya S.',"St. Stephen's",'#5d4037'], ['AK','Aditya K.','LSR','#7b1fa2'],
+  ['VT','Varun T.','Ramjas','#2e7d32'], ['NJ','Nisha J.','Gargi','#c2185b'],
+  ['RB','Raj B.','Kirori Mal','#e65100'], ['KM','Kavya M.','IP College','#00838f'],
+];
+let pulseItems = [];
+
+function addPulseItem(college) {
+  const fake = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
+  pulseItems.unshift({
+    initials: fake[0], name: fake[1],
+    college: college ? college.name : fake[2],
+    color: college ? college.color : fake[3],
+    time: 'just now'
+  });
+  if (pulseItems.length > 6) pulseItems.pop();
+  renderPulseFeed();
+}
+
+function renderPulseFeed() {
+  const feed = document.getElementById('pulse-feed');
+  feed.innerHTML = pulseItems.map((item, i) => `
+    <div class="pulse-item" style="animation-delay:${i*0.05}s">
+      <div class="pulse-avatar" style="background:${item.color}">${item.initials}</div>
+      <div><span class="pulse-name">${item.name}</span> from <strong>${item.college}</strong> just joined</div>
+      <div class="pulse-time">${item.time}</div>
+    </div>
+  `).join('');
+}
+
+// Seed pulse
+FAKE_NAMES.slice(0, 4).forEach((n, i) => {
+  pulseItems.push({ initials: n[0], name: n[1], college: n[2], color: n[3], time: `${(i+1)*3}m ago` });
+});
+renderPulseFeed();
+
+// Simulated trickle every 8-14s
+function simulateTrickle() {
+  const delay = 8000 + Math.random() * 6000;
+  setTimeout(() => {
+    waitlistCount++;
+    updateAllCounts();
+    const fake = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
+    pulseItems.unshift({ initials: fake[0], name: fake[1], college: fake[2], color: fake[3], time: 'just now' });
+    if (pulseItems.length > 6) pulseItems.pop();
+    // age old items
+    pulseItems.forEach((item, i) => { if (i > 0) item.time = `${i * 2}m ago`; });
+    renderPulseFeed();
+    updatePulseBar();
+    simulateTrickle();
+  }, delay);
+}
+simulateTrickle();
+
+// ════════════════════════════════
+// PULSE BAR (college leaderboard)
+// ════════════════════════════════
+function updatePulseBar() {
+  const sorted = [...COLLEGES].sort((a,b) => (collegeCounts[b.id]||0) - (collegeCounts[a.id]||0)).slice(0,5);
+  const max = collegeCounts[sorted[0].id] || 1;
+  const wrap = document.getElementById('pcb-wrap');
+  wrap.innerHTML = sorted.map(c => `
+    <div class="pcb-row">
+      <div class="pcb-name">${c.name}</div>
+      <div class="pcb-track"><div class="pcb-fill" style="width:${(collegeCounts[c.id]/max*100).toFixed(0)}%;background:${c.color}"></div></div>
+      <div class="pcb-count">${collegeCounts[c.id]}</div>
+    </div>
+  `).join('');
+}
+updatePulseBar();
+
+function updateAllCounts() {
+  const els = ['pulse-count','count-text','hero-live-count'];
+  document.getElementById('pulse-count').textContent = waitlistCount;
+  document.getElementById('count-text').textContent = waitlistCount + ' students already joined';
+  document.getElementById('hero-live-count').textContent = waitlistCount;
+}
+
+// ════════════════════════════════
+// PLEDGE WALL
+// ════════════════════════════════
+function renderPledgeWall() {
+  const wall = document.getElementById('pledge-wall');
+  wall.innerHTML = pledges.map((p, i) => `
+    <div class="pledge-card" style="--pc:${p.color};--pc-bg:${p.bg};animation-delay:${i*0.06}s">
+      <div class="pc-college">${p.college}</div>
+      <div class="pc-text">"${p.text}"</div>
+      <span class="pc-tag">${p.college}</span>
+    </div>
+  `).join('');
+}
+renderPledgeWall();
+
+// char counter
+document.getElementById('pledge-text').addEventListener('input', function() {
+  const left = 100 - this.value.length;
+  document.getElementById('pledge-char').textContent = left;
+  document.getElementById('pledge-char').style.color = left < 20 ? 'var(--accent)' : 'var(--ink3)';
+});
+
+function submitPledge() {
+  const college = document.getElementById('pledge-college').value;
+  const text = document.getElementById('pledge-text').value.trim();
+  if (!college) { alert('Pick your college first!'); return; }
+  if (!text || text.length < 5) { alert('Say something real (at least 5 chars)!'); return; }
+  const c = COLLEGES.find(c => c.name === college) || { color: 'var(--accent)', name: college };
+  pledges.unshift({
+    college, text,
+    color: c.color || 'var(--accent)',
+    bg: `rgba(${hexToRgb(c.color)},0.08)`
+  });
+  renderPledgeWall();
+  document.getElementById('pledge-text').value = '';
+  document.getElementById('pledge-college').selectedIndex = 0;
+  document.getElementById('pledge-char').textContent = '100';
+  spawnConfetti(c.color);
+  // also bump claimed
+  if (c.id && !claimedColleges.has(c.id)) {
+    claimedColleges.add(c.id);
+    collegeCounts[c.id] = (collegeCounts[c.id] || 0) + 1;
+    renderCollegeGrid();
+    updatePulseBar();
+  }
+  waitlistCount++;
+  updateAllCounts();
+}
+
+function hexToRgb(hex) {
+  if (!hex || !hex.startsWith('#')) return '200,75,47';
+  const r = parseInt(hex.slice(1,3),16);
+  const g = parseInt(hex.slice(3,5),16);
+  const b = parseInt(hex.slice(5,7),16);
+  return `${r},${g},${b}`;
+}
+
+// ════════════════════════════════
+// WAITLIST FORM
+// ════════════════════════════════
+let count = waitlistCount;
+
+function joinWaitlist(source) {
+  const emailEl = document.getElementById(source === 'hero' ? 'hero-email' : 'waitlist-email');
+  const email = emailEl.value.trim();
+  if (!email || !email.includes('@')) {
+    emailEl.style.outline = '2px solid #c84b2f';
+    emailEl.placeholder = 'Enter a valid email';
+    setTimeout(() => { emailEl.style.outline = ''; emailEl.placeholder = source === 'hero' ? 'Enter your DU email' : 'your@college.du.ac.in'; }, 2000);
+    return;
+  }
+  const formEl = document.getElementById(source === 'hero' ? 'hero-form' : 'waitlist-form');
+  const successEl = document.getElementById(source === 'hero' ? 'hero-success' : 'waitlist-success');
+  formEl.style.display = 'none';
+  successEl.style.display = 'block';
+  waitlistCount++;
+  updateAllCounts();
+  spawnConfetti('#2a6b4a');
+}
+
+// ════════════════════════════════
+// SCROLL REVEAL
+// ════════════════════════════════
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.style.opacity = '1';
+      e.target.style.transform = 'translateY(0)';
+    }
+  });
+}, { threshold: 0.1 });
+
+document.querySelectorAll('.feature-card, .step, .product-card, .cd-unit, .college-tile').forEach(el => {
+  el.style.opacity = '0';
+  el.style.transform = 'translateY(20px)';
+  el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+  observer.observe(el);
+});
 </script>
 </body>
 </html>

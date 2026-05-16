@@ -315,15 +315,15 @@
   }
 
   /* ══════════════════════════════
-     PLEDGE WALL - BRICK
+     liveEcho WALL - BRICK
   ══════════════════════════════ */
-  .pledge-section {
+  .liveEcho-section {
     padding: 5rem 0 0;
     background: #1a1512;
     position: relative;
     overflow: hidden;
   }
-  .pledge-wall-bg {
+  .liveEcho-wall-bg {
     position: absolute; inset: 0; z-index: 0;
     background:
       repeating-linear-gradient(
@@ -335,7 +335,7 @@
       );
     opacity: 0.9;
   }
-  .pledge-section::before {
+  .liveEcho-section::before {
     content: '';
     position: absolute; inset: 0; z-index: 1;
     background-image:
@@ -343,17 +343,17 @@
       repeating-linear-gradient(90deg, transparent, transparent 119px, rgba(0,0,0,0.45) 119px, rgba(0,0,0,0.45) 123px);
     background-size: 123px 52px;
   }
-  .pledge-section::after {
+  .liveEcho-section::after {
     content: ''; position: absolute; inset: 0; z-index: 1;
     background: radial-gradient(ellipse 80% 50% at 50% 0%, rgba(232,160,32,0.08) 0%, transparent 70%);
     pointer-events: none;
   }
-  .pledge-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; padding: 0 2rem; }
-  .pledge-head { padding-top: 5rem; margin-bottom: 2rem; }
-  .pledge-head .section-label { color: var(--accent2); }
-  .pledge-head .section-label::before { background: var(--accent2); }
-  .pledge-head h2 { color: #f5f2eb; }
-  .pledge-head p { color: rgba(245,242,235,0.5); font-size: 1rem; max-width: 480px; line-height: 1.6; margin-top: 0.5rem; }
+  .liveEcho-inner { max-width: 1100px; margin: 0 auto; position: relative; z-index: 2; padding: 0 2rem; }
+  .liveEcho-head { padding-top: 5rem; margin-bottom: 2rem; }
+  .liveEcho-head .section-label { color: var(--accent2); }
+  .liveEcho-head .section-label::before { background: var(--accent2); }
+  .liveEcho-head h2 { color: #f5f2eb; }
+  .liveEcho-head p { color: rgba(245,242,235,0.5); font-size: 1rem; max-width: 480px; line-height: 1.6; margin-top: 0.5rem; }
 
   .wall-count-tag {
     display: inline-flex; align-items: center; gap: 8px;
@@ -364,43 +364,43 @@
   }
 
   /* form */
-  .pledge-form-wrap {
+  .liveEcho-form-wrap {
     background: rgba(14,13,11,0.75);
     border: 1px solid rgba(245,242,235,0.1);
     border-radius: 16px; padding: 1.5rem; margin-bottom: 2rem;
     backdrop-filter: blur(12px);
     box-shadow: 0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.05);
   }
-  .pledge-form-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
-  .pledge-field-wrap { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 130px; }
-  .pledge-field-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,242,235,0.35); padding-left: 2px; }
-  .pledge-select, .pledge-input-field {
+  .liveEcho-form-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .liveEcho-field-wrap { display: flex; flex-direction: column; gap: 4px; flex: 1; min-width: 130px; }
+  .liveEcho-field-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: rgba(245,242,235,0.35); padding-left: 2px; }
+  .liveEcho-select, .liveEcho-input-field {
     background: rgba(245,242,235,0.07); border: 1px solid rgba(245,242,235,0.15);
     border-radius: 10px; padding: 0.55rem 0.85rem;
     font-family: var(--sans); font-size: 0.82rem; color: #f5f2eb;
     outline: none; transition: border-color 0.2s; width: 100%;
   }
-  .pledge-select option { background: #1a1512; color: #f5f2eb; }
-  .pledge-select:focus, .pledge-input-field:focus { border-color: var(--accent2); background: rgba(245,242,235,0.10); }
-  .pledge-input-field::placeholder { color: rgba(245,242,235,0.25); }
-  .pledge-textarea {
+  .liveEcho-select option { background: #1a1512; color: #f5f2eb; }
+  .liveEcho-select:focus, .liveEcho-input-field:focus { border-color: var(--accent2); background: rgba(245,242,235,0.10); }
+  .liveEcho-input-field::placeholder { color: rgba(245,242,235,0.25); }
+  .liveEcho-textarea {
     background: rgba(245,242,235,0.07); border: 1px solid rgba(245,242,235,0.15);
     border-radius: 10px; padding: 0.7rem 0.85rem;
     font-family: var(--sans); font-size: 0.85rem; color: #f5f2eb;
     outline: none; resize: none; width: 100%; min-height: 64px;
     transition: border-color 0.2s;
   }
-  .pledge-textarea::placeholder { color: rgba(245,242,235,0.25); }
-  .pledge-textarea:focus { border-color: var(--accent2); background: rgba(245,242,235,0.10); }
-  .pledge-form-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 0.6rem; flex-wrap: wrap; gap: 8px; }
-  .pledge-char { font-size: 0.68rem; color: rgba(245,242,235,0.3); }
-  .pledge-submit {
+  .liveEcho-textarea::placeholder { color: rgba(245,242,235,0.25); }
+  .liveEcho-textarea:focus { border-color: var(--accent2); background: rgba(245,242,235,0.10); }
+  .liveEcho-form-bottom { display: flex; align-items: center; justify-content: space-between; margin-top: 0.6rem; flex-wrap: wrap; gap: 8px; }
+  .liveEcho-char { font-size: 0.68rem; color: rgba(245,242,235,0.3); }
+  .liveEcho-submit {
     background: var(--accent2); color: var(--ink); border: none; border-radius: 10px;
     padding: 0.6rem 1.4rem; font-family: var(--sans); font-size: 0.85rem; font-weight: 700;
     cursor: pointer; transition: opacity 0.2s, transform 0.15s; white-space: nowrap;
   }
-  .pledge-submit:hover { opacity: 0.88; transform: scale(1.02); }
-  .pledge-pending-notice {
+  .liveEcho-submit:hover { opacity: 0.88; transform: scale(1.02); }
+  .liveEcho-pending-notice {
     display: none; align-items: center; gap: 8px; margin-top: 0.75rem;
     padding: 0.6rem 0.9rem;
     background: rgba(232,160,32,0.1); border: 0.5px solid rgba(232,160,32,0.25);
@@ -428,13 +428,13 @@
   .mod-reject:hover { background: rgba(200,75,47,0.4); }
 
   /* brick wall */
-  .pledge-wall {
+  .liveEcho-wall {
     column-count: 3; column-gap: 0;
   }
-  @media (max-width: 900px) { .pledge-wall { column-count: 2; } }
-  @media (max-width: 560px) { .pledge-wall { column-count: 1; } }
+  @media (max-width: 900px) { .liveEcho-wall { column-count: 2; } }
+  @media (max-width: 560px) { .liveEcho-wall { column-count: 1; } }
 
-  .pledge-brick {
+  .liveEcho-brick {
     break-inside: avoid; display: block;
     background: var(--brick-bg, #7a3828);
     border: 3px solid #2e1208;
@@ -444,13 +444,13 @@
     animation: brickReveal 0.5s ease both;
     transition: transform 0.15s, box-shadow 0.15s;
   }
-  .pledge-brick:nth-child(6n+1) { --brick-bg: #7a3828; }
-  .pledge-brick:nth-child(6n+2) { --brick-bg: #6b3020; }
-  .pledge-brick:nth-child(6n+3) { --brick-bg: #823d2c; }
-  .pledge-brick:nth-child(6n+4) { --brick-bg: #713325; }
-  .pledge-brick:nth-child(6n+5) { --brick-bg: #7d3a27; }
-  .pledge-brick:nth-child(6n+6) { --brick-bg: #694f3a; }
-  .pledge-brick:hover { transform: translateY(-2px) scale(1.01); z-index: 1; box-shadow: inset 2px 2px 0 rgba(255,255,255,0.12), inset -2px -2px 0 rgba(0,0,0,0.25), 3px 6px 0 rgba(0,0,0,0.6), 0 0 20px rgba(232,160,32,0.15); }
+  .liveEcho-brick:nth-child(6n+1) { --brick-bg: #7a3828; }
+  .liveEcho-brick:nth-child(6n+2) { --brick-bg: #6b3020; }
+  .liveEcho-brick:nth-child(6n+3) { --brick-bg: #823d2c; }
+  .liveEcho-brick:nth-child(6n+4) { --brick-bg: #713325; }
+  .liveEcho-brick:nth-child(6n+5) { --brick-bg: #7d3a27; }
+  .liveEcho-brick:nth-child(6n+6) { --brick-bg: #694f3a; }
+  .liveEcho-brick:hover { transform: translateY(-2px) scale(1.01); z-index: 1; box-shadow: inset 2px 2px 0 rgba(255,255,255,0.12), inset -2px -2px 0 rgba(0,0,0,0.25), 3px 6px 0 rgba(0,0,0,0.6), 0 0 20px rgba(232,160,32,0.15); }
   @keyframes brickReveal { from{opacity:0;transform:scale(0.94) translateY(6px)} to{opacity:1;transform:scale(1) translateY(0)} }
 
   .brick-stripe { position: absolute; top: 0; left: 0; width: 3px; height: 100%; background: var(--bs-color, var(--accent2)); opacity: 0.65; }
@@ -639,7 +639,7 @@
   @media (max-width: 480px) {
     .fc-1, .fc-2 { display: none; }
     .promo-strip { display: none; }
-    .pledge-form-row { flex-direction: column; }
+    .liveEcho-form-row { flex-direction: column; }
     .pulse-bar-wrap { display: none; }
   }
 </style>
@@ -652,7 +652,7 @@
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#rollcall">Roll Call</a>
-    <a href="#pledge">Pledge Wall</a>
+    <a href="#liveEcho">liveEcho Wall</a>
     <a href="#waitlist" class="nav-cta">Join waitlist</a>
   </div>
 </nav>
@@ -685,8 +685,6 @@
   <div class="stat-badge stat-1"><div class="sb-num">90+</div><div class="sb-label">DU Colleges</div></div>
   <div class="stat-badge blue stat-2"><div class="sb-num">Free</div><div class="sb-label">Forever for students</div></div>
   <div class="stat-badge green stat-3"><div class="sb-num" id="hero-live-count">247</div><div class="sb-label">On the waitlist</div></div>
-
-  <div class="promo-strip"><div class="promo-dot"></div><div class="promo-text">🎪 <strong>Fest season is live</strong> · 💼 Placement prep · 🏔️ Manali Dec 22 · 🏆 Case comps open</div></div>
 
   <div class="hero-content">
     <div class="hero-badge">Now accepting early access</div>
@@ -874,18 +872,18 @@
 </section>
 
 <!-- ══════════════════════════════
-     PLEDGE WALL
+     liveEcho WALL
 ══════════════════════════════ -->
-<section class="pledge-section" id="pledge">
-  <div class="pledge-inner">
-    <div class="pledge-head">
-      <div class="section-label">Pledge wall</div>
+<section class="liveEcho-section" id="liveEcho">
+  <div class="liveEcho-inner">
+    <div class="liveEcho-head">
+      <div class="section-label">liveEcho wall</div>
       <h2>Tell us <em>why</em> you're in</h2>
-      <p style="font-size:1rem;color:var(--ink2);max-width:480px;line-height:1.6;margin-top:0.5rem">Leave a note from your college. The best pledges get featured at launch.</p>
+      <p style="font-size:1rem;color:var(--ink2);max-width:480px;line-height:1.6;margin-top:0.5rem">Leave a note from your college. The best liveEchoes get featured at launch.</p>
     </div>
-    <div class="pledge-form-wrap">
-      <div class="pledge-form-row">
-        <select class="pledge-select" id="pledge-college">
+    <div class="liveEcho-form-wrap">
+      <div class="liveEcho-form-row">
+        <select class="liveEcho-select" id="liveEcho-college">
           <option value="" disabled selected>Pick your college</option>
           <option>SRCC</option>
           <option>Miranda House</option>
@@ -903,13 +901,13 @@
           <option>Motilal Nehru</option>
           <option>Other DU College</option>
         </select>
-        <input class="pledge-input" id="pledge-text" type="text" placeholder="We've been waiting for this since first year... 🔥" maxlength="100">
-        <span class="pledge-char" id="pledge-char">100</span>
-        <button class="pledge-submit" onclick="submitPledge()">Post pledge →</button>
+        <input class="liveEcho-input" id="liveEcho-text" type="text" placeholder="We've been waiting for this since first year... 🔥" maxlength="100">
+        <span class="liveEcho-char" id="liveEcho-char">100</span>
+        <button class="liveEcho-submit" onclick="submitliveEcho()">Post liveEcho →</button>
       </div>
     </div>
-    <div class="pledge-wall" id="pledge-wall">
-      <!-- Seed pledges + user pledges -->
+    <div class="liveEcho-wall" id="liveEcho-wall">
+      <!-- Seed liveEchoes + user liveEchoes -->
     </div>
   </div>
 </section>
@@ -972,12 +970,18 @@ const COLLEGES = [
 let collegeCounts = {};
 let claimedColleges = new Set();
 let waitlistCount = 247;
-let pledges = [
-  { college:'SRCC',          text:"Finance Twitter is good but DUverse will hit different.", color:'#c84b2f', bg:'rgba(200,75,47,0.08)' },
-  { college:'Miranda House', text:"Finally something built FOR us, not just about us.",       color:'#9c27b0', bg:'rgba(156,39,176,0.08)' },
-  { college:'Hindu College', text:"Placement season is chaotic. Need this yesterday.",        color:'#1e4f8c', bg:'rgba(30,79,140,0.08)' },
-  { college:"St. Stephen's", text:"Even Stephanians need a campus network. 👀",               color:'#5d4037', bg:'rgba(93,64,55,0.08)'  },
-  { college:'LSR',           text:"DU ka LinkedIn + Instagram combo? Say less.",              color:'#7b1fa2', bg:'rgba(123,31,162,0.08)' },
+let liveEchoes = [  
+  { name: "Riya", year: "2nd yr", college: 'SRCC', text: about time we got something just for us, w: 124, l: 3 },
+  { name: "Ananya", year: "1st yr", college: 'Lady Sri Ram', text: DU ka LinkedIn + IG combo?, w: 89, l: 2 },
+  { name: "Priya", year: "4th yr", college: 'Hindu College', text: are we moving forward from r/delhiuniversity?, w: 81, l: 5 },
+  { name: "Nikhil", year: "2nd yr", college: 'Ramjas College', text: if this stops freshers from asking for help every 2 secs I'm sold, w: 76, l: 8 },
+  { name: "Kabir", year: "1st yr", college: 'Venky', text: south campus representation mattersss! venky is ready, w: 68, l: 4 },
+  { name: "Dev", year: "3rd yr", college: 'Kirori Mal', text: Curious to see how this turns out!, w: 56, l: 2 },
+  { name: "Sneha", year: "2nd yr", college: 'Miranda House', text: Finally something built FOR us, not just about us. Love the UI., w: 42, l: 1 },
+  { name: "Rohan", year: "1st yr", college: 'Hansraj College', text: no more dead whatsapp groups for fest passes bless up, w: 35, l: 9 },
+  { name: "Meera", year: "3rd yr", college: 'Gargi College', text: another platform for DU brainrot, kinda a W, w: 28, l: 3 },
+  { name: "Aryan", year: "3rd yr", college: "St. Stephen's", text: Lesssgoooo DU ftw, w: 12, l: 2 },
+  { name: "Karan", year: "1st yr", college: "Other DU College", text: lowkey genuinely a good idea sir, w: 18, l: 1}
 ];
 
 // Seed college counts
@@ -1197,42 +1201,42 @@ function updateAllCounts() {
 }
 
 // ════════════════════════════════
-// PLEDGE WALL
+// liveEcho WALL
 // ════════════════════════════════
-function renderPledgeWall() {
-  const wall = document.getElementById('pledge-wall');
-  wall.innerHTML = pledges.map((p, i) => `
-    <div class="pledge-card" style="--pc:${p.color};--pc-bg:${p.bg};animation-delay:${i*0.06}s">
+function renderliveEchoWall() {
+  const wall = document.getElementById('liveEcho-wall');
+  wall.innerHTML = liveEchoes.map((p, i) => `
+    <div class="liveEcho-card" style="--pc:${p.color};--pc-bg:${p.bg};animation-delay:${i*0.06}s">
       <div class="pc-college">${p.college}</div>
       <div class="pc-text">"${p.text}"</div>
       <span class="pc-tag">${p.college}</span>
     </div>
   `).join('');
 }
-renderPledgeWall();
+renderliveEchoWall();
 
 // char counter
-document.getElementById('pledge-text').addEventListener('input', function() {
+document.getElementById('liveEcho-text').addEventListener('input', function() {
   const left = 100 - this.value.length;
-  document.getElementById('pledge-char').textContent = left;
-  document.getElementById('pledge-char').style.color = left < 20 ? 'var(--accent)' : 'var(--ink3)';
+  document.getElementById('liveEcho-char').textContent = left;
+  document.getElementById('liveEcho-char').style.color = left < 20 ? 'var(--accent)' : 'var(--ink3)';
 });
 
-function submitPledge() {
-  const college = document.getElementById('pledge-college').value;
-  const text = document.getElementById('pledge-text').value.trim();
+function submitliveEcho() {
+  const college = document.getElementById('liveEcho-college').value;
+  const text = document.getElementById('liveEcho-text').value.trim();
   if (!college) { alert('Pick your college first!'); return; }
   if (!text || text.length < 5) { alert('Say something real (at least 5 chars)!'); return; }
   const c = COLLEGES.find(c => c.name === college) || { color: 'var(--accent)', name: college };
-  pledges.unshift({
+  liveEchoes.unshift({
     college, text,
     color: c.color || 'var(--accent)',
     bg: `rgba(${hexToRgb(c.color)},0.08)`
   });
-  renderPledgeWall();
-  document.getElementById('pledge-text').value = '';
-  document.getElementById('pledge-college').selectedIndex = 0;
-  document.getElementById('pledge-char').textContent = '100';
+  renderliveEchoWall();
+  document.getElementById('liveEcho-text').value = '';
+  document.getElementById('liveEcho-college').selectedIndex = 0;
+  document.getElementById('liveEcho-char').textContent = '100';
   spawnConfetti(c.color);
   // also bump claimed
   if (c.id && !claimedColleges.has(c.id)) {

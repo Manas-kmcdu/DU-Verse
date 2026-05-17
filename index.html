@@ -13,9 +13,9 @@
     --ink3: #7a776e;
     --paper: #f5f2eb;
     --cream: #ede9df;
-    --accent: #c84b2f;
+    --accent: #c84b2f; /* Red / L color */
     --accent2: #e8a020;
-    --green: #2a6b4a;
+    --green: #2a6b4a; /* Green / W color */
     --blue: #1e4f8c;
     --border: rgba(14,13,11,0.12);
     --serif: 'Instrument Serif', Georgia, serif;
@@ -255,16 +255,19 @@
   .preview { padding: 4rem 2rem 5rem; display: flex; justify-content: center; overflow: hidden; gap: 0; }
   .phone-frame { width: 280px; flex-shrink: 0; background: var(--ink); border-radius: 36px; padding: 12px; box-shadow: 0 32px 64px rgba(14,13,11,0.2); transform: rotate(-2deg); transition: transform 0.4s; }
   .phone-frame:hover { transform: rotate(0deg) scale(1.02); }
-  .phone-screen { background: var(--paper); border-radius: 26px; overflow: hidden; height: 520px; }
-  .phone-status { height: 32px; background: var(--paper); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font-size: 0.65rem; font-weight: 600; color: var(--ink); }
-  .phone-nav { height: 48px; background: var(--paper); border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
+  .phone-screen { background: var(--paper); border-radius: 26px; overflow: hidden; height: 520px; display: flex; flex-direction: column; }
+  .phone-status { height: 32px; flex-shrink: 0; background: var(--paper); display: flex; align-items: center; justify-content: space-between; padding: 0 18px; font-size: 0.65rem; font-weight: 600; color: var(--ink); }
+  .phone-nav { height: 48px; flex-shrink: 0; background: var(--paper); border-bottom: 0.5px solid var(--border); display: flex; align-items: center; justify-content: space-between; padding: 0 16px; }
   .phone-nav-logo { font-family: var(--serif); font-size: 1.1rem; }
   .phone-nav-logo span { color: var(--accent); font-style: italic; }
-  .phone-tabs { display: flex; border-bottom: 0.5px solid var(--border); }
+  .phone-tabs { display: flex; flex-shrink: 0; border-bottom: 0.5px solid var(--border); }
   .phone-tab { flex: 1; padding: 8px 0; text-align: center; font-size: 0.62rem; font-weight: 600; color: var(--ink3); border-bottom: 2px solid transparent; }
   .phone-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-  .feed { padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; }
-  .post { background: #fff; border-radius: 12px; border: 0.5px solid var(--border); overflow: hidden; }
+  
+  .feed { flex: 1; padding: 10px 12px; display: flex; flex-direction: column; gap: 10px; overflow-y: auto; }
+  .feed::-webkit-scrollbar { display: none; }
+  
+  .post { background: #fff; border-radius: 12px; border: 0.5px solid var(--border); overflow: hidden; flex-shrink: 0; }
   .post-head { display: flex; align-items: center; gap: 8px; padding: 8px 10px; }
   .avatar { width: 28px; height: 28px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.6rem; font-weight: 700; color: #fff; flex-shrink: 0; }
   .post-meta { flex: 1; }
@@ -287,17 +290,18 @@
   /* SPORTS PHONE — white theme, matches phone1 */
   .phone-frame2 { width: 260px; flex-shrink: 0; background: var(--ink); border-radius: 36px; padding: 12px; box-shadow: 0 24px 48px rgba(14,13,11,0.18); transform: rotate(2deg) translateY(30px); transition: transform 0.4s; margin-left: -30px; }
   .phone-frame2:hover { transform: rotate(0deg) translateY(0) scale(1.02); }
-  .phone-screen2 { background: var(--paper); border-radius: 26px; overflow: hidden; height: 520px; }
-  .sports-nav { height: 44px; background: var(--paper); border-bottom: 0.5px solid var(--border); display: flex; align-items: center; padding: 0 14px; gap: 8px; }
+  .phone-screen2 { background: var(--paper); border-radius: 26px; overflow: hidden; height: 520px; display: flex; flex-direction: column; }
+  .sports-nav { height: 44px; flex-shrink: 0; background: var(--paper); border-bottom: 0.5px solid var(--border); display: flex; align-items: center; padding: 0 14px; gap: 8px; }
   .sports-logo { font-family: var(--serif); font-size: 1.1rem; color: var(--ink); }
   .sports-logo span { color: var(--accent); font-style: italic; }
   .sports-pill { margin-left: auto; background: rgba(42,107,74,0.1); border: 1px solid rgba(42,107,74,0.2); border-radius: 100px; padding: 2px 8px; font-size: 0.52rem; font-weight: 700; color: var(--green); letter-spacing: 0.04em; text-transform: uppercase; display: flex; align-items: center; gap: 4px; }
   .sports-pill::before { content: ''; width: 5px; height: 5px; border-radius: 50%; background: var(--green); animation: pulse 1.5s infinite; }
-  .sports-tabs { display: flex; border-bottom: 0.5px solid var(--border); }
+  .sports-tabs { display: flex; flex-shrink: 0; border-bottom: 0.5px solid var(--border); }
   .sports-tab { flex: 1; padding: 8px 0; text-align: center; font-size: 0.58rem; font-weight: 600; color: var(--ink3); border-bottom: 2px solid transparent; }
   .sports-tab.active { color: var(--green); border-bottom-color: var(--green); }
-  .sports-feed { padding: 10px 10px; display: flex; flex-direction: column; gap: 8px; overflow: hidden; }
-  .sport-card { background: #fff; border-radius: 10px; padding: 10px; border: 0.5px solid var(--border); position: relative; overflow: hidden; }
+  .sports-feed { flex: 1; padding: 10px 10px; display: flex; flex-direction: column; gap: 8px; overflow-y: auto; }
+  .sports-feed::-webkit-scrollbar { display: none; }
+  .sport-card { background: #fff; border-radius: 10px; padding: 10px; border: 0.5px solid var(--border); position: relative; overflow: hidden; flex-shrink: 0; }
   .sport-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--sc); }
   .sc-top { display: flex; align-items: center; gap: 6px; margin-bottom: 5px; }
   .sc-icon { font-size: 1rem; }
@@ -369,15 +373,17 @@
     backdrop-filter: blur(12px); box-shadow: 0 16px 40px rgba(0,0,0,0.3);
     position: relative; z-index: 10;
   }
-  .echo-form-row { display: flex; gap: 0.6rem; flex-wrap: wrap; }
+  .echo-form-row { display: flex; gap: 0.6rem; flex-wrap: wrap; margin-bottom: 0.6rem; }
+  .echo-form-row:last-child { margin-bottom: 0; }
   .echo-select, .echo-input {
     background: rgba(14,13,11,0.04); border: 1px solid rgba(14,13,11,0.1);
     border-radius: 10px; padding: 0.8rem 1rem;
     font-family: var(--sans); font-size: 0.9rem; color: var(--ink);
     outline: none; transition: border-color 0.2s;
   }
-  .echo-select { flex: 1; min-width: 150px; }
-  .echo-input { flex: 3; min-width: 200px; }
+  .echo-input-small { flex: 1; min-width: 100px; }
+  .echo-select { flex: 1.5; min-width: 140px; }
+  .echo-input-large { flex: 3; min-width: 100%; }
   .echo-select:focus, .echo-input:focus { border-color: var(--accent); background: #fff; }
   .echo-char { display: flex; align-items: center; padding: 0 0.5rem; font-size: 0.75rem; color: var(--ink3); font-weight: 600; }
   .echo-submit {
@@ -391,11 +397,6 @@
     margin-top: 1rem; padding: 0.8rem;
     background: rgba(232,160,32,0.15); border: 1px solid rgba(232,160,32,0.3);
     border-radius: 10px; font-size: 0.85rem; font-weight: 500; color: #a67216;
-  }
-  .mod-toggle-btn {
-    position: absolute; right: 1rem; bottom: -2.5rem;
-    background: rgba(0,0,0,0.6); color: white; border: 1px solid rgba(255,255,255,0.2);
-    padding: 4px 12px; border-radius: 100px; font-size: 0.7rem; cursor: pointer; backdrop-filter: blur(4px);
   }
   .mod-queue-wrap {
     background: #fff; border: 2px solid var(--accent); border-radius: 16px;
@@ -478,6 +479,14 @@
   footer nav a { font-size: 0.78rem; color: rgba(245,242,235,0.4); text-decoration: none; }
   footer nav a:hover { color: var(--paper); }
 
+  /* Admin Login Modal */
+  .admin-modal { display: none; position: fixed; inset: 0; z-index: 1000; background: rgba(0,0,0,0.8); align-items: center; justify-content: center; backdrop-filter: blur(8px); }
+  .admin-box { background: var(--paper); padding: 2rem; border-radius: 16px; width: 100%; max-width: 320px; box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .admin-box h3 { margin-bottom: 1rem; font-family: var(--serif); color: var(--ink); font-size: 1.8rem; }
+  .admin-input { width: 100%; padding: 0.8rem; margin-bottom: 1rem; border: 1px solid var(--border); border-radius: 8px; font-family: var(--sans); }
+  .admin-btn { width: 100%; padding: 0.8rem; background: var(--accent); color: white; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; }
+  .admin-close { position: absolute; top: 1rem; right: 1rem; color: white; font-size: 1.5rem; cursor: pointer; }
+
   @media (max-width: 900px) {
     .img-spot-1, .img-spot-3 { width: 100px; height: 130px; }
     .img-spot-2, .img-spot-4 { width: 110px; height: 90px; }
@@ -506,9 +515,8 @@
 </head>
 <body>
 
-<!-- NAV -->
 <nav>
-  <a href="#" class="nav-logo">DU<span>verse</span></a>
+  <a href="#" class="nav-logo">Un<span>rest</span></a>
   <div class="nav-links">
     <a href="#features">Features</a>
     <a href="#rollcall">Roll Call</a>
@@ -517,7 +525,6 @@
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="hero-bg"></div>
   <div class="hero-grain"></div>
@@ -570,7 +577,6 @@
   </div>
 </section>
 
-<!-- COUNTDOWN -->
 <div class="countdown-section" id="countdown">
   <div class="countdown-inner">
     <div class="countdown-eyebrow">🚀 Launch countdown</div>
@@ -602,7 +608,6 @@
   </div>
 </div>
 
-<!-- TICKER -->
 <div class="ticker-section">
   <div class="ticker-wrap">
     <div class="ticker-track">
@@ -614,7 +619,6 @@
   </div>
 </div>
 
-<!-- LIVE PULSE -->
 <div class="pulse-section">
   <div class="pulse-inner">
     <div class="pulse-left">
@@ -630,7 +634,6 @@
   </div>
 </div>
 
-<!-- ROLL CALL -->
 <section class="rollcall-section" id="rollcall">
   <div class="rollcall-inner">
     <div class="rollcall-head">
@@ -649,13 +652,11 @@
   </div>
 </section>
 
-<!-- PHONE PREVIEW — Social Feed + Sports -->
 <div class="preview" id="store">
-  <!-- Phone 1: Social Feed -->
   <div class="phone-frame">
     <div class="phone-screen">
       <div class="phone-status"><span>9:41</span><span>●●● 100%</span></div>
-      <div class="phone-nav"><div class="phone-nav-logo">DU<span>verse</span></div><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#7a776e" stroke-width="1.5"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></div>
+      <div class="phone-nav"><div class="phone-nav-logo">Un<span>rest</span></div><svg width="18" height="18" fill="none" viewBox="0 0 24 24" stroke="#7a776e" stroke-width="1.5"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 10-12 0v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg></div>
       <div class="phone-tabs"><div class="phone-tab active">Feed</div><div class="phone-tab">Store</div><div class="phone-tab">Explore</div></div>
       <div class="feed">
         <div class="post">
@@ -673,12 +674,11 @@
     </div>
   </div>
 
-  <!-- Phone 2: Sports & Activities -->
   <div class="phone-frame2">
     <div class="phone-screen2">
       <div class="phone-status"><span>9:41</span><span>●●● 100%</span></div>
       <div class="sports-nav">
-        <div class="sports-logo">DU<span>verse</span></div>
+        <div class="sports-logo">Un<span>rest</span></div>
         <div class="sports-pill">Sports Live</div>
       </div>
       <div class="sports-tabs">
@@ -748,7 +748,6 @@
   </div>
 </div>
 
-<!-- FEATURES -->
 <section class="features" id="features">
   <div class="features-inner">
     <div class="features-head">
@@ -767,7 +766,6 @@
   </div>
 </section>
 
-<!-- HOW IT WORKS -->
 <section id="how">
   <div class="how">
     <div class="how-head"><div class="section-label">How it works</div><h2>Simple as <em>semester 1</em></h2></div>
@@ -780,7 +778,6 @@
   </div>
 </section>
 
-<!-- ECHO WALL (hidden until email submit) -->
 <section class="echo-section" id="echo" style="display: none;">
   <div class="echo-wall-bg"></div>
   <div class="echo-inner">
@@ -792,6 +789,15 @@
     <div id="echo-unlocked">
       <div class="echo-form-wrap">
         <div class="echo-form-row">
+          <input class="echo-input echo-input-small" id="echo-name" type="text" placeholder="First Name" maxlength="15">
+          <select class="echo-select echo-input-small" id="echo-year">
+            <option value="" disabled selected>Year</option>
+            <option>1st yr</option>
+            <option>2nd yr</option>
+            <option>3rd yr</option>
+            <option>4th yr</option>
+            <option>Alumni</option>
+          </select>
           <select class="echo-select" id="echo-college">
             <option value="" disabled selected>Pick your college</option>
             <option>SRCC</option>
@@ -806,25 +812,33 @@
             <option>Venky</option>
             <option>Other DU College</option>
           </select>
-          <input class="echo-input" id="echo-text" type="text" placeholder="We've been waiting for this since first year... " maxlength="120">
-          <span class="echo-char" id="echo-char">120</span>
+        </div>
+        <div class="echo-form-row" style="margin-top: 0.6rem;">
+          <input class="echo-input echo-input-large" id="echo-text" type="text" placeholder="Start your journey with your first echo!" maxlength="120">
           <button class="echo-submit" onclick="submitEcho()">Post echo →</button>
+        </div>
+        <div style="display:flex; justify-content: flex-end; margin-top:4px;">
+          <span class="echo-char" id="echo-char">120</span>
         </div>
         <div class="echo-pending-msg" id="echo-pending-msg">
           ⏳ Your echo has been sent to moderators for review. It will appear on the wall soon!
         </div>
-        <button class="mod-toggle-btn" onclick="toggleModQueue()" id="mod-toggle-btn">Admin: Mod Queue (0)</button>
+        
+        <div id="admin-panel" style="display:none; margin-top: 1rem; border-top: 1px solid var(--border); padding-top: 1rem;">
+          <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+            <h3 style="font-family: var(--serif); color: var(--accent); margin:0;">Admin Mod Queue</h3>
+            <span style="font-size: 0.8rem; background: var(--accent); color: white; padding: 2px 8px; border-radius: 100px;" id="mod-count">0 Pending</span>
+          </div>
+          <div id="mod-items-container" style="display: flex; flex-direction: column; gap: 8px;"></div>
+        </div>
+
       </div>
-      <div class="mod-queue-wrap" id="mod-queue">
-        <div class="mod-queue-title">Pending Echoes <span id="mod-count">0</span></div>
-        <div id="mod-items-container"></div>
-      </div>
+      
       <div class="echo-wall" id="echo-wall"></div>
     </div>
   </div>
 </section>
 
-<!-- WAITLIST -->
 <section class="waitlist" id="waitlist">
   <div class="section-label" style="color:var(--accent2);justify-content:center"><span style="background:var(--accent2);height:1.5px;width:20px;display:inline-block"></span>Early access</div>
   <h2>Be the <em>first</em> at your college</h2>
@@ -846,89 +860,311 @@
   </div>
 </section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="foot-logo">DU<span>verse</span></div>
+  <div class="foot-logo">Un<span>rest</span></div>
   <p>© 2026 Unrest · Built by a DU student, for DU students</p>
-  <nav style="display:flex;gap:1.5rem"><a href="#">Privacy</a><a href="#">Terms</a><a href="mailto:hello@Unrest.in">Contact</a></nav>
+  <nav style="display:flex;gap:1.5rem">
+    <a href="#">Privacy</a>
+    <a href="#">Terms</a>
+    <a href="mailto:hello@Unrest.in">Contact</a>
+    <a onclick="document.getElementById('admin-modal').style.display='flex'">Admin Login</a>
+  </nav>
 </footer>
+
+<div class="admin-modal" id="admin-modal">
+  <div class="admin-close" onclick="document.getElementById('admin-modal').style.display='none'">✕</div>
+  <div class="admin-box">
+    <h3>Admin Login</h3>
+    <input type="email" id="admin-email" class="admin-input" placeholder="Admin Email">
+    <input type="password" id="admin-pass" class="admin-input" placeholder="Password">
+    <button class="admin-btn" onclick="adminLogin()">Login to Moderate</button>
+  </div>
+</div>
 
 <div class="confetti-container" id="confetti-container"></div>
 
+<script type="module">
+  // 1. IMPORT FIREBASE 
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getFirestore, collection, addDoc, query, where, onSnapshot, updateDoc, doc, deleteDoc } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+  import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+  // 2. PASTE YOUR CONFIG HERE
+  const firebaseConfig = {
+    apiKey: "AIzaSyDBJ0hHjVyEnwg7mV7ECeG163K7fs1fsiE",
+  authDomain: "du-verse-e75db.firebaseapp.com",
+  databaseURL: "https://du-verse-e75db-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "du-verse-e75db",
+  storageBucket: "du-verse-e75db.firebasestorage.app",
+  messagingSenderId: "84735746102",
+  appId: "1:84735746102:web:6fe5353a0586db71323897"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
+  const auth = getAuth(app);
+
+  // 3. EXPOSE GLOBALS
+  window.db = db; window.auth = auth;
+  window.signInWithEmailAndPassword = signInWithEmailAndPassword; 
+  window.collection = collection; window.addDoc = addDoc; 
+  window.query = query; window.where = where; window.onSnapshot = onSnapshot;
+  window.updateDoc = updateDoc; window.doc = doc; window.deleteDoc = deleteDoc;
+
+  // 4. LOAD APPROVED ECHOES (Anyone can read)
+  const q = query(collection(db, "echoes"), where("status", "==", "approved"));
+  onSnapshot(q, (snapshot) => {
+    window.liveEchoes = [];
+    snapshot.forEach((doc) => {
+      const data = doc.data(); data.id = doc.id;
+      window.liveEchoes.push(data);
+    });
+    if(window.renderEchoWall) window.renderEchoWall();
+  });
+</script>
+
 <script>
-// ── DATA ──────────────────────────────────────────────
+// --- YOUR EXISTING UI DATA & VARIABLES WITH NEW LORE ---
 const COLLEGES = [
-  { id:'srcc',       name:'SRCC',          full:'Shri Ram College of Commerce',        emoji:'🏛️', color:'#c84b2f', seed:58 },
-  { id:'miranda',    name:'Miranda House', full:'Miranda House',                       emoji:'🌸', color:'#9c27b0', seed:47 },
-  { id:'hindu',      name:'Hindu College', full:'Hindu College',                       emoji:'🎓', color:'#1e4f8c', seed:43 },
-  { id:'stephens',   name:"St. Stephen's", full:"St. Stephen's College",               emoji:'⛪', color:'#5d4037', seed:38 },
-  { id:'lsr',        name:'LSR',           full:'Lady Shri Ram College',               emoji:'💜', color:'#7b1fa2', seed:35 },
-  { id:'hansraj',    name:'Hansraj',       full:'Hansraj College',                     emoji:'🔬', color:'#0097a7', seed:29 },
-  { id:'kirorimal',  name:'Kirori Mal',    full:'Kirori Mal College',                  emoji:'🏗️', color:'#e65100', seed:26 },
-  { id:'ramjas',     name:'Ramjas',        full:'Ramjas College',                      emoji:'📚', color:'#2e7d32', seed:22 },
-  { id:'gargi',      name:'Gargi',         full:'Gargi College',                       emoji:'🌺', color:'#c2185b', seed:19 },
-  { id:'ipcollege',  name:'IP College',    full:'Indraprastha College for Women',      emoji:'🌟', color:'#00838f', seed:17 },
-  { id:'dyal',       name:'Dyal Singh',    full:'Dyal Singh College',                  emoji:'🏫', color:'#455a64', seed:14 },
-  { id:'venky',      name:'Venky',         full:'Venkateswara College',                emoji:'🦅', color:'#6d4c41', seed:12 },
-  { id:'motilal',    name:'Motilal Nehru', full:'Motilal Nehru College',               emoji:'🎯', color:'#1565c0', seed:10 },
-  { id:'zakir',      name:'Zakir Husain',  full:'Zakir Husain Delhi College',          emoji:'🎨', color:'#00695c', seed:9  },
-  { id:'deshbandhu', name:'Deshbandhu',    full:'Deshbandhu College',                  emoji:'🌿', color:'#558b2f', seed:8  },
+  { id:'stephens', name:"St. Stephen's", desc:"Founded in 1881. Joined the Unrest in 2026.", emoji:'⛪', color:'#5d4037', seed:38 },
+  { id:'hindu', name:'Hindu College', desc:"Founded in 1899. Joined the Unrest in 2026.", emoji:'🎓', color:'#1e4f8c', seed:43 },
+  { id:'ramjas', name:'Ramjas College', desc:"Founded in 1917. Joined the Unrest in 2026.", emoji:'📚', color:'#2e7d32', seed:22 },
+  { id:'ipcw', name:'IP College', desc:"Founded in 1924. Joined the Unrest in 2026.", emoji:'🕊️', color:'#00838f', seed:17 },
+  { id:'srcc', name:'SRCC', desc:"Founded in 1926. Joined the Unrest in 2026.", emoji:'🏛️', color:'#c84b2f', seed:58 },
+  { id:'miranda', name:'Miranda House', desc:"Founded in 1948. Joined the Unrest in 2026.", emoji:'🌸', color:'#9c27b0', seed:47 },
+  { id:'hansraj', name:'Hansraj College', desc:"Founded in 1948. Joined the Unrest in 2026.", emoji:'🔬', color:'#0097a7', seed:29 },
+  { id:'sgtb', name:'SGTB Khalsa', desc:"Founded in 1951. Joined the Unrest in 2026.", emoji:'⚔️', color:'#f57c00', seed:24 },
+  { id:'kirorimal', name:'Kirori Mal College', desc:"Founded in 1954. Joined the Unrest in 2026.", emoji:'🏗️', color:'#e65100', seed:26 },
+  { id:'lsr', name:'LSR', desc:"Founded in 1956. Joined the Unrest in 2026.", emoji:'💜', color:'#7b1fa2', seed:35 },
+  { id:'drc', name:'Daulat Ram College', desc:"Founded in 1960. Joined the Unrest in 2026.", emoji:'📖', color:'#d81b60', seed:21 },
+  { id:'venky', name:'Venky', desc:"Founded in 1961. Joined the Unrest in 2026.", emoji:'🦅', color:'#6d4c41', seed:32 },
+  { id:'shivaji', name:'Shivaji College', desc:"Founded in 1961. Joined the Unrest in 2026.", emoji:'⚔️', color:'#fbc02d', seed:14 },
+  { id:'gargi', name:'Gargi College', desc:"Founded in 1967. Joined the Unrest in 2026.", emoji:'🌺', color:'#c2185b', seed:19 },
+  { id:'Other DU College', name:'Other DU College', desc:"Founded in 1922. Joined the Unrest in 2026.", emoji:'🏫', color:'#455a64', seed:0 }
 ];
 
 const COLLEGE_COLORS = {};
-COLLEGES.forEach(function(c) { COLLEGE_COLORS[c.name] = c.color; });
-COLLEGE_COLORS['Lady Sri Ram']     = '#7b1fa2';
-COLLEGE_COLORS['Other DU College'] = '#455a64';
-COLLEGE_COLORS['Hansraj College']  = '#0097a7';
-COLLEGE_COLORS['Ramjas College']   = '#2e7d32';
-COLLEGE_COLORS['Gargi College']    = '#c2185b';
+COLLEGES.forEach(c => COLLEGE_COLORS[c.name] = c.color);
+COLLEGE_COLORS['Lady Sri Ram'] = '#7b1fa2';
 
-var collegeCounts  = {};
-var claimedColleges = new Set();
-var waitlistCount   = 247;
-var hasUnlockedWall = false;
-COLLEGES.forEach(function(c) { collegeCounts[c.id] = c.seed; });
+let collegeCounts = {};
+let claimedColleges = new Set();
+let waitlistCount = 247;
+let hasUnlockedWall = false;
+window.liveEchoes = [];
+window.isAdmin = false;
 
-// ── NAV GUARD ─────────────────────────────────────────
+COLLEGES.forEach(c => { collegeCounts[c.id] = c.seed; });
+
+// --- UTILS ---
+function formatUsername(name) { return name ? '@' + name.trim().toLowerCase().replace(/\s+/g, '') : '@anonymous'; }
 function scrollToEchoWall() {
-  var echoSec = document.getElementById('echo');
-  if (echoSec.style.display === 'none') {
-    alert('Join the waitlist to unlock the Echo Wall!');
-    document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' });
-  } else {
-    echoSec.scrollIntoView({ behavior: 'smooth' });
+  const echoSec = document.getElementById('echo');
+  if (echoSec.style.display === 'none') { alert('Join the waitlist to unlock the Echo Wall!'); document.getElementById('waitlist').scrollIntoView({ behavior: 'smooth' }); } 
+  else { echoSec.scrollIntoView({ behavior: 'smooth' }); }
+}
+
+// --- ADMIN LOGIN & MODERATION ---
+async function adminLogin() {
+  const email = document.getElementById('admin-email').value;
+  const pass = document.getElementById('admin-pass').value;
+  
+  try {
+    await window.signInWithEmailAndPassword(window.auth, email, pass);
+    document.getElementById('admin-modal').style.display = 'none';
+    window.isAdmin = true;
+    
+    // Unlock wall to show Mod panel
+    document.getElementById('echo').style.display = 'block';
+    document.getElementById('admin-panel').style.display = 'block';
+    alert("Admin logged in successfully.");
+    
+    // Listen for pending echoes
+    const qPending = window.query(window.collection(window.db, "echoes"), window.where("status", "==", "pending"));
+    window.onSnapshot(qPending, (snapshot) => {
+      let pendingHtml = "";
+      let count = 0;
+      snapshot.forEach((doc) => {
+        count++;
+        const p = doc.data();
+        pendingHtml += `
+          <div class="mod-item">
+            <div class="mod-info">
+              <div class="mod-info-college">${formatUsername(p.name)} - ${p.year} - ${p.college}</div>
+              <div class="mod-info-text">"${p.text}"</div>
+            </div>
+            <div class="mod-actions">
+              <button class="btn-approve" onclick="approveEcho('${doc.id}')">Approve</button>
+              <button class="btn-reject" onclick="rejectEcho('${doc.id}')">Reject</button>
+            </div>
+          </div>
+        `;
+      });
+      document.getElementById('mod-count').textContent = `${count} Pending`;
+      document.getElementById('mod-items-container').innerHTML = pendingHtml || '<div style="font-size:0.8rem;color:#888;">Queue is empty.</div>';
+    });
+
+  } catch (error) {
+    alert("Login failed: " + error.message);
   }
 }
 
-// ── COUNTDOWN ─────────────────────────────────────────
-var LAUNCH_DATE    = new Date('2026-06-11T00:00:00+05:30');
-var CAMPAIGN_START = new Date('2025-09-01T00:00:00+05:30');
+window.approveEcho = async function(id) {
+  try { await window.updateDoc(window.doc(window.db, "echoes", id), { status: 'approved' }); } 
+  catch(e) { console.error(e); alert("Failed to approve."); }
+}
+
+window.rejectEcho = async function(id) {
+  try { await window.deleteDoc(window.doc(window.db, "echoes", id)); } 
+  catch(e) { console.error(e); alert("Failed to reject."); }
+}
+
+// --- WAITLIST JOIN (DUMMY MODE FOR NOW, DB SAVING SOON) ---
+function joinWaitlist(source) {
+  const emailEl = document.getElementById(source === 'hero' ? 'hero-email' : 'waitlist-email');
+  const email = emailEl.value.trim();
+  
+  if (!email || !email.includes('@')) {
+    emailEl.style.outline = '2px solid #c84b2f';
+    setTimeout(() => emailEl.style.outline = '', 2000);
+    return;
+  }
+
+  // To truly lock to DU students using just email/password auth (since we dropped Google Auth), 
+  // you would verify the string here before saving to DB.
+  if (!email.endsWith('.du.ac.in') && !window.isAdmin) {
+      alert("Access Denied: Unrest is exclusively for verified Delhi University students. Please enter your official @college.du.ac.in email address.");
+      return;
+  }
+
+  // Since we don't have the user Auth token, we write anonymously via an unlocked waitlist rule
+  // Make sure your waitlist rule allows open creation if you do this!
+  try {
+    window.addDoc(window.collection(window.db, "waitlist"), {
+        email: email,
+        timestamp: new Date().toISOString()
+    });
+  } catch(e) { console.log(e); }
+
+  document.getElementById(source === 'hero' ? 'hero-form' : 'waitlist-form').style.display = 'none';
+  document.getElementById(source === 'hero' ? 'hero-success' : 'waitlist-success').style.display = 'block';
+
+  waitlistCount++;
+  document.getElementById('pulse-count').textContent = waitlistCount;
+  document.getElementById('hero-live-count').textContent = waitlistCount;
+  spawnConfetti('#2a6b4a');
+
+  if (!hasUnlockedWall) {
+    hasUnlockedWall = true;
+    const echoSec = document.getElementById('echo');
+    echoSec.style.display = 'block';
+    setTimeout(() => echoSec.scrollIntoView({ behavior: 'smooth' }), 500);
+  }
+}
+
+// --- SECURE ECHO SUBMISSION ---
+async function submitEcho() {
+  const name = document.getElementById('echo-name').value.trim() || 'Anonymous';
+  const year = document.getElementById('echo-year').value;
+  const college = document.getElementById('echo-college').value;
+  const text = document.getElementById('echo-text').value.trim();
+  
+  if (!year || !college) { alert('Pick your year and college!'); return; }
+  if (text.length < 5) { alert('Write a longer echo!'); return; }
+
+  try {
+    await window.addDoc(window.collection(window.db, "echoes"), {
+      name: name,
+      year: year,
+      college: college,
+      text: text,
+      w: 1,
+      l: 0,
+      status: window.isAdmin ? 'approved' : 'pending', // Admins bypass the queue
+      timestamp: new Date().toISOString()
+    });
+
+    document.getElementById('echo-text').value = '';
+    const msg = document.getElementById('echo-pending-msg');
+    msg.style.display = 'flex';
+    setTimeout(() => msg.style.display = 'none', 4000);
+  } catch (err) {
+    console.error(err);
+    alert("Submission failed. Ensure you are signed in.");
+  }
+}
+
+window.renderEchoWall = function() {
+  const wall = document.getElementById('echo-wall');
+  window.liveEchoes.sort((a, b) => (b.w - b.l) - (a.w - a.l));
+
+  wall.innerHTML = window.liveEchoes.map((p, i) => {
+    const color = COLLEGE_COLORS[p.college] || '#333';
+    const usernameStr = `${formatUsername(p.name)} - ${p.year || 'Student'} - ${p.college}`;
+    return `
+      <div class="white-tile" style="--tc: ${color}; animation-delay: ${i * 0.05}s">
+        <div class="wt-accent"></div>
+        <div class="wt-text">"${p.text}"</div>
+        <div class="wt-footer">
+          <div class="wt-meta"><div class="wt-college">${usernameStr}</div></div>
+          <div class="wl-actions">
+            <button class="wl-btn" onclick="voteCloud('${p.id}', 'w', this)">W <span>${p.w}</span></button>
+            <button class="wl-btn" onclick="voteCloud('${p.id}', 'l', this)">L <span>${p.l}</span></button>
+          </div>
+        </div>
+      </div>
+    `;
+  }).join('');
+};
+
+window.voteCloud = async function(id, type, btn) {
+  const currentVal = parseInt(btn.querySelector('span').textContent);
+  let newVal = currentVal;
+  
+  if (btn.classList.contains(type === 'w' ? 'active-w' : 'active-l')) {
+    newVal = currentVal - 1;
+    btn.classList.remove(type === 'w' ? 'active-w' : 'active-l');
+  } else {
+    newVal = currentVal + 1;
+    btn.classList.add(type === 'w' ? 'active-w' : 'active-l');
+  }
+  
+  try {
+     const payload = {};
+     payload[type] = newVal;
+     await window.updateDoc(window.doc(window.db, "echoes", id), payload);
+  } catch(e) { console.error("Vote failed", e); }
+};
+
+// --- COUNTDOWN ---
+const LAUNCH_DATE = new Date("June 11, 2026 00:00:00 GMT+0530").getTime();
+const CAMPAIGN_START = new Date("September 1, 2025 00:00:00 GMT+0530").getTime();
 
 function padZ(n) { return String(n).padStart(2, '0'); }
 
-var lastSecs = -1;
+let lastSecs = -1;
 function updateCountdown() {
-  var now  = new Date();
-  var diff = LAUNCH_DATE - now;
+  const now = new Date().getTime();
+  const diff = LAUNCH_DATE - now;
   if (diff <= 0) {
-    document.getElementById('cd-days').textContent  = '00';
+    document.getElementById('cd-days').textContent = '00';
     document.getElementById('cd-hours').textContent = '00';
-    document.getElementById('cd-mins').textContent  = '00';
-    document.getElementById('cd-secs').textContent  = '00';
+    document.getElementById('cd-mins').textContent = '00';
+    document.getElementById('cd-secs').textContent = '00';
     document.getElementById('launch-pct').textContent = "🎉 We're live!";
     document.getElementById('launch-fill').style.width = '100%';
     return;
   }
-  var days  = Math.floor(diff / 86400000);
-  var hours = Math.floor((diff % 86400000) / 3600000);
-  var mins  = Math.floor((diff % 3600000)  / 60000);
-  var secs  = Math.floor((diff % 60000)    / 1000);
+  const days  = Math.floor(diff / 86400000);
+  const hours = Math.floor((diff % 86400000) / 3600000);
+  const mins  = Math.floor((diff % 3600000)  / 60000);
+  const secs  = Math.floor((diff % 60000)    / 1000);
 
-  document.getElementById('cd-days').textContent  = padZ(days);
+  document.getElementById('cd-days').textContent = padZ(days);
   document.getElementById('cd-hours').textContent = padZ(hours);
-  document.getElementById('cd-mins').textContent  = padZ(mins);
+  document.getElementById('cd-mins').textContent = padZ(mins);
 
-  var sEl = document.getElementById('cd-secs');
+  const sEl = document.getElementById('cd-secs');
   if (secs !== lastSecs) {
     sEl.textContent = padZ(secs);
     sEl.classList.remove('flip');
@@ -937,59 +1173,56 @@ function updateCountdown() {
     lastSecs = secs;
   }
 
-  var total   = LAUNCH_DATE - CAMPAIGN_START;
-  var elapsed = now - CAMPAIGN_START;
-  var pct     = Math.min(100, Math.max(0, (elapsed / total) * 100));
+  const total = LAUNCH_DATE - CAMPAIGN_START;
+  const elapsed = now - CAMPAIGN_START;
+  const pct = Math.min(100, Math.max(0, (elapsed / total) * 100));
   document.getElementById('launch-fill').style.width = pct.toFixed(1) + '%';
-  document.getElementById('launch-pct').textContent  = pct.toFixed(0) + '% of the journey done · ' + days + ' days to go';
+  document.getElementById('launch-pct').textContent = `${pct.toFixed(0)}% of the journey done · ${days} days to go`;
 }
+
 updateCountdown();
 setInterval(updateCountdown, 1000);
 
-// ── CONFETTI ──────────────────────────────────────────
-var CONFETTI_COLORS = ['#c84b2f','#e8a020','#2a6b4a','#1e4f8c','#9c27b0','#00838f'];
+// --- CONFETTI ---
+const CONFETTI_COLORS = ['#c84b2f','#e8a020','#2a6b4a','#1e4f8c','#9c27b0','#00838f'];
 function spawnConfetti(color) {
-  var container = document.getElementById('confetti-container');
-  for (var i = 0; i < 28; i++) {
-    var piece = document.createElement('div');
+  const container = document.getElementById('confetti-container');
+  for (let i = 0; i < 28; i++) {
+    const piece = document.createElement('div');
     piece.className = 'confetti-piece';
-    var x        = 20 + Math.random() * 60;
-    var duration = 1.2 + Math.random() * 1.2;
-    var size     = 6 + Math.random() * 8;
-    piece.style.cssText = [
-      'left:' + x + 'vw',
-      'top:' + (30 + Math.random() * 20) + 'vh',
-      'width:' + size + 'px',
-      'height:' + size + 'px',
-      'background:' + (Math.random() > 0.5 ? color : CONFETTI_COLORS[Math.floor(Math.random() * CONFETTI_COLORS.length)]),
-      'border-radius:' + (Math.random() > 0.5 ? '50%' : '2px'),
-      'animation-duration:' + duration + 's',
-      'animation-delay:' + Math.random() * 0.3 + 's'
-    ].join(';');
+    const x = 20 + Math.random() * 60;
+    const duration = 1.2 + Math.random() * 1.2;
+    const size = 6 + Math.random() * 8;
+    piece.style.cssText = `
+      left: ${x}vw; top: ${30 + Math.random() * 20}vh;
+      width: ${size}px; height: ${size}px;
+      background: ${Math.random() > 0.5 ? color : CONFETTI_COLORS[Math.floor(Math.random()*CONFETTI_COLORS.length)]};
+      border-radius: ${Math.random() > 0.5 ? '50%' : '2px'};
+      animation-duration: ${duration}s; animation-delay: ${Math.random() * 0.3}s;
+    `;
     container.appendChild(piece);
-    (function(p, d) {
-      setTimeout(function() { p.remove(); }, (d + 0.5) * 1000);
-    })(piece, duration);
+    setTimeout(() => piece.remove(), (duration + 0.5) * 1000);
   }
 }
 
-// ── COLLEGE GRID ──────────────────────────────────────
+// --- COLLEGE GRID (UPDATED) ---
 function renderCollegeGrid() {
-  var grid = document.getElementById('college-grid');
+  const grid = document.getElementById('college-grid');
   grid.innerHTML = '';
-  COLLEGES.forEach(function(c) {
-    var claimed = claimedColleges.has(c.id);
-    var count   = collegeCounts[c.id] || 0;
-    var tile    = document.createElement('div');
+  COLLEGES.forEach(c => {
+    const claimed = claimedColleges.has(c.id);
+    const count = collegeCounts[c.id] || 0;
+    const tile = document.createElement('div');
     tile.className = 'college-tile' + (claimed ? ' claimed' : '');
     tile.style.setProperty('--tile-color', c.color);
-    tile.innerHTML =
-      '<span class="tile-emoji">' + c.emoji + '</span>' +
-      '<div class="tile-name">' + c.name + '</div>' +
-      '<div class="tile-full">' + c.full + '</div>' +
-      '<div class="tile-count"><div class="tile-count-dot"></div>' + count + ' here</div>' +
-      '<div class="tile-check">✓</div>';
-    tile.addEventListener('click', function() { claimCollege(c.id, tile, c); });
+    tile.innerHTML = `
+      <span class="tile-emoji">${c.emoji}</span>
+      <div class="tile-name">${c.name}</div>
+      <div class="tile-full">${c.desc}</div>
+      <div class="tile-count"><div class="tile-count-dot"></div>${count} here</div>
+      <div class="tile-check">✓</div>
+    `;
+    tile.addEventListener('click', () => claimCollege(c.id, tile, c));
     grid.appendChild(tile);
   });
   updateRollCallStats();
@@ -1000,7 +1233,7 @@ function claimCollege(id, tile, c) {
   claimedColleges.add(id);
   collegeCounts[id] = (collegeCounts[id] || 0) + 1;
   tile.classList.add('claimed');
-  tile.querySelector('.tile-count').innerHTML = '<div class="tile-count-dot"></div>' + collegeCounts[id] + ' here';
+  tile.querySelector('.tile-count').innerHTML = `<div class="tile-count-dot"></div>${collegeCounts[id]} here`;
   tile.style.setProperty('--tile-color', c.color);
   updateRollCallStats();
   updatePulseBar();
@@ -1011,30 +1244,24 @@ function claimCollege(id, tile, c) {
 }
 
 function updateRollCallStats() {
-  var totalMarked = COLLEGES.reduce(function(a, c) { return a + (collegeCounts[c.id] || 0); }, 0);
+  const totalMarked = COLLEGES.reduce((a, c) => a + (collegeCounts[c.id] || 0), 0);
   document.getElementById('colleges-claimed').textContent = COLLEGES.length;
   document.getElementById('total-marked').textContent = totalMarked;
 }
-
 renderCollegeGrid();
 
-// ── LIVE PULSE ────────────────────────────────────────
-var FAKE_NAMES = [
-  ['RK','Riya K.','SRCC','#c84b2f'],
-  ['AS','Aryan S.','Hindu College','#1e4f8c'],
-  ['PM','Priya M.','Miranda House','#9c27b0'],
-  ['ND','Nikhil D.','Hansraj College','#0097a7'],
-  ['SS','Shreya S.',"St. Stephen's",'#5d4037'],
-  ['AK','Aditya K.','LSR','#7b1fa2'],
-  ['VT','Varun T.','Ramjas College','#2e7d32'],
-  ['NJ','Nisha J.','Gargi College','#c2185b'],
-  ['RB','Raj B.','Kirori Mal','#e65100'],
-  ['KM','Kavya M.','IP College','#00838f'],
+// --- LIVE PULSE FEED ---
+const FAKE_NAMES = [
+  ['RK','Riya K.','SRCC','#c84b2f'], ['AS','Aryan S.','Hindu College','#1e4f8c'],
+  ['PM','Priya M.','Miranda House','#9c27b0'], ['ND','Nikhil D.','Hansraj','#0097a7'],
+  ['SS','Shreya S.',"St. Stephen's",'#5d4037'], ['AK','Aditya K.','LSR','#7b1fa2'],
+  ['VT','Varun T.','Ramjas','#2e7d32'], ['NJ','Nisha J.','Gargi','#c2185b'],
+  ['RB','Raj B.','Kirori Mal','#e65100'], ['KM','Kavya M.','IP College','#00838f'],
 ];
-var pulseItems = [];
+let pulseItems = [];
 
 function addPulseItem(college) {
-  var fake = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
+  const fake = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
   pulseItems.unshift({
     initials: fake[0], name: fake[1],
     college: college ? college.name : fake[2],
@@ -1046,29 +1273,29 @@ function addPulseItem(college) {
 }
 
 function renderPulseFeed() {
-  var feed = document.getElementById('pulse-feed');
-  feed.innerHTML = pulseItems.map(function(item, i) {
-    return '<div class="pulse-item" style="animation-delay:' + (i * 0.05) + 's">' +
-      '<div class="pulse-avatar" style="background:' + item.color + '">' + item.initials + '</div>' +
-      '<div><span class="pulse-name">' + item.name + '</span> from <strong>' + item.college + '</strong> just joined</div>' +
-      '<div class="pulse-time">' + item.time + '</div>' +
-      '</div>';
-  }).join('');
+  const feed = document.getElementById('pulse-feed');
+  feed.innerHTML = pulseItems.map((item, i) => `
+    <div class="pulse-item" style="animation-delay:${i*0.05}s">
+      <div class="pulse-avatar" style="background:${item.color}">${item.initials}</div>
+      <div><span class="pulse-name">${item.name}</span> from <strong>${item.college}</strong> just joined</div>
+      <div class="pulse-time">${item.time}</div>
+    </div>
+  `).join('');
 }
 
-FAKE_NAMES.slice(0, 4).forEach(function(n, i) {
-  pulseItems.push({ initials: n[0], name: n[1], college: n[2], color: n[3], time: (i + 1) * 3 + 'm ago' });
+FAKE_NAMES.slice(0, 4).forEach((n, i) => {
+  pulseItems.push({ initials: n[0], name: n[1], college: n[2], color: n[3], time: `${(i+1)*3}m ago` });
 });
 renderPulseFeed();
 
 function simulateTrickle() {
-  setTimeout(function() {
+  setTimeout(() => {
     waitlistCount++;
     updateAllCounts();
-    var fake = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
+    const fake = FAKE_NAMES[Math.floor(Math.random() * FAKE_NAMES.length)];
     pulseItems.unshift({ initials: fake[0], name: fake[1], college: fake[2], color: fake[3], time: 'just now' });
     if (pulseItems.length > 6) pulseItems.pop();
-    pulseItems.forEach(function(item, i) { if (i > 0) item.time = (i * 2) + 'm ago'; });
+    pulseItems.forEach((item, i) => { if (i > 0) item.time = `${i * 2}m ago`; });
     renderPulseFeed();
     updatePulseBar();
     simulateTrickle();
@@ -1077,199 +1304,301 @@ function simulateTrickle() {
 simulateTrickle();
 
 function updatePulseBar() {
-  var sorted = COLLEGES.slice().sort(function(a, b) { return (collegeCounts[b.id] || 0) - (collegeCounts[a.id] || 0); }).slice(0, 5);
-  var max = collegeCounts[sorted[0].id] || 1;
-  document.getElementById('pcb-wrap').innerHTML = sorted.map(function(c) {
-    return '<div class="pcb-row">' +
-      '<div class="pcb-name">' + c.name + '</div>' +
-      '<div class="pcb-track"><div class="pcb-fill" style="width:' + ((collegeCounts[c.id] / max * 100).toFixed(0)) + '%;background:' + c.color + '"></div></div>' +
-      '<div class="pcb-count">' + collegeCounts[c.id] + '</div>' +
-      '</div>';
-  }).join('');
+  const sorted = [...COLLEGES].sort((a,b) => (collegeCounts[b.id]||0) - (collegeCounts[a.id]||0)).slice(0,5);
+  const max = collegeCounts[sorted[0].id] || 1;
+  document.getElementById('pcb-wrap').innerHTML = sorted.map(c => `
+    <div class="pcb-row">
+      <div class="pcb-name">${c.name}</div>
+      <div class="pcb-track"><div class="pcb-fill" style="width:${(collegeCounts[c.id]/max*100).toFixed(0)}%;background:${c.color}"></div></div>
+      <div class="pcb-count">${collegeCounts[c.id]}</div>
+    </div>
+  `).join('');
 }
 updatePulseBar();
 
 function updateAllCounts() {
-  document.getElementById('pulse-count').textContent  = waitlistCount;
-  document.getElementById('count-text').textContent   = waitlistCount + ' students already joined';
+  document.getElementById('pulse-count').textContent = waitlistCount;
+  document.getElementById('count-text').textContent = waitlistCount + ' students already joined';
   document.getElementById('hero-live-count').textContent = waitlistCount;
 }
 
-// ── ECHO WALL ─────────────────────────────────────────
-var liveEchoes = [
-  { name: 'Riya',   year: '2nd yr', college: 'SRCC',              text: 'about time we got something just for us',                              w: 124, l: 3 },
-  { name: 'Ananya', year: '1st yr', college: 'Lady Sri Ram',       text: 'DU ka LinkedIn + IG combo?',                                           w: 89,  l: 2 },
-  { name: 'Priya',  year: '4th yr', college: 'Hindu College',      text: 'are we moving forward from r/delhiuniversity?',                        w: 81,  l: 5 },
-  { name: 'Nikhil', year: '2nd yr', college: 'Ramjas College',     text: "if this stops freshers from asking for help every 2 secs I'm sold",    w: 76,  l: 8 },
-  { name: 'Kabir',  year: '1st yr', college: 'Venky',              text: 'south campus representation mattersss! venky is ready',                w: 68,  l: 4 },
-  { name: 'Dev',    year: '3rd yr', college: 'Kirori Mal',         text: 'Curious to see how this turns out!',                                   w: 56,  l: 2 },
-  { name: 'Sneha',  year: '2nd yr', college: 'Miranda House',      text: 'Finally something built FOR us, not just about us. Love the UI.',      w: 42,  l: 1 },
-  { name: 'Rohan',  year: '1st yr', college: 'Hansraj College',    text: 'no more dead whatsapp groups for fest passes bless up',                w: 35,  l: 9 },
-  { name: 'Meera',  year: '3rd yr', college: 'Gargi College',      text: 'another platform for DU brainrot, kinda a W',                          w: 28,  l: 3 },
-  { name: 'Aryan',  year: '3rd yr', college: "St. Stephen's",      text: 'Lesssgoooo DU ftw',                                                    w: 12,  l: 2 },
-  { name: 'Karan',  year: '1st yr', college: 'Other DU College',   text: 'lowkey genuinely a good idea sir',                                     w: 18,  l: 1 },
-];
-
-var pendingEchoes = [];
-
-function renderEchoWall() {
-  var wall = document.getElementById('echo-wall');
-  liveEchoes.sort(function(a, b) { return (b.w - b.l) - (a.w - a.l); });
-  wall.innerHTML = liveEchoes.map(function(p, i) {
-    var color = COLLEGE_COLORS[p.college] || '#333';
-    return '<div class="white-tile" style="--tc:' + color + ';animation-delay:' + (i * 0.05) + 's">' +
-      '<div class="wt-accent"></div>' +
-      '<div class="wt-text">"' + p.text + '"</div>' +
-      '<div class="wt-footer">' +
-        '<div class="wt-meta"><div class="wt-dot"></div><div class="wt-college">' + p.college + '</div></div>' +
-        '<div class="wl-actions">' +
-          '<button class="wl-btn" data-type="w" onclick="toggleWL(this)">W <span>' + p.w + '</span></button>' +
-          '<button class="wl-btn" data-type="l" onclick="toggleWL(this)">L <span>' + p.l + '</span></button>' +
-        '</div>' +
-      '</div>' +
-    '</div>';
-  }).join('');
-}
-renderEchoWall();
-
-function toggleWL(btn) {
-  var isW     = btn.getAttribute('data-type') === 'w';
-  var sibling = isW ? btn.nextElementSibling : btn.previousElementSibling;
-  var countSpan = btn.querySelector('span');
-  var count   = parseInt(countSpan.textContent);
-  var activeClass   = isW ? 'active-w' : 'active-l';
-  var oppClass      = isW ? 'active-l' : 'active-w';
-
-  if (btn.classList.contains(activeClass)) {
-    btn.classList.remove(activeClass);
-    countSpan.textContent = count - 1;
-  } else {
-    btn.classList.add(activeClass);
-    countSpan.textContent = count + 1;
-    btn.style.transform = 'scale(1.1)';
-    setTimeout(function() { btn.style.transform = ''; }, 150);
-    if (sibling && sibling.classList.contains(oppClass)) {
-      sibling.classList.remove(oppClass);
-      var sibSpan = sibling.querySelector('span');
-      sibSpan.textContent = parseInt(sibSpan.textContent) - 1;
-    }
-  }
-}
-
-// ── WAITLIST JOIN ─────────────────────────────────────
-function joinWaitlist(source) {
-  var emailEl  = document.getElementById(source === 'hero' ? 'hero-email' : 'waitlist-email');
-  var formEl   = document.getElementById(source === 'hero' ? 'hero-form'  : 'waitlist-form');
-  var successEl= document.getElementById(source === 'hero' ? 'hero-success': 'waitlist-success');
-  var email    = emailEl.value.trim();
-
-  if (!email || !email.includes('@')) {
-    emailEl.style.outline = '2px solid #c84b2f';
-    setTimeout(function() { emailEl.style.outline = ''; }, 2000);
-    return;
-  }
-
-  formEl.style.display    = 'none';
-  successEl.style.display = 'block';
-
-  waitlistCount++;
-  updateAllCounts();
-  spawnConfetti('#2a6b4a');
-
-  if (!hasUnlockedWall) {
-    hasUnlockedWall = true;
-    var echoSec = document.getElementById('echo');
-    echoSec.style.display = 'block';
-    renderEchoWall();
-    setTimeout(function() { echoSec.scrollIntoView({ behavior: 'smooth' }); }, 500);
-  }
-}
-
-// ── ECHO FORM ─────────────────────────────────────────
-document.getElementById('echo-text').addEventListener('input', function() {
-  var left = 120 - this.value.length;
-  var charCounter = document.getElementById('echo-char');
-  charCounter.textContent = left;
-  charCounter.style.color = left < 20 ? 'var(--accent)' : 'var(--ink3)';
-});
-
-function submitEcho() {
-  var college = document.getElementById('echo-college').value;
-  var text    = document.getElementById('echo-text').value.trim();
-  if (!college) { alert('Pick your college first!'); return; }
-  if (text.length < 5) { alert('Write a longer echo!'); return; }
-
-  pendingEchoes.push({ college: college, text: text, w: 1, l: 0 });
-  document.getElementById('echo-text').value           = '';
-  document.getElementById('echo-college').selectedIndex = 0;
-  document.getElementById('echo-char').textContent     = '120';
-  var msg = document.getElementById('echo-pending-msg');
-  msg.style.display = 'flex';
-  setTimeout(function() { msg.style.display = 'none'; }, 4000);
-  updateModQueueUI();
-}
-
-function toggleModQueue() {
-  var q = document.getElementById('mod-queue');
-  q.style.display = q.style.display === 'block' ? 'none' : 'block';
-}
-
-function updateModQueueUI() {
-  var countEl    = document.getElementById('mod-count');
-  var btnEl      = document.getElementById('mod-toggle-btn');
-  var container  = document.getElementById('mod-items-container');
-  countEl.textContent = pendingEchoes.length;
-  btnEl.textContent   = 'Admin: Mod Queue (' + pendingEchoes.length + ')';
-  if (pendingEchoes.length === 0) {
-    container.innerHTML = '<div style="font-size:0.8rem;color:#888;">Queue is empty.</div>';
-    return;
-  }
-  container.innerHTML = pendingEchoes.map(function(p, index) {
-    return '<div class="mod-item">' +
-      '<div class="mod-info">' +
-        '<div class="mod-info-college">' + p.college + '</div>' +
-        '<div class="mod-info-text">"' + p.text + '"</div>' +
-      '</div>' +
-      '<div class="mod-actions">' +
-        '<button class="btn-approve" onclick="approveEcho(' + index + ')">Approve</button>' +
-        '<button class="btn-reject" onclick="rejectEcho(' + index + ')">Reject</button>' +
-      '</div>' +
-      '</div>';
-  }).join('');
-}
-
-function approveEcho(index) {
-  var approved = pendingEchoes.splice(index, 1)[0];
-  liveEchoes.push(approved);
-  updateModQueueUI();
-  renderEchoWall();
-}
-
-function rejectEcho(index) {
-  pendingEchoes.splice(index, 1);
-  updateModQueueUI();
-}
-
-updateModQueueUI();
-
-// ── SCROLL REVEAL ─────────────────────────────────────
-// FIX: removed .cd-unit and .college-tile from observer
-// Those elements render before observer attaches → observer hides them → invisible on load
-var observer = new IntersectionObserver(function(entries) {
-  entries.forEach(function(e) {
+// --- SCROLL REVEAL ANIMATIONS ---
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
     if (e.isIntersecting) {
-      e.target.style.opacity   = '1';
+      e.target.style.opacity = '1';
       e.target.style.transform = 'translateY(0)';
     }
   });
 }, { threshold: 0.1 });
 
-document.querySelectorAll('.feature-card, .step, .product-card').forEach(function(el) {
-  el.style.opacity   = '0';
+document.querySelectorAll('.feature-card, .step, .product-card, .cd-unit, .college-tile').forEach(el => {
+  el.style.opacity = '0';
   el.style.transform = 'translateY(20px)';
   el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
   observer.observe(el);
 });
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+
+<div id="share-modal" style="display:none;position:fixed;inset:0;z-index:2000;
+  background:rgba(10,9,8,0.85);backdrop-filter:blur(14px);
+  align-items:center;justify-content:center;padding:1rem;">
+
+  <button onclick="closeShareModal()" style="position:absolute;top:1.2rem;right:1.4rem;
+    background:rgba(255,255,255,0.1);border:none;color:#fff;font-size:1.4rem;
+    width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;
+    display:flex;align-items:center;justify-content:center;">✕</button>
+
+  <div style="display:flex;gap:2rem;align-items:center;flex-wrap:wrap;justify-content:center;max-width:900px;width:100%;">
+
+    <div style="flex-shrink:0;">
+      <div style="font-size:0.65rem;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;
+        color:rgba(255,255,255,0.4);margin-bottom:0.6rem;text-align:center;">Preview</div>
+
+      <div id="share-card" style="
+        width:270px;height:480px;border-radius:24px;overflow:hidden;
+        position:relative;font-family:'Instrument Serif',Georgia,serif;
+        box-shadow:0 32px 64px rgba(0,0,0,0.6);flex-shrink:0;
+        background:var(--sc-bg,#c84b2f);
+      ">
+        <div style="position:absolute;inset:0;opacity:0.06;z-index:1;
+          background-image:url(\"data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");
+          background-size:200px 200px;"></div>
+
+        <div style="position:absolute;inset:0;z-index:1;
+          background-image:linear-gradient(rgba(255,255,255,0.06) 1px,transparent 1px),
+            linear-gradient(90deg,rgba(255,255,255,0.06) 1px,transparent 1px);
+          background-size:32px 32px;"></div>
+
+        <div id="sc-glow" style="position:absolute;top:-60px;right:-60px;width:220px;height:220px;
+          border-radius:50%;background:rgba(255,255,255,0.18);filter:blur(50px);z-index:1;"></div>
+        <div style="position:absolute;bottom:-40px;left:-40px;width:180px;height:180px;
+          border-radius:50%;background:rgba(0,0,0,0.2);filter:blur(40px);z-index:1;"></div>
+
+        <div style="position:relative;z-index:2;height:100%;display:flex;flex-direction:column;
+          justify-content:space-between;padding:24px 20px;">
+
+          <div style="display:flex;align-items:center;justify-content:space-between;">
+            <div style="font-size:1.3rem;color:rgba(255,255,255,0.9);letter-spacing:-0.03em;">
+              Un<em style="color:rgba(255,255,255,0.5);font-style:italic;">rest</em>
+            </div>
+            <div style="font-size:0.5rem;font-weight:700;letter-spacing:0.1em;
+              text-transform:uppercase;color:rgba(255,255,255,0.5);
+              border:1px solid rgba(255,255,255,0.2);border-radius:100px;
+              padding:3px 8px;font-family:'DM Sans',sans-serif;">
+              DU Campus Network
+            </div>
+          </div>
+
+          <div style="text-align:center;">
+            <div id="sc-emoji" style="font-size:4.5rem;margin-bottom:12px;line-height:1;
+              filter:drop-shadow(0 8px 20px rgba(0,0,0,0.4));">🏛️</div>
+            <div style="font-size:0.55rem;font-weight:700;letter-spacing:0.15em;
+              text-transform:uppercase;color:rgba(255,255,255,0.5);
+              font-family:'DM Sans',sans-serif;margin-bottom:8px;">I claimed</div>
+            <div id="sc-college" style="font-size:2.4rem;color:#fff;line-height:1.05;
+              letter-spacing:-0.03em;text-shadow:0 4px 16px rgba(0,0,0,0.3);">SRCC</div>
+            <div style="font-size:0.65rem;font-weight:600;color:rgba(255,255,255,0.55);
+              font-family:'DM Sans',sans-serif;margin-top:6px;letter-spacing:0.02em;">
+              's spot on Unrest 🔴
+            </div>
+          </div>
+
+          <div>
+            <div style="background:rgba(255,255,255,0.12);border:1px solid rgba(255,255,255,0.2);
+              border-radius:14px;padding:14px 16px;backdrop-filter:blur(8px);margin-bottom:14px;">
+              <div style="font-size:0.6rem;font-weight:700;letter-spacing:0.08em;
+                text-transform:uppercase;color:rgba(255,255,255,0.6);font-family:'DM Sans',sans-serif;
+                margin-bottom:4px;">Is your college in?</div>
+              <div style="font-size:0.7rem;color:rgba(255,255,255,0.9);font-family:'DM Sans',sans-serif;
+                font-weight:500;line-height:1.4;">
+                DU's own campus network launches<br>
+                <strong style="color:#fff;">11 June 2026</strong> · Free forever for students
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;justify-content:space-between;">
+              <div style="font-size:0.6rem;color:rgba(255,255,255,0.4);
+                font-family:'DM Sans',sans-serif;">unrest.in</div>
+              <div style="display:flex;gap:4px;">
+                <div style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.3);"></div>
+                <div style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.6);"></div>
+                <div style="width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,0.3);"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div></div><div style="display:flex;flex-direction:column;gap:14px;min-width:220px;max-width:300px;flex:1;">
+
+      <div>
+        <div style="font-family:'Instrument Serif',serif;font-size:1.8rem;color:#fff;
+          line-height:1.1;margin-bottom:6px;">
+          Spread the<br><em style="color:#e8a020;">unrest</em> 🔴
+        </div>
+        <p style="font-size:0.82rem;color:rgba(255,255,255,0.5);line-height:1.55;margin:0;">
+          Share your claim card. Every college that sees this might send more signups —
+          and founding members at your college get free merch.
+        </p>
+      </div>
+
+      <button id="whatsapp-btn" onclick="shareWhatsApp()"
+        style="display:flex;align-items:center;gap:10px;
+          background:#25D366;color:#fff;border:none;border-radius:12px;
+          padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+          font-weight:700;cursor:pointer;transition:transform 0.15s,box-shadow 0.15s;
+          box-shadow:0 8px 20px rgba(37,211,102,0.35);width:100%;justify-content:center;"
+        onmouseover="this.style.transform='scale(1.03)';this.style.boxShadow='0 12px 28px rgba(37,211,102,0.45)'"
+        onmouseout="this.style.transform='scale(1)';this.style.boxShadow='0 8px 20px rgba(37,211,102,0.35)'">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/>
+          <path d="M11.963 2C6.513 2 2.073 6.44 2.073 11.89c0 1.853.502 3.59 1.379 5.088L2 22l5.17-1.426A9.847 9.847 0 0011.963 21.78c5.45 0 9.89-4.44 9.89-9.89 0-5.45-4.44-9.89-9.89-9.89zm0 18.14a8.192 8.192 0 01-4.188-1.147l-.3-.178-3.068.847.847-3.023-.196-.31a8.208 8.208 0 01-1.257-4.34C3.8 7.337 7.527 3.64 11.963 3.64c4.436 0 8.163 3.697 8.163 8.25 0 4.436-3.697 8.25-8.163 8.25z"/>
+        </svg>
+        Share on WhatsApp
+      </button>
+
+      <button id="download-btn" onclick="downloadCard()"
+        style="display:flex;align-items:center;gap:10px;
+          background:rgba(255,255,255,0.1);color:#fff;
+          border:1px solid rgba(255,255,255,0.2);border-radius:12px;
+          padding:14px 18px;font-family:'DM Sans',sans-serif;font-size:0.9rem;
+          font-weight:600;cursor:pointer;transition:all 0.15s;
+          width:100%;justify-content:center;"
+        onmouseover="this.style.background='rgba(255,255,255,0.18)'"
+        onmouseout="this.style.background='rgba(255,255,255,0.1)'">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Download story card
+      </button>
+
+      <button id="copy-link-btn" onclick="copyLink()"
+        style="display:flex;align-items:center;gap:10px;
+          background:transparent;color:rgba(255,255,255,0.5);
+          border:1px solid rgba(255,255,255,0.1);border-radius:12px;
+          padding:12px 18px;font-family:'DM Sans',sans-serif;font-size:0.85rem;
+          font-weight:500;cursor:pointer;transition:all 0.15s;
+          width:100%;justify-content:center;"
+        onmouseover="this.style.color='rgba(255,255,255,0.85)';this.style.borderColor='rgba(255,255,255,0.25)'"
+        onmouseout="this.style.color='rgba(255,255,255,0.5)';this.style.borderColor='rgba(255,255,255,0.1)'">
+        🔗 Copy waitlist link
+      </button>
+
+      <div id="copy-confirm" style="display:none;text-align:center;font-size:0.75rem;
+        color:#2a6b4a;font-weight:600;font-family:'DM Sans',sans-serif;">
+        ✓ Copied to clipboard!
+      </div>
+
+    </div>
+  </div>
+</div><script>
+(function() {
+  // State
+  let _currentCollege = null;
+
+  // ── Patch claimCollege to open share modal ──
+  // We wrap the existing claimCollege after DOM ready
+  const _origClaim = window.claimCollege;
+
+  window.claimCollege = function(id, tile, college) {
+    // Run original claim logic
+    if (typeof _origClaim === 'function') {
+      _origClaim(id, tile, college);
+    }
+    // Then open share modal
+    _currentCollege = college;
+    openShareModal(college);
+  };
+
+  // ── Open modal ──
+  window.openShareModal = function(college) {
+    const modal = document.getElementById('share-modal');
+    const card  = document.getElementById('share-card');
+
+    // Update card visuals
+    card.style.background = college.color;
+    document.getElementById('sc-emoji').textContent   = college.emoji;
+    document.getElementById('sc-college').textContent = college.name;
+
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  };
+
+  // ── Close modal ──
+  window.closeShareModal = function() {
+    document.getElementById('share-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  };
+
+  // Close on backdrop click
+  document.getElementById('share-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeShareModal();
+  });
+
+  // ── WhatsApp share ──
+  window.shareWhatsApp = function() {
+    const name = _currentCollege ? _currentCollege.name : 'My college';
+    const url  = window.location.href.split('#')[0];
+    const msg  = `🔴 *Unrest* — Delhi University's own campus network is launching *11 June 2026*!\n\n` +
+                 `I just claimed *${name}'s* spot. Is your college in?\n\n` +
+                 `Free for all DU students. First 20 per college get founding member badge + free merch 🎁\n\n` +
+                 `Join the waitlist: ${url}`;
+    const waUrl = `https://wa.me/?text=${encodeURIComponent(msg)}`;
+    window.open(waUrl, '_blank');
+  };
+
+  // ── Download card (html2canvas → PNG) ──
+  window.downloadCard = async function() {
+    const btn  = document.getElementById('download-btn');
+    const orig = btn.textContent;
+    btn.textContent = 'Generating…';
+    btn.disabled = true;
+
+    try {
+      const card = document.getElementById('share-card');
+
+      // Scale up 4× for Instagram story quality (1080px wide equivalent)
+      const canvas = await html2canvas(card, {
+        scale: 4,
+        useCORS: true,
+        backgroundColor: null,
+        logging: false,
+      });
+
+      const link = document.createElement('a');
+      const collegeName = (_currentCollege ? _currentCollege.name : 'unrest').toLowerCase().replace(/\s+/g,'-');
+      link.download = `unrest-${collegeName}-claim.png`;
+      link.href = canvas.toDataURL('image/png');
+      link.click();
+    } catch(err) {
+      console.error('Card export failed:', err);
+      alert('Could not generate card — try the WhatsApp share instead!');
+    }
+
+    btn.textContent = orig;
+    btn.disabled = false;
+  };
+
+  // ── Copy link ──
+  window.copyLink = function() {
+    const url = window.location.href.split('#')[0];
+    navigator.clipboard.writeText(url).then(() => {
+      const confirm = document.getElementById('copy-confirm');
+      confirm.style.display = 'block';
+      setTimeout(() => confirm.style.display = 'none', 2500);
+    });
+  };
+
+  // ── Keyboard close ──
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') closeShareModal();
+  });
+
+})();
 </script>
 </body>
 </html>
